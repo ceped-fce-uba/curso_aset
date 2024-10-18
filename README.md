@@ -1,4 +1,4 @@
-> Docentes: Pablo Tiscornia y Guido Weksler.
+> Docentes: Facundo Lastra y Guido Weksler.
 
 # Materiales de cursada
 Los materiales para la cursada se encuentran estructurados por clases. En esta página encontrarán en cada módulo un botón de descarga de los contenidos. 
@@ -7,9 +7,9 @@ Los materiales para la cursada se encuentran estructurados por clases. En esta p
 
 ### Módulos y contenidos
 
-__Clase 1 - Introduciendo a R y RBase:__
+__Clase 1 - Presentación y RBase:__
 
-[![](img/Download.png)](Clase_1_R_base.rar)
+[![](img/Download.png)](Clase1.rar)
 
 
 + Temas de clase: 
@@ -23,12 +23,13 @@ __Clase 1 - Introduciendo a R y RBase:__
 
 <br>
 
-__Clases 2 y 3 – Data wrangling – Tidyverse:__
+__Clase 2 - EPH e Intro a Tidyverse:__
  
- [![](img/Download.png)](Clase_2y3-tidyverse.zip)
+ [![](img/Download.png)](Clase2.rar)
  
  
 + Temas de clase:
+  +	Presentación de la Encuesta Permanente de Hogares (EPH).
   +	Lectura de bases de datos de distintos formatos/extensiones.
   +	Recomendaciones para análisis exploratorio de la base de datos 
   +	Limpieza de Base de datos: Renombrar y recodificar variables, tratamiento de valores faltantes (missing values/ NA´s)
@@ -41,44 +42,35 @@ __Clases 2 y 3 – Data wrangling – Tidyverse:__
   
 <br>
 
-__Clase 4 – Flujos de Trabajo en R y repaso:__
-
- [![](img/Download.png)](Clase_4_proyectos_y_flujo_de_trabajo.rar)
-
+__Clase 3 - Indicadores de Precariedad y Tidyverse 2:__
+ 
+ [![](img/Download.png)](Clase3.rar)
+ 
+ 
 + Temas de clase:
-  + Directorios de trabajo
-  + Proyectos
-  + Recomendaciones para la organización del código.
-  +	Exportación de resultados 
-  +	Repaso de temas clases 1 a 3
+  +	Nociones básicas y disucusiones en torno a la informalidad laboral
+  +	Presentación de la base de datos de Precariedad Mundial
+  +     Estimación de indicadores de precariedad con Tidyverse
 
 
 <br>
 
+__Clase 4 – Visualización en R - ggplot:__
 
-__Encuentro 5: Loops y Programación Funcional__
-
- [![](img/Download.png)](Clase_5_programacion_funcional.rar)
-
+ [![](img/Download.png)](Clase4.rar)
 
 + Temas de clase:
-  + Creación de funciones propias por parte del usuario 
-  + Estructuras de código condicionales (if)
-  + Estructuras iterativas (Loops)
+  + Introducción al paquete ggplot y la lógica de capas en el armado de gráficos 
+    + Variantes en las geom (gráficos de línea, puntos, barras, boxplot).
+    + Aestetics de los gráficos 
+    + Facets
+
+<br>
 
 
-__Encuentro 6: Manejo de Strings__
+__Clase 5: Markdown, loops y funciones__
 
- [![](img/Download.png)](Clase_6_strings_y_fechas.rar)
-
-+ Temas de clase:
-  + Funciones principales del paquete stringr:
-    + Substraer dígitos específicos, detectar patrones simples, operar con el largo de los caracteres 
-  + Introducción a expresiones regulares
-
-__Encuentro 7: R-Markdown__
-
-[![](img/Download.png)](Clase_7_Reportes.rar)
+ [![](img/Download.png)](Clase5.rar)
 
 
 + Temas de clase:
@@ -87,7 +79,36 @@ __Encuentro 7: R-Markdown__
     + Definición de tamaño, títulos y formato con el cual se despliegan los gráficos y tablas en el informe
     + Caracteres especiales para incluir múltiples recursos en el texto del informe: Links a páginas web, notas al pie, enumeraciones, cambios en el formato de letra (tamaño, negrita, cursiva)
     + Código embebido en el texto para automatización de reportes
+  + Creación de funciones propias por parte del usuario
+  + Estructuras iterativas (Loops)
 
+<br>
+
+__Clase 6: Git, Github y Trabajo colaborativo__
+
+ [![](img/Download.png)](Clase6.rar)
+
++ Temas de clase:
+  + Funciones principales del paquete stringr:
+    + Substraer dígitos específicos, detectar patrones simples, operar con el largo de los caracteres 
+  + Introducción a expresiones regulares
+
+__Clase 7: Power BI__
+
+[![](img/Download.png)](Clase7.rar)
+
+
++ Temas de clase:
+  
+<br>
+
+__Clase 8: Looker Studio__
+
+[![](img/Download.png)](Clase8.rar)
+
++ Temas de clase:
+
+<br>
 
 # Bibliografía complementaria
 
