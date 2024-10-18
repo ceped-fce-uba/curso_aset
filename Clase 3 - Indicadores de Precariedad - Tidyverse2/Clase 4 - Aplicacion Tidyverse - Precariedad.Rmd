@@ -1,0 +1,223 @@
+---
+title: "Introducción a R para Ciencias Sociales. Aplicación práctica en la EPH"
+subtitle: "Clase 4 - Aplicación: Precariedad"
+output:
+  html_notebook:
+    toc: yes
+    toc_float: yes
+  html_document:
+    toc: yes
+---
+
+> Reiniciar R
+
+## Presentación de la clase
+         
+Esta clase está destinada a realizar dos breves aplicaciones prácticas de los conocimientos adquiridos del paquete __tidyverse__. La primera de ellas consistirá en el armado de indicadores de precariedad laboral, cruzados con otras variables de la base individual de la EPH. La segunda estará basada en estudiar la interacción entre algunas variables ocupacionales y algunas variables de condiciones de la vivienda, para lo cual será necesario recurrir a un *join* entre la base individual y de hogares.  A lo largo del trabajo se presentarán algunas funciones del paquete __eph__ que  facilitarán el trabajo propuesto.
+
+
+A continuación cargamos las librerías a nuestro ambiente. 
+```{r, warning=FALSE,message=FALSE}
+library(tidyverse)
+library(openxlsx)
+library(eph)
+```
+
+
+Levantamos la base individual del primer trimestre de 2017, y un listado que contiene los Nombres y Códigos de los Aglomerados EPH.
+```{r}
+individual_t117 <-
+  read.table("../Fuentes/usu_individual_t117.txt",
+  sep = ";",
+  dec = ",",
+  header = TRUE,
+  fill = TRUE )
+  
+```
+## Listado de variables a utilizar
+Una opción recomendable a la hora de trabajar con la EPH (u otras bases de microdatos de muchas variables) es operar sobre objetos que solo contengan las variables que son específicamente de nuestro interés. Para ello, aquí creamos un vector con un listado de variables a utilizar. Luego lo usaremos en un select, para conservar sólo estas variables en la base.
+```{r}
+variables <- c("CODUSU","NRO_HOGAR","COMPONENTE","ANO4","TRIMESTRE",
+               "AGLOMERADO","CH03","CH04","CH06","ESTADO","CAT_OCUP","CAT_INAC","PP04A",
+               "PP04B_COD","PP07H","P21","P47T","PONDERA","PP04D_COD","PP04C",
+               "PP07A","PP07C","PP05B2_ANO","PP04B3_ANO","PP07E","NIVEL_ED",
+               "PONDIIO","PP04C","PP03G","PP3E_TOT")
+
+```
+
+## Creando categorías de análisis 
+Un primer paso típico a la hora de procesar la encuesta es crear un nuevo objeto nuevo en el cual (luego de aplicar los filtros de interés) añadiremos variables que conforman nuestras categorías de análisis.           
+
+En este caso, crearemos variables que identifiquen a la población según:  
+
+ - Máximo nivel educativo alcanzado   
+ - Tamaño de establecimiento   
+ - Percepción de descuento jubilatorio   
+ - Trabajo a tiempo parcial o completo   
+ - Trabajo con duración estabecida  
+
+```{r}
+asalariados.t117 <- individual_t117 %>%
+  filter(ESTADO == 1, CAT_OCUP == 3) %>% # Ocupados asalariados
+  select(all_of(variables)) %>% 
+  mutate(
+    nivel.ed = factor(
+      case_when(NIVEL_ED %in% c(7,1,2,3) ~ "Menor a Secundaria",
+                NIVEL_ED %in% c(4,5) ~ "Secundaria Completa",
+                NIVEL_ED == 6 ~ "Superior Completo",
+                TRUE ~ "Ns/Nr"),
+      levels = c("Menor a Secundaria","Secundaria Completa","Superior Completo")),
+    tamanio.establec = factor(
+      case_when(PP04C %in% 1:6  ~ "Pequeño",
+                PP04C %in% 7:8  ~ "Mediano",
+                PP04C %in% 9:12 ~ "Grande",
+                PP04C %in% 99   ~ "Ns/Nr"),
+      levels = c("Pequeño","Mediano","Grande","Ns/Nr")),
+    descuento_jubil = case_when(PP07H == 1 ~ "Si",
+                                PP07H == 2 ~ "No"),
+    part.time.inv = case_when(PP3E_TOT < 35 & PP03G == 1 ~ "Si",
+                             TRUE ~ "No"),
+    tiempo.determinado = case_when(PP07C ==  1 ~ "Si",
+                                   TRUE ~ "No"))
+
+```
+
+##Paquete EPH##
+El paquete [eph](https://holatam.github.io/eph/) tiene por objecto facilitar el trabajo de aquellos usuaries de la Encuesta Permanente de Hogares. El mismo incluye funciones para facilitar la descarga e importación de las bases de datos, etiquetado automático de las variables, clasificación de las variables de ocupación y ramas de actividad, entre otras.
+
+Usaremos aquí en primera instancia la función __calculate_tabulates__. Está nos permitirá rapidamente obtener tabulados univariados y bivariados de nuestras categorías de interés. 
+```{r}
+calculate_tabulates(base = asalariados.t117,
+                         x = "descuento_jubil",
+                         weights = "PONDERA")
+```
+Si queremos ver el cruce por grupos de nivel educativo...
+```{r}
+calculate_tabulates(base = asalariados.t117,
+                         x = "descuento_jubil",
+                         y = "nivel.ed",
+                         add.totals = "both",
+                         weights = "PONDERA")
+```
+El parámetro ```add.percentage``` nos permite calcular los porcentajes, según filas ```(add.percentage = "row")``` o columnas ```(add.percentage = "col")```.   
+En este caso, si nos interesa ver la tasa de informalidad (típicamnete calculada según la percepción de descuentos jubilatorios) por nivel educativo, debemos calcular los porcentajes a nivel de columnas. Como es esperable, a mayor nivel educativo es mayor el porcentaje de lxs asalariadxs que percibe descuentos jubilatorios
+```{r}
+calculate_tabulates(base = asalariados.t117,
+                         x = "descuento_jubil",
+                         y = "nivel.ed",
+                         add.percentage = "col", 
+                         weights = "PONDERA")
+```
+> Ejercicio 1 ¿Como calcularíamos la proporción de asalariados con trabajos de duración determinada en cada uno de los grupos de tamaño de establecimiento?  
+
+```{r}
+#Ejercicio 1
+```
+## Co-ocurrencia de fenomenos
+Consideremos las siguiente tres variables como expresiones que hacen a la precariedad laboral entre los asalariados:    
+ - la falta de descuentos jubilatorios   
+ - El empleo de jornada part-time involuntario  
+ - El empleo por tiempo determinado  
+ 
+```{r}
+asalariados.t117.signos<- asalariados.t117 %>% 
+  mutate(signos.precariedad = ifelse(descuento_jubil == "No",yes = 1,no = 0)+
+                              ifelse(part.time.inv == "Si",yes = 1,no = 0)+
+                              ifelse(tiempo.determinado == "Si",yes = 1,no = 0))
+           
+```
+
+Una vez que clasificamos a la población podemos hacer un resumen de la cantidad de personas que se ve afectada por
+```{r}
+asalariados.t117.signos %>% 
+  group_by(signos.precariedad) %>% 
+  summarise(Poblacion = sum(PONDERA))
+```
+> Ejercicio 2. Calcular la proporción de asalariados con al menos un signo de precariedad laboral.
+
+```{r}
+#Ejercicio 2
+```
+
+## Uniendo las bases de invididuos y hogares
+En este ejercicio de estudiaremos la interacción entre las variables principales de situación ocupacional de los jefes de hogar y las variables vinculadas a las condiciones de las viviendas.   
+
+Para ello necesitaremos traer información de la base de hogares, y unirla a la base individual. En tanto la unión completa de ambas bases resulta un poco pesada, traigamos de la base individual únicamente las variables indispensables. Usaremos el paquete *eph* para descargar la base de hogares del 1er trimestre de 2017.   
+
+Para realizar la unión de las bases necesitamos unir por las siguientes variables:   
+
+ - CODUSU   
+ - NRO_HOGAR   
+ - ANO4  
+ - TRIMESTRE    
+ 
+Vamos a trabajar simplemente con dos variables relacionadas a la calidad de la vivienda y del hogar:   
+
+ - IV6: Tiene agua dentro de la vivienda   
+ - IV12_1: La vivienda está ubicada cerca de basura   
+ - IV12_2: La vivienda está ubicada en zona inundable   
+ - II7: Régimen de tenencia   
+   
+
+```{r}
+base.hogar<- get_microdata(year = 2017,trimester = 1,type = "hogar",
+              vars = c("CODUSU","NRO_HOGAR","ANO4","TRIMESTRE","IV6","II7",
+                       "IV8","IV12_1","IV12_2"))
+
+```
+
+Hacemos un join de la base individual, con la base de hogares, para traer la información de las características de las viviendas y juntarla con los registros a nivel de individuos.     
+```{r}
+
+base.indiv.hogar <- individual_t117 %>% 
+  select(all_of(variables)) %>% 
+  left_join(base.hogar, by = c("CODUSU", "NRO_HOGAR", "ANO4", "TRIMESTRE"))
+```
+
+Una vez unidas las bases, crearemos nuevamente un conjunto de categorías de interés, tanto en lo que hace a la situación ocupacional de las personas, como a las características de la situación habitacional.   
+
+```{r message=FALSE, warning=FALSE}
+base.indiv.hogar.cat <-base.indiv.hogar %>%  
+  mutate(
+    estado.ocup = case_when(
+      ESTADO == 1 & CAT_OCUP == 3 & PP07H == 1 ~ "Asalariadx Proteg",
+      ESTADO == 1 & CAT_OCUP == 3 & PP07H == 2 ~ "Asalariadx Precario",
+      ESTADO == 1 & CAT_OCUP == 2 ~ "Cuenta Propia",
+      ESTADO == 3 & CAT_INAC == 1 ~ "Jubiladx",
+      ESTADO %in% 2:3 & CAT_INAC != 1 ~ "Desocupadx e Inactivx"),
+    es.propietario = case_when(II7 %in%  c(1,2) ~ "Si",
+                                  TRUE ~ "No"),
+    agua.dentro.vivienda = case_when(IV6 == 1 ~ "Si",
+                                 TRUE ~ "No"))
+```
+
+Para poder clasificar al hogar según la situación ocupacional de sus miembros, simplifiquemos identificando el estado ocupacional del jefe del hogar (CH03==1). (Un análisis más rico se podría lograr armando una caracterización a partir del estado ocupacional de todos los miembros del hogar)
+
+```{r}
+base.indiv.hogar.cat.jefe <- base.indiv.hogar.cat %>% 
+  group_by(CODUSU,NRO_HOGAR) %>% 
+  mutate(estado.ocup.jefe = estado.ocup[CH03==1]) %>% 
+  filter(!is.na(estado.ocup.jefe)) #saco casos residuales como patrones o TFSR
+```
+
+Como se relaciona el estado ocupacional del jefe del hogar con las caracteristicas de la vivienda
+```{r}
+calculate_tabulates(base = base.indiv.hogar.cat.jefe,
+                    x = "estado.ocup.jefe",
+                    y = "agua.dentro.vivienda",
+                    add.percentage = "row",
+                    weights = "PONDERA")
+```
+```{r}
+calculate_tabulates(base = base.indiv.hogar.cat.jefe,
+                    x = "estado.ocup.jefe",
+                    y = "es.propietario",
+                    add.percentage = "row",
+                    weights = "PONDERA")
+```
+> Ejercicio 3. Realizar un data.frame que contenga el conteo de la cantidad de personas según el cruce entre las siguientes variables: estado ocupacional del jefe de hogar, tenencia de propiedad de la vivienda, agua dentro de la vivienda. Luego agregar una columna que muestre que porcentaje de la población representa cada caso (Pista: Es necesario resolverlo con tidyverse, la función calculate_tabulates no nos servirá en este caso)
+
+```{r}
+
+```
+
