@@ -1,11 +1,16 @@
 ---
 title: Clase 1 - Introducción a R y Rstudio - R Base 
-subtitle: Diplomatura en Ciencias Sociales Computacionales y Humanidades Digitales - UNSAM
+subtitle: Herramientas de programación para la producción y difusión de estadísticas socioeconómicas - ASET
 output: 
   rmdformats::downcute
 ---
 
-# Descripción del programa        
+
+# Introducción al curso 
+
+Este curso busca dar las herramientas básicas para el procesamietno de estadísticas socio-económicas y laborales con R, y la visualización de resultados con PowerBI y Looker. Como verán en el programa, el curso es *muy ambicioso* y cubre una amplia variedad de herramientas. El obetivo del curso es conocer las potencialidades de todas estas herramientas para que ustedes luego profundicen según su interés o necesidades. Empecemos primero con el lenguage de programación R!
+
+# Descripción de R y RStudio     
 
 
 ![https://cran.r-project.org/](img/Rlogo.png)
@@ -42,7 +47,7 @@ El _entorno_ más cómodo para utilizar el _lenguaje_ __R__ es el _programa_ __R
 
 ![Pantalla Rstudio](img/rstudio_pantalla.png)
 
-## Diferencias con otros sofwtares
+## Diferencias con otros softwares
 
 ![fuente: http://ucanalytics.com/blogs/choose-your-data-mining-statistics-software/](img/Statistical Softwares.PNG)   
 
@@ -318,7 +323,7 @@ table(dias_factor)
 ```
 La diferencia entre un _character_ y un _factor_ es que el último tiene solo algunos valores permitidos (levels), con un orden interno predefinido.   
 
-Para almacenar como factor una variable, el software está internamente asignando un número a cada categoría. **Tener cuidado si piensan operarluego sobre dicha variable **
+Para almacenar como factor una variable, el software está internamente asignando un número a cada categoría. **Tener cuidado si piensan operar luego sobre dicha variable **
 ```{r}
 as.numeric(dias_factor)
 ```
@@ -552,7 +557,7 @@ library(nombre_del_paquete)
 ```
 Nótese que al cargar/activar el paquete no son necesarias las comillas.
 
-# Lectura y escritura de archivos (**Adelanto de clase 4**)
+# Lectura y escritura de archivos
 A la hora de importar una base de datos nos podemos llegar a enfrentar a distintos tipos de archivos. En R contamos con **distintos paquetes y funciones** según el **tipo de extensión** del archivo:    
 
 ```{r echo=FALSE, message = FALSE,warning=FALSE}
@@ -674,7 +679,7 @@ write.xlsx( x = tabla_de_R, file = "archivo_tabla.xlsx",
 
 Dónde lo guardó? Si trabajamos con un proyecto, R establece un directorio por default que es aquella carpeta donde hayamos creado el proyecto. Podemos entrar a las sub-carpetas agregando niveles con las ´´´__/__´´´ y al final escribiendo el nombre del archivo con su extensión (´´´archivo_tabla.xlsx´´´)
 
-# Directorio de trabajo (**Adelanto de clase 4**)
+# Directorio de trabajo
 
 A la hora de trabajar con archivos que tenemos guardados (o queremos guardar) en nuestra computadora, es importante tener en cuenta que R siempre esta operando con un directorio de trabajo específico. Este directorio será el punto de partida para importar archivos al ambiente de R, o exportar objetos del ámbiente y guardarlos como archivos nuevos en nuestra PC
 
@@ -711,3 +716,102 @@ Un proyecto no es un sólo script, sino toda una carpeta de trabajo.
 Para crearlo, vamos al logo de nuevo projecto (Arriba a la derecha de la panatalla), y elegimos la carpeta de trabajo.
 
 ![](img/nuevo_proyecto.png){width="410"}![](img/nuevo_proyecto2.png){width="410"}\
+
+
+
+# Github
+
+[GitHub](https://github.com/) es una plataforma diseñada para **almacenar y administrar código**, al mismo tiempo nos permite llevar un *registro* y *control* de cualquier **cambio** sobre este código. 
+
+Es una de las herramientas fundamentales para la **colaboración** y el **trabajo en equipo**.
+
+Tener un registro de todos los cambios (y la posibilidad de deshacerlos!) se vuelve más importante a medida que nos dedicamos a proyectos más complejos y colaboramos con equipos más grandes. GitHub nos permite almacenar información sobre qué cambios se hicieron, cuándo, quién los hizo y por qué se hicieron.
+
+
+## Dinámica de trabajo
+
+La estructura básica para trabajar con GitHub son los **repositorios**:
+
+*Un repositorio o proyecto de Git comprende toda la colección de archivos y carpetas asociados con un proyecto, en conjunto con el historial de revisión de cada archivo.*
+
+El **flujo básico de trabajo** en GitHub es el siguiente:
+
+1. Crear/clonar un repositorio.
+
+2. Agregar/modificar código localmente.
+
+3. Enviar nuestras modificaciones al repositorio (en la nube).
+
+4. Descargar a nuestro repositorio local las modificaciones de nuestro equipo.
+
+5. Hacer modificaciones nuevas y enviarlas a GitHub.
+
+6. Repetir infinitamente 4 y 5.
+
+A diferencia de otros softwares de control de versiones (Google Drive, Dropbox, etc.), está especialmente diseñado para trabajar cómodamente con código, y permite formas de colaboración más complejas: básicamente, no sólo hacer una modificación, sino proponer caminos alternativos.
+
+![https://docs.github.com/es/get-started/quickstart/hello-world](img/branching.png){width="800"}
+
+
+## Cómo interactuar con GitHub?
+
+Hay muchas [opciones](https://docs.github.com/es/get-started/onboarding/getting-started-with-your-github-account#3-elegir-c%C3%B3mo-interactuar-con-github) para interactuar con GitHub, comentamos algunas:
+
+-   [GitHub Desktop](https://docs.github.com/es/desktop/installing-and-configuring-github-desktop/overview/getting-started-with-github-desktop)
+
+-   [Visual Studio Code](https://code.visualstudio.com/) 
+
+-   [Rstudio + Git](https://happygitwithr.com/rstudio-git-github.html)
+
+## Algunos recursos
+
+[¿Cómo crear una cuenta?](https://docs.github.com/es/get-started/onboarding/getting-started-with-your-github-account) 
+
+[Una guía con ejemplos para empezar a usar Git](https://github.com/git-guides)
+
+[Principales comandos](https://git-scm.com/docs):
+
+-   **git clone** clona el repositorio, es decir, nos permite descargar a nuestro directorio local un repositorio.
+
+-   **git status** muestra nuestra situación: el estado de los cambios locales, en qué rama estamos, etc.
+
+-   **git pull** actualiza la línea de desarrollo local con actualizaciones de sus contrapartes remotas. Es decir, descargar a nuestro repositorio local las modificaciones de nuestro equipo.
+
+-   **git add** + **git commit** + **git push** nos permiten enviar nuestros cambios locales al repositorio.
+
+    -   git add es el primer paso, que agrega archivos nuevos o modificados en el directorio local de trabajo al área de *staging* de Git.
+
+    -   git commit -m "bla bla bla estuve haciendo el cmabio x, y , z" guarda nuestros cambios al historial de versiones. Todo lo que se haya almacenado provisionalmente con git add pasará a formar parte del historial. Con este comando incluimos el mensaje explicando los cambios que hicimos.
+
+    -   git push envía nuestros cambios y así actualiza el repositorio remoto con las modificaciones (ya commiteadas) realizadas localmente.
+
+Un poco más avanzado:
+
+-   **git branch** muestra las ramas en las que se trabaja localmente.
+
+-   **git merge** combina las líneas de desarrollo. Este comando habitualmente se utiliza para combinar los cambios que se realizan en dos ramas distintas. Por ejemplo, un desarrollador podría hacer una fusión cuando necesite combinar los cambios de una rama de característica en la rama de desarrollo principal.
+
+
+# Programar con IA
+
+La actividad de programar cambió drásticamente en los últimos años debido al desarrollo de modelos de lenguaje basados en IA. Actualmente, el foco del aprendizaje ya no debe estar puesto en conocer en profundidad los comandos, funciones y operadores de R sino más bien en saber qué es posible hacer con R y como aplicar las soluciones a los problemas que se nos presentan. Las herramientas más utilizadas actualmente son: 
+
+- *ChatGPT*: conocidísimo modelo desarrollado por OpenAI del cual no hace falta hacer ninguna introducción. Sólo tener en cuenta que, cuando traabajemos con R, debemos darle contexto al chat para que pueda darnos mejores respuestas. El contexto puede ser nuestro script entero o los mensajes que nos salen por consola (como por ejemplo cuando tenemos un error o warning que queremos evitar). También es una buena práctica dar una introducción en forma de texto sobre la actividad que estamos haciendo al menos una vez en un chat.
+
+- *Github copilot*: herramienta desarrollada por Github que, si bien no da respuestas tan buenas como ChatGPT, tiene integraciones muy cómodas con IDEs. La principal ventaja de esta herramienta es que 'autocompleta' código con sugerencias que muchas veces parecen 'adivinar' lo que queremos hacer! En Visual Studio Code, se abre un 'in-line chat' que nos permite dar prompts en el mismo espacio donde estamos escribiendo código. En RStudio también hay disponible una integración que autocompleta código y toma los cometnarios que hacemos con "#" como si fueran prompts. La principal desventaje de GitHub copilot es que cuesta U$S 10 por mes, auqnue hay una prueba gratuita de un mes. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
