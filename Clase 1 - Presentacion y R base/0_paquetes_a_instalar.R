@@ -2,6 +2,7 @@
 
 #Las principales####
 install.packages("tidyverse", dependencies=TRUE)
+install.packages("devtools")
 install.packages("openxlsx")
 install.packages("foreign")
 install.packages("eph")
@@ -9,8 +10,5 @@ install.packages("eph")
 install.packages("ggridges")
 install.packages("ggthemes")
 install.packages("kableExtra")
-install.packages("tidytext")
-install.packages("RVerbalExpressions")
-install.packages("wordcloud2")
 install.packages("lubridate")
 install.packages("assertthat")
