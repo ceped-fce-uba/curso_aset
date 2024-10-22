@@ -1,5 +1,5 @@
 ---
-title: "Clase 7 - Automatizaciones con R y Visualizaciones con Looker"
+title: "Clase 8 - R, GoogleSheets y Looker"
 subtitle: Herramientas de programación para la producción y difusión de estadísticas socioeconómicas - ASET
 output: 
   rmdformats::downcute

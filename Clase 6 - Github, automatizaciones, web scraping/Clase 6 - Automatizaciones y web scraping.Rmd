@@ -1,0 +1,158 @@
+---
+title: "Clase 6 - Github, automatizaciones y web-scraping"
+subtitle: Herramientas de programación para la producción y difusión de estadísticas socioeconómicas - ASET
+output: 
+  rmdformats::downcute
+---
+
+En el análisis de datos y la ciencia de datos moderna, la automatización es una habilidad fundamental para ahorrar tiempo, reducir errores y aumentar la eficiencia en tareas repetitivas. Cuando automatizamos procesos, podemos realizar tareas de manera programada, sin intervención manual, lo que resulta en flujos de trabajo más consistentes y escalables. Los lenguajes de programación orientados a objetos, como R, pueden ser muy útiles para la automatización
+
+# Introducción a Expresiones Regulares (Regex) en R
+
+Las **expresiones regulares** (regex) son una herramienta poderosa para buscar, extraer y manipular texto de manera flexible. En R, las regex son ampliamente utilizadas para tareas como limpieza de datos, validación de formatos de texto, y extracción de patrones específicos dentro de cadenas.
+
+Las regex permiten definir patrones de texto de una forma concisa, especificando caracteres literales, combinaciones de letras, números, y símbolos especiales. Con ellas, es posible realizar tareas que van desde la simple búsqueda de una palabra en un texto hasta la validación de formatos complejos como correos electrónicos o números de teléfono.
+
+## Componentes Básicos de las Expresiones Regulares
+
+- `.`: Representa cualquier carácter.
+- `*`: Cero o más repeticiones del carácter o grupo anterior.
+- `+`: Una o más repeticiones del carácter o grupo anterior.
+- `?`: Cero o una aparición del carácter o grupo anterior.
+- `^`: Inicio de una línea.
+- `$`: Fin de una línea.
+- `[ ]`: Define un conjunto de caracteres. Por ejemplo, `[0-9]` busca cualquier número del 0 al 9.
+- `|`: Alternativa lógica (OR). Por ejemplo, `a|b` busca 'a' o 'b'.
+- `()` : Agrupa caracteres para aplicar operadores.
+- `\`: Escapa caracteres especiales para usarlos como literales.
+
+*Atención!* Hoy en día con las herramientas basadas en IA ya no hace falta aprender cómo redactar una expresión regular, lo que ha facilitado mucho el trabajo con regex. Sí es importante que chequeemos el correcto funcionamiento de nuestra expresión regular para ver si matchea como los esperamos. Una herramienta muy práctica para ello está en <https://reger.com/>
+
+## Funciones Clave de Regex en R
+
+- `grep()`: Encuentra coincidencias en vectores.
+- `grepl()`: Retorna un valor lógico (`TRUE` o `FALSE`) si encuentra coincidencias.
+- `gsub()`: Reemplaza coincidencias de un patrón en un texto.
+- `str_extract()` y `str_replace()` del paquete **stringr**.
+
+## Ejemplos en R
+
+### Ejemplo 1: Uso de `grep()` para buscar un patrón
+
+```{r grep-ejemplo}
+# Vector de prueba
+textos <- c("R es genial", "Regex es poderosa", "R puede ser difícil al principio")
+
+# Buscar la palabra "R"
+grep("R", textos)
+```
+
+### Ejemplo 2: Uso de `grep()` para buscar un patrón
+
+```{r stringr-ejemplo}
+# Cargar la librería stringr
+library(stringr)
+
+# Extraer todos los números de una cadena
+texto_numeros <- "Hay 12 gatos y 34 perros en 2024"
+str_extract_all(texto_numeros, "[0-9]+")
+```
+
+### Ejemplo 3: Limpio valores en $
+
+Es muy común encontrar valores 'sucios' cuando tratamos con montos de dinero. El comando ```gsub``` permite sustitur los strings que matcheen con nuestro regex por los caracteres que queramos. Cuando le pasamos "" como argumento, le estamos diciendo que directamente borre los caracteres que coinciden con nuestra búsqueda 
+
+```{r gsub-ejemplo}
+# Crear un vector con ejemplos de montos en formato string
+montos <- c("$1.345.213,53", "$500,00", "$23.450,50", "$0,99", "$1.000,01", "$12.345.678,90", "$999.999,99", "$3,00")
+
+# Función para limpiar y convertir los montos a numérico
+convertir_a_numerico <- function(x) {
+  # Eliminar el símbolo $
+  x <- gsub("\\$", "", x)
+  # Reemplazar puntos por nada (para los miles)
+  x <- gsub("\\.", "", x)
+  # Reemplazar la coma por un punto para los decimales
+  x <- gsub(",", ".", x)
+  # Convertir a numérico
+  as.numeric(x)
+}
+
+# Aplicar la función al vector de montos
+montos_limpios <- convertir_a_numerico(montos)
+
+# Ver el resultado
+montos_limpios
+```
+
+#### Ejemplo 4: Pensar algo con EPH o similar
+
+
+# Web Scraping
+
+El **web scraping** es la técnica de extraer datos de páginas web de manera automatizada. En lugar de copiar manualmente la información, con web scraping podemos acceder a páginas web y extraer los datos necesarios de manera eficiente. Es una herramienta muy útil cuando la información no está fácilmente disponible para descarga o en una estructura de base de datos.
+
+En R, el paquete `rvest` es ampliamente utilizado para realizar tareas de web scraping de forma sencilla y efectiva. Otros paquetes útiles incluyen `httr` para manejar solicitudes HTTP y `xml2` para procesar el HTML de las páginas.
+
+## Paquetes Clave para Web Scraping en R
+
+- `rvest`: Extrae datos estructurados de HTML.
+- `httr`: Hace solicitudes HTTP.
+- `xml2`: Procesa documentos HTML y XML.
+
+## Ejemplo de Web Scraping con `rvest`
+
+Supongamos que queremos extraer los títulos de las noticias de la página principal de un medio de noticias. Aquí tienes un ejemplo de cómo hacerlo usando R y `rvest`:
+
+```{r scraping-ejemplo, message=FALSE}
+# Instalar y cargar el paquete rvest si no lo tienes instalado
+# install.packages("rvest")
+library(rvest)
+
+url_indec <- "www.indec.gob.ar"
+
+pagina_indec <- read_html(url_indec)
+
+# Extraer los títulos de las noticias (etiquetas <h3>)
+titulos <- pagina %>%
+  html_nodes("h3") %>%
+  html_text()
+
+
+# Mostrar los primeros 5 títulos extraídos
+head(titulos, 5)
+```
+
+# Ejemplo con página del INDEC
+
+```{r scraping-indec, message=FALSE}
+
+
+
+
+```
+
+
+# Interacción con Google Sheets
+
+La interacción con **Google Sheets** desde R permite automatizar el manejo de datos en hojas de cálculo, lo que facilita la colaboración y el análisis. Utilizando el paquete `googlesheets4`, podemos leer, escribir y actualizar datos en Google Sheets de manera eficiente.
+
+## Paquetes Clave para Interacción con Google Sheets
+
+- `googlesheets4`: Permite acceder a Google Sheets y realizar operaciones como leer, escribir y modificar datos.
+- `googledrive`: Facilita la autenticación y el manejo de archivos en Google Drive, que es útil cuando se trabaja con múltiples hojas de cálculo.
+
+## Configuración Inicial
+
+Antes de comenzar a interactuar con Google Sheets, asegúrate de haber instalado los paquetes necesarios:
+
+```{r install-packages}
+# Instalar los paquetes si no están instalados
+# install.packages("googlesheets4")
+# install.packages("googledrive")
+```
+
+
+
+
+
