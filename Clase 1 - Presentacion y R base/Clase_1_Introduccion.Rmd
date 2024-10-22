@@ -8,7 +8,7 @@ output:
 
 # Introducción al curso 
 
-Este curso busca dar las herramientas básicas para el procesamietno de estadísticas socio-económicas y laborales con R, y la visualización de resultados con PowerBI y Looker. Como verán en el programa, el curso es *muy ambicioso* y cubre una amplia variedad de herramientas. El obetivo del curso es conocer las potencialidades de todas estas herramientas para que ustedes luego profundicen según su interés o necesidades. Empecemos primero con el lenguage de programación R!
+Este curso busca dar las herramientas básicas para el procesamietno de estadísticas socio-económicas y laborales con R, y la visualización de resultados con PowerBI y Looker. Como verán en el programa, el curso es *muy ambicioso* y cubre una amplia variedad de herramientas. El obetivo es conocer las potencialidades de todas estas herramientas para que ustedes luego profundicen según su interés o necesidades, siempre utilizando el procesamiento de estadísticas socio-laborales como referencia. Empecemos primero con el lenguage de programación R!
 
 # Descripción de R y RStudio     
 
@@ -30,7 +30,7 @@ Este curso busca dar las herramientas básicas para el procesamietno de estadís
 
 <br>
 
-![fuente: https://gist.github.com/daroczig/3cf06d6db4be2bbe3368](img/cran_packages.png)
+![fuente: https://gist.github.com/daroczig/3cf06d6db4be2bbe3368](img/cran_packages.png){width="60%"}
 
 <br>
 
