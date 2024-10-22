@@ -1,0 +1,170 @@
+---
+title: "Clase 2 - Practica"
+subtitle: "Herramientas de programación para la producción y difusión de estadísticas socioeconómicas - ASET"
+output:
+  html_notebook:
+    toc: yes
+    toc_float: yes
+  html_document:
+    toc: yes
+---
+
+> Reiniciar R
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(include = FALSE)
+```
+- Levantar las dos bases individuales de la eph y el archico "Regiones.xlsx" ubicados en la carpeta Fuentes.   
+
+- Ejercicio 1: Calcular para algun trimestre el conjunto de tasas básicas del mercado de trabajo que figuran en el Cuadro 1.1 del [Informe técnico elaborado por EPH-INDEC](http://www.indec.gob.ar/uploads/informesdeprensa/EPH_cont_1trim17.pdf). 
+
+```{r echo=TRUE}
+# Paso 1 levantar las bases de EPH y seleccionar las variables de interés
+library(tidyverse)
+Individual_t117 <-
+  read.table("Fuentes/usu_individual_t117.txt",
+  sep = ";",
+  dec = ",",
+  header = TRUE,
+  fill = TRUE )
+
+Individual_t119 <-
+  read.table("../Fuentes/usu_individual_t119.txt",
+  sep = ";",
+  dec = ",",
+  header = TRUE,
+  fill = TRUE )
+
+regiones <- readxl::read_excel("Fuentes/Regiones.xlsx")
+
+```
+
+```{r echo=TRUE}
+#Paso 1 Tasas Básicas
+tasas <- Individual_t117 %>% 
+  summarise(Poblacion         = sum(PONDERA),
+            Ocupados          = sum(PONDERA[ESTADO == 1]),
+            Desocupados       = sum(PONDERA[ESTADO == 2]),
+            PEA               = Ocupados + Desocupados,
+            Ocupados_demand   = sum(PONDERA[ESTADO == 1 & PP03J == 1]),
+            Suboc_demandante  = sum(PONDERA[ESTADO == 1 & INTENSI == 1 & PP03J == 1]),
+            Suboc_no_demand   = sum(PONDERA[ESTADO == 1 & INTENSI == 1 & PP03J %in% c(2, 9)]),
+            Subocupados       = Suboc_demandante + Suboc_no_demand,
+            'Tasa Actividad'                  = PEA/Poblacion,
+            'Tasa Empleo'                     = Ocupados/Poblacion,
+            'Tasa Desocupacion'               = Desocupados/PEA,
+            'Tasa ocupados demandantes'       = Ocupados_demand/PEA,
+            'Tasa Subocupación'               = Subocupados/PEA,
+            'Tasa Subocupación demandante'    = Suboc_demandante/PEA,
+            'Tasa Subocupación no demandante' = Suboc_no_demand/PEA) %>% 
+  select(-(1:8)) # Elimino los niveles poblacionales
+
+
+```
+
+- Ejercicio 2: Calcular el conjunto de tasas básicas para cada uno de las Regiones EPH (mostrarlas con el nombre de región correspondiente)
+
+```{r}
+# Tasas Básicas Regiones
+tasas_regiones <- Individual_t117 %>% 
+  group_by(REGION) %>% 
+  summarise(Poblacion         = sum(PONDERA),
+            Ocupados          = sum(PONDERA[ESTADO == 1]),
+            Desocupados       = sum(PONDERA[ESTADO == 2]),
+            PEA               = Ocupados + Desocupados,
+            Ocupados_demand   = sum(PONDERA[ESTADO == 1 & PP03J == 1]),
+            Suboc_demandante  = sum(PONDERA[ESTADO == 1 & INTENSI == 1 & PP03J == 1]),
+            Suboc_no_demand   = sum(PONDERA[ESTADO == 1 & INTENSI == 1 & PP03J %in% c(2, 9)]),
+            Subocupados       = Suboc_demandante + Suboc_no_demand,
+            'Tasa Actividad'                  = PEA/Poblacion,
+            'Tasa Empleo'                     = Ocupados/Poblacion,
+            'Tasa Desocupacion'               = Desocupados/PEA,
+            'Tasa ocupados demandantes'       = Ocupados_demand/PEA,
+            'Tasa Subocupación'               = Subocupados/PEA,
+            'Tasa Subocupación demandante'    = Suboc_demandante/PEA,
+            'Tasa Subocupación no demandante' = Suboc_no_demand/PEA)%>% 
+  ungroup() %>%  #Desagrupo el data.frame para poder seguir operando tranquilo sobre el mismo
+  select(-(2:9)) # Elimino los niveles poblacionales (ahora tengo como 1er variable la region)
+
+tasas_regiones_presentacion <- tasas_regiones  %>% 
+  left_join(regiones) %>% 
+  select(Region,everything(),-REGION)
+
+
+```
+- Ejercicio 2: Calcular el conjunto de tasas básicas para cada uno de las regiones EPH, desagregadas por sexo.
+
+```{r}
+tasas_regiones_sexo <- Individual_t117 %>% 
+  group_by(REGION,CH04) %>% 
+  summarise(Poblacion         = sum(PONDERA),
+            Ocupados          = sum(PONDERA[ESTADO == 1]),
+            Desocupados       = sum(PONDERA[ESTADO == 2]),
+            PEA               = Ocupados + Desocupados,
+            Ocupados_demand   = sum(PONDERA[ESTADO == 1 & PP03J == 1]),
+            Suboc_demandante  = sum(PONDERA[ESTADO == 1 & INTENSI == 1 & PP03J == 1]),
+            Suboc_no_demand   = sum(PONDERA[ESTADO == 1 & INTENSI == 1 & PP03J %in% c(2, 9)]),
+            Subocupados       = Suboc_demandante + Suboc_no_demand,
+            'Tasa Actividad'                  = PEA/Poblacion,
+            'Tasa Empleo'                     = Ocupados/Poblacion,
+            'Tasa Desocupacion'               = Desocupados/PEA,
+            'Tasa ocupados demandantes'       = Ocupados_demand/PEA,
+            'Tasa Subocupación'               = Subocupados/PEA,
+            'Tasa Subocupación demandante'    = Suboc_demandante/PEA,
+            'Tasa Subocupación no demandante' = Suboc_no_demand/PEA)%>% 
+  ungroup() %>%  #Desagrupo el data.frame para poder seguir operando tranquilo sobre el mismo
+  select(-(3:10)) %>% # Elimino los niveles poblacionales (ahora tengo 2 variables iniciales que conservar)
+  mutate(Sexo  = case_when(CH04 == 1 ~"Varón",
+                           CH04 == 2 ~"Mujer")) %>% 
+  left_join(regiones) %>% 
+  select(Region,Sexo,everything(),-REGION,-CH04)
+```
+
+
+- Ejercicio 3: Calcular, al mismo tiempo para los 2 trimestres (1T de 2019 y 1T de 2017), las tasas de actividad, empleo y desempleo según sexo, para la población de edad entre 18 y 35 años.    
+
+
+Pista: Explorar la función *bind_rows* del paquete tidyverse, ejecutando el siguiente chunk de código. Les permitirá unir las dos bases de datos. Recomendacion: Acotar previamente la base a las variables necesarias.
+```{r eval=FALSE, include=TRUE}
+?bind_rows
+```
+
+```{r}
+variables <- c("ANO4","TRIMESTRE","CH06","CH04","P21","CAT_OCUP","ESTADO","PONDERA","PONDIH")
+base_t1_17_select<- Individual_t117[,variables]
+base_t1_19_select <- Individual_t119[,variables]
+
+base_unida <- bind_rows(base_t1_17_select,base_t1_19_select)
+```
+
+```{r}
+resolucion <- base_unida %>% 
+  filter(CH06 %in% 18:35) %>% 
+  group_by(ANO4,TRIMESTRE,CH04) %>% 
+    summarise(Poblacion         = sum(PONDERA),
+            Ocupados          = sum(PONDERA[ESTADO == 1]),
+            Desocupados       = sum(PONDERA[ESTADO == 2]),
+            PEA               = Ocupados + Desocupados,
+            'Tasa Actividad'                  = PEA/Poblacion,
+            'Tasa Empleo'                     = Ocupados/Poblacion,
+            'Tasa Desocupacion'               = Desocupados/PEA) %>% 
+  ungroup()
+```
+- Ejercicio 4: Calcular el salario promedio por sexo, para dos grupos de edad: 18 a 35 años y 36 a 70 años. (Recordatorio: La base debe filtrarse para contener únicamente OCUPADOS ASALARIADOS)
+```{r}
+ultimo.ejercicio.resol <- Individual_t117 %>%   
+  filter(ESTADO==1) %>% 
+  filter(CAT_OCUP==3) %>% 
+  mutate(Grupo_Etario = case_when(CH06 %in%  18:35~"Jovenes",
+                                  CH06 %in%  36:70~"Adultos")) %>% 
+  group_by(CH04,Grupo_Etario) %>%
+  summarise(Salario_Promedio = weighted.mean(P21,PONDIH)) %>% 
+  filter(!is.na(Grupo_Etario))
+```
+- Exporten algunos resultados de los ejercicios a un excel en la carpeta *Resultados*
+```{r eval=FALSE, include=FALSE}
+openxlsx::write.xlsx(x = "Resultados/exportacion.xlsx")
+```
+
+
+

@@ -1,0 +1,285 @@
+---
+title: "Herramientas de programación para la producción y difusión de estadísticas socioeconómicas - ASET"
+subtitle: "Clase 3 - Indicadores de Precariedad - Tidyverse 2"
+output:
+  html_notebook:
+    toc: yes
+    toc_float: yes
+  html_document:
+    toc: yes
+---
+
+> Reiniciar R
+
+# Presentación de la clase
+
+Esta clase está destinada a profundizar los conocimientos del paquete **tidyverse** mediante dos ejercicios vinculados al análisis de la precariedad laboral.
+
+-   El primer ejercicio consistirá en la utilización del paquete [**eph**](https://ropensci.github.io/eph/) para la descarga de una base de microdatos de la encuesta y el armado de indicadores de precariedad laboral, cruzados con otras variables de la base individual.
+
+-   El segundo ejercicio utilizará las bases de datos del proyecto [Precariedad Mundial](https://ceped-fce-uba.github.io/precariedad.mundial/) para hacer algunas estimaciones de comparación internacional.
+
+A continuación cargamos las librerías a nuestro ambiente.
+
+```{r, warning=FALSE,message=FALSE}
+library(tidyverse)
+library(openxlsx)
+library(eph)
+```
+
+# Ejercicio 1 - Precariedad en EPH
+
+## Listado de variables a utilizar
+
+Una opción recomendable a la hora de trabajar con la EPH (u otras bases de microdatos de muchas variables) es operar sobre objetos que solo contengan las variables que son específicamente de nuestro interés. Para ello, aquí creamos un vector con un listado de variables a utilizar.
+
+```{r}
+variables <- c("CODUSU","NRO_HOGAR","COMPONENTE","ANO4","TRIMESTRE",                "AGLOMERADO","CH03","CH04","CH06","ESTADO","CAT_OCUP","CAT_INAC","PP04A",                "PP04B_COD","PP07H","P21","P47T","PONDERA","PP04D_COD","PP04C",                "PP07A","PP07C","PP05B2_ANO","PP04B3_ANO","PP07E","NIVEL_ED",                "PONDIIO","PP04C","PP03G","PP3E_TOT") 
+```
+
+## Paquete EPH    
+
+El paquete [eph](https://ropensci.github.io/eph/) tiene por objecto facilitar el trabajo de usuaries de la Encuesta Permanente de Hogares. El mismo incluye funciones para facilitar la descarga e importación de las bases de datos, etiquetado automático de las variables, clasificación de las variables de ocupación y ramas de actividad, entre otras.
+
+Usaremos aquí en primera instancia la función **get_microdata()**, que nos permitirá rapidamente importar una base de datos alojada en un repositorio de github. Levantamos la base individual del primer trimestre de 2019, usando también el parametro **vars** que nos permite específicar únicamente las variables que nos interesan conservar de la base.
+
+```{r}
+eph_2019_t1 <-eph::get_microdata(year = 2019,period = 1,vars = variables)
+  
+```
+
+## Creando categorías de análisis
+
+Un primer paso típico a la hora de procesar la encuesta es crear un nuevo objeto nuevo en el cual (luego de aplicar los filtros de interés) añadiremos variables que conforman nuestras categorías de análisis.
+
+En este caso, crearemos variables que identifiquen a la población según:
+
+-   Máximo nivel educativo alcanzado\
+-   Tamaño de establecimiento\
+-   Percepción de descuento jubilatorio\
+-   Trabajo a tiempo parcial o completo\
+-   Trabajo con duración estabecida
+
+```{r}
+asalariados_2019_t1 <- eph_2019_t1 %>%
+  filter(ESTADO == 1, CAT_OCUP == 3) %>% # Ocupados asalariados
+  mutate(
+    nivel.ed = factor(
+      case_when(NIVEL_ED %in% c(7,1,2,3) ~ "Menor a Secundaria",
+                NIVEL_ED %in% c(4,5) ~ "Secundaria Completa",
+                NIVEL_ED == 6 ~ "Superior Completo",
+                TRUE ~ "Ns/Nr"),
+      levels = c("Menor a Secundaria","Secundaria Completa","Superior Completo")),
+    tamanio.establec = factor(
+      case_when(PP04C %in% 1:6  ~ "Pequeño",
+                PP04C %in% 7:8  ~ "Mediano",
+                PP04C %in% 9:12 ~ "Grande",
+                PP04C %in% 99   ~ "Ns/Nr"),
+      levels = c("Pequeño","Mediano","Grande","Ns/Nr")),
+    descuento_jubil = case_when(PP07H == 1 ~ "Si",
+                                PP07H == 2 ~ "No"),
+    part.time.inv = case_when(PP3E_TOT < 35 & PP03G == 1 ~ "Si",
+                             TRUE ~ "No"),
+    tiempo.determinado = case_when(PP07C ==  1 ~ "Si",
+                                   TRUE ~ "No"))
+
+```
+
+De manera muy sencilla, la función **calculate_tabulates** nos parmite rápidamente obtener tabulados univariados y bivariados de nuestras categorías de interés.
+
+```{r}
+calculate_tabulates(base = asalariados_2019_t1,
+                         x = "descuento_jubil",
+                         weights = "PONDERA")
+```
+
+Si queremos ver el cruce por grupos de nivel educativo...
+
+```{r}
+calculate_tabulates(base = asalariados_2019_t1,
+                         x = "descuento_jubil",
+                         y = "nivel.ed",
+                         add.totals = "both",
+                         weights = "PONDERA")
+```
+
+El parámetro `add.percentage` nos permite calcular los porcentajes, según filas `(add.percentage = "row")` o columnas `(add.percentage = "col")`.\
+En este caso, si nos interesa ver la tasa de informalidad (típicamnete calculada según la percepción de descuentos jubilatorios) por nivel educativo, debemos calcular los porcentajes a nivel de columnas. Como es esperable, a mayor nivel educativo es mayor el porcentaje de lxs asalariadxs que percibe descuentos jubilatorios
+
+```{r}
+calculate_tabulates(base = asalariados_2019_t1,
+                         x = "descuento_jubil",
+                         y = "nivel.ed",
+                         add.percentage = "col", 
+                         weights = "PONDERA")
+```
+
+> Ejercicio 1 ¿Como calcularíamos la proporción de asalariados con trabajos de duración determinada en cada uno de los grupos de tamaño de establecimiento?
+
+```{r}
+#Ejercicio 1
+```
+
+## Co-ocurrencia de fenomenos
+
+Consideremos las siguiente tres variables como expresiones que hacen a la precariedad laboral entre los asalariados:\
+- la falta de descuentos jubilatorios\
+- El empleo de jornada part-time involuntario\
+- El empleo por tiempo determinado
+
+```{r}
+asalariados_2019_t1_signos<- asalariados_2019_t1 %>% 
+  mutate(signos.precariedad = ifelse(descuento_jubil == "No",yes = 1,no = 0)+
+                              ifelse(part.time.inv == "Si",yes = 1,no = 0)+
+                              ifelse(tiempo.determinado == "Si",yes = 1,no = 0))
+           
+```
+
+Una vez que clasificamos a la población podemos hacer un resumen de la cantidad de personas que se ve afectada por
+
+```{r}
+asalariados_2019_t1_signos %>% 
+  group_by(signos.precariedad) %>% 
+  summarise(Poblacion = sum(PONDERA))
+```
+
+> Ejercicio 2. Calcular la proporción de asalariados con al menos un signo de precariedad laboral.
+
+```{r}
+#Ejercicio 2
+```
+
+# Ejercicio 2 - Precariedad Mundial
+
+Comenzamos por importar **base_homogenea.RDS** que contiene la información homogeneizada proveniente de las encuestas de hogares de distintos países y el archivo **metadata.xlsx** que describe las variables disponibles en dicha base y los valores que adquieren en caso de ser variables categóricas.
+
+```{r}
+# Para leer directo desde github
+
+# preca_mundial<- readRDS(gzcon(url("https://github.com/ceped-fce-uba/precariedad.mundial/raw/master/base_homogenea.RDS?download="))) 
+
+# Lectura desde las carpetas del curso
+preca_mundial<- readRDS("fuentes/base_homogenea.RDS")
+metadata_preca<- openxlsx::read.xlsx("fuentes/Metadata.xlsx",sheet = 1)
+```
+
+Inspeccionamos la base rápidamente
+
+```{r include=FALSE}
+set.seed(18122022)
+options(scipen = 999)
+```
+
+```{r}
+preca_mundial %>% sample_n(15)
+```
+
+Si observamos algunos casos al azar, seguramente notemos que existen muchos **NA** (Not Available, también llamados *missing values*) en las distintas variables de la base de datos. Específicamente, eso ocurre en gran medida en las variables que tienen que ver con la precariedad laboral, ya que en muchos países la información provista en las encuestas de hogares resulta insuficiente para construir tales indicadores.      
+```{r,warning=FALSE}
+preca_seg_paises <- preca_mundial %>% 
+  group_by(PAIS,PRECASEG) %>% 
+  summarise(casos_ponderados = sum(WEIGHT)) %>% # Casos (ponderados) de PRECASEG por PAIS
+  group_by(PAIS) %>% 
+  mutate(porcentaje = casos_ponderados/sum(casos_ponderados), # Proporcíon de PRECASEG (0,1 y NA) por PAIS
+         porcentaje = scales::percent(porcentaje))  # Transformo a % 
+
+
+preca_seg_paises
+```
+
+Si tomemamos, por ejemplo, la variable **PRECASEG**, podemos notar que en países europeos tenemos **NA** en todos los casos (ya que no existe pregunta vinculada a la cobertura en la seguridad social en la encuesta). En cambio, en Argentina tenemos un bajo de porcentaje de **NA**, pero que obedece a otra razón (dicha variable corresponde sólo a trabajadores asalariados) 
+
+## Trabajando con valores NA   
+
+Una forma usual de desechar los casos con valores missing es aplicar dentro de un filtro la función **`is.na()`**. En concreto, podemos descartar aquellos casos **NA** anteponiendo a dicha función el caracter **`!`**.     
+
+En este caso, al eliminar los **NA** podemos observar, cual es el porcentaje de precariedad laboral por falta de cobertura social  (entre los trabajadores a los que aplica dicha pregunta sólo en los países que relevan dicha información) 
+
+```{r}
+preca_seg_sin_na <- preca_mundial %>% 
+  filter(!is.na(PRECASEG)) %>% 
+  group_by(PAIS,PRECASEG) %>% 
+  summarise(casos_ponderados = sum(WEIGHT)) %>% 
+  group_by(PAIS) %>% 
+  mutate(porcentaje = casos_ponderados/sum(casos_ponderados),
+         porcentaje = scales::percent(porcentaje)) 
+
+preca_seg_sin_na
+```
+
+## Sumando desagregaciones       
+
+Al ejemplo anterior podemos desagregarlo por la variable **SEXO**, simplemente añadiendola dentro de los `group_by()` y observar así las brechas en la incidencia de la precariedad en varones y mujeres en cada uno de los países
+
+```{r}
+preca_seg_sexo <- preca_mundial %>% 
+  filter(!is.na(PRECASEG)) %>% 
+  group_by(PAIS,SEXO,PRECASEG) %>% 
+  summarise(casos_ponderados = sum(WEIGHT)) %>% 
+  group_by(PAIS,SEXO) %>% 
+  mutate(porcentaje = casos_ponderados/sum(casos_ponderados),
+         porcentaje = scales::percent(porcentaje)) 
+
+preca_seg_sexo
+```
+
+## Selection helpers     
+A la hora de escalar nuestros procedimientos, para aplicar una misma operación a distintas variables de una base de datos, tidyverse cuenta con un conjunto de herramientas denominado [**Selection language**](https://tidyselect.r-lib.org/reference/language.html). Estas herramientas permiten identificar el conjunto de columnas de las bases de datos que cumplen una determinada condición.          
+
+### starts_with()
+Por ejemplo, **starts_with()** nos permite especificar aquellas columnas cuyo nombre comienza con un determinado patrón de texto:     
+```{r}
+preca_select <- preca_mundial %>% 
+  select(PAIS,WEIGHT,starts_with("PRECA"))
+preca_select
+```
+### where()     
+La función `where()` nos permite ingresar una condicion lógica a evaluar en las columnas para determinar si estas serán o no seleccionadas. Por ejemplo, evaluar si son columnas de clase numérica.
+
+```{r}
+preca_numericas <- preca_mundial %>% 
+  select(PAIS,where(is.numeric))
+
+preca_numericas
+```
+## if_all()      
+La función `if_all()` nos permite ingresar una condicion lógica a evaluar en el contenido de un conjunto de columnas para realizar un filtro. El primer argumento que requiere la función es el conjunto de columnas y el segundo la función a aplicar a cada una de ellas para  determinar los casos que serán filtrados.    
+
+Por ejemplo, podemos utilizarla para conservar únicamente aquellos casos **que no contengan NAs en ninguna de las variables vínculadas a la precariedad**  
+```{r}
+preca_completo <- preca_mundial %>% 
+  filter(
+    if_all(starts_with("PRECA"),~!is.na(.x))
+         )
+
+preca_completo
+```
+
+## across() 
+La función `across()` nos permite realizar una misma operación para un conjunto de columnas . El primer argumento que requiere la función es el conjunto de columnas y el segundo la función a aplicar a cada una de ellas.    
+
+Por ejemplo, podemos utilizarla dentro de un summarise para realizar, para cada país, un promedio (muestral) de las variables relacionadas al ingreso de la ocupación princpal.   
+
+Recordatorio: la variable **ING** está expresada en moneda nacional y la variable **ING_PPA** transforma los datos a una moneda de paridad de poder adquisitivo
+```{r}
+ingreso_medio <- preca_mundial %>% 
+  group_by(PAIS) %>% 
+  summarise(across(starts_with("ING"),~ mean(.x,na.rm = T)))
+
+ingreso_medio
+```
+
+También podemos utilizarla para sumar la cantidad de valores positivos en las variables de precariedad y dividido la suma de casos totales en donde dicha variable no es NA. De esta forma, podemos obtener para cada país el % de los casos con las respectivas expresiones de precariedad.    
+
+```{r}
+preca_expresiones <- preca_mundial %>% 
+  group_by(PAIS) %>% 
+  summarise(
+    across(starts_with("PRECA"),
+           ~ sum(.x,na.rm = T)/ # Suma de casos con valor 1 en PRECA
+             sum(!is.na(.x)) # Suma de casos sin NA en PRECA_
+           )
+    ) 
+preca_expresiones
+```
+
