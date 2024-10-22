@@ -5,9 +5,26 @@ output:
   rmdformats::downcute
 ---
 
+# Notas
+-ver si incluyo Regex
+-Incluyo limpieza de datos u
+-Imputación de ingresos??
+
+
+# Introducción
+
 En el análisis de datos y la ciencia de datos moderna, la automatización es una habilidad fundamental para ahorrar tiempo, reducir errores y aumentar la eficiencia en tareas repetitivas. Cuando automatizamos procesos, podemos realizar tareas de manera programada, sin intervención manual, lo que resulta en flujos de trabajo más consistentes y escalables. Los lenguajes de programación orientados a objetos, como R, pueden ser muy útiles para la automatización
 
-# Introducción a Expresiones Regulares (Regex) en R
+
+
+
+
+
+
+
+
+
+# Expresiones Regulares (Regex) en R
 
 Las **expresiones regulares** (regex) son una herramienta poderosa para buscar, extraer y manipular texto de manera flexible. En R, las regex son ampliamente utilizadas para tareas como limpieza de datos, validación de formatos de texto, y extracción de patrones específicos dentro de cadenas.
 
@@ -35,9 +52,11 @@ Las regex permiten definir patrones de texto de una forma concisa, especificando
 - `gsub()`: Reemplaza coincidencias de un patrón en un texto.
 - `str_extract()` y `str_replace()` del paquete **stringr**.
 
-## Ejemplos en R
+## Ejemplos
 
-### Ejemplo 1: Uso de `grep()` para buscar un patrón
+### Ejemplo 1: Uso de `grep()` para buscar un patrón en nombre de columna y modificarla
+
+### Ejemplo de análisis de texto
 
 ```{r grep-ejemplo}
 # Vector de prueba
