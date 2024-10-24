@@ -1,8 +1,12 @@
 ---
-title: Clase 5 - Programacion Funcional
-subtitle: Diplomatura en Ciencias Sociales Computacionales y Humanidades Digitales - UNSAM
-output: 
-  rmdformats::downcute
+title: "Herramientas de programación para la producción y difusión de estadísticas socioeconómicas - ASET"
+subtitle: "Clase 3 - Indicadores de Precariedad - Tidyverse 2"
+output:
+  html_notebook:
+    toc: yes
+    toc_float: yes
+  html_document:
+    toc: yes
 ---
 
 ```{r setup,include=FALSE}
@@ -13,15 +17,14 @@ knitr::opts_chunk$set(echo = TRUE)
 
 En este material veremos algunas herramientas un poco más avanzadas que sirven para escalar procedimientos que vimos anteriormente y/o para automatizar (parte de) nuestro trabajo. La idea es un primer acercamiento a herramientas que evitan tener que constantemente copiar nuestro código y modificar algunos paramentos o variables, cada vez que queramos realizar procedimientos parecidos.
 
-Trabajaremos con una muestra (de elaboración propia) de la base de casos de covid en Argentina. La misma contiene una selección aleatoria de 2% de los casos diarios registrados por localidad. No se recomienda utilizar esta muestra más que para ejercitación.
+Trabajaremos con múltiples bases de la EPH - Argentina. 
 
 ```{r message=FALSE, warning=FALSE}
 library(tidyverse)
 library(openxlsx)
-base.covid <- readRDS('bases/base_covid_sample.RDS')
-
-names(base.covid)
-glimpse(base.covid)
+library(eph)
+bases_2019_2023 <- eph::get_microdata(year = 2019:2023,period =1:4)
+ipc_trimestra <- read.xlsx(xlsxFile = "bases/ipc_trimestral.xlsx")
 ```
 
 # Estructuras Condicionales
@@ -55,7 +58,7 @@ La función **if** también puede utilizarse para indicar la ejecución de uno u
 Veamos un ejemplo. Queremos que nuestro código nos indique si la fecha de ejecución del código coincide con la de la última actualización de la base de datos. Caso contrario, queremos que se nos indique la diferencia de tiempo entre ambas.
 
 ```{r}
-ultima.actualiz.base<- unique(base.covid$ultima_actualizacion)
+ultima.actualiz.base<- unique(bases_2019_2023 %>% select(ANO4,TRIMESTRE))
 ultima.actualiz.base
 ```
 

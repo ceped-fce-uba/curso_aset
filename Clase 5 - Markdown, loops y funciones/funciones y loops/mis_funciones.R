@@ -5,3 +5,7 @@ saludo <- function(nombre) {
 suma <- function(valor1, valor2) {
   valor1+valor2
 }
+
+deflactar_series <- function(base, variable,deflactor) {
+
+}

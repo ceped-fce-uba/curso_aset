@@ -1,0 +1,30 @@
+---
+title: Visualización de la información
+subtitle: Práctica
+output:
+  html_notebook: 
+    toc: true
+    toc_float: true 
+---
+
+## Ejercicios
+
+1. Calcular el promedio del ingreso por ocupación principal (Variable **P21**)  para  **asalariados** con y sin **descuento jubilatorio** (Variable **PP07H**). Luego realizar un gráfico de barras donde se comparen ambos valores (para el 1er trimestre de 2017).                   
+  
+   Pistas: Se deben filtrar previamente los ingresos mayores a 0 (**P21>0**).Chequear que ponderador corresponde utilizar           
+               
+2. Graficar la distribución del ingreso por ocupación principal para Asalariados, Cuentapropistas y Patrones, con el tipo de gráfico Kernel                 
+   Pista: Usar la función **facet_wrap** para separar a cada una de las categorías ocupacionales)                
+   Sugerencia: incorporar la línea ``` scale_x_continuous(limits = c(0,50000)) ``` entre las capas del gráfico. ¿Qué cambió?
+
+3. Hacer un gráfico boxplot de la distribución de edades de los asalariados con descuento jubilatorio, y de los asalariados sin descuento jubilatorio.
+
+4. Descarguen las bases de al menos 4 trimestres de la EPH:
+  - calcular el procentaje de asalariados sin descuento jubilatorio como $\frac{Asal. s/ desc jubil}{Asalariados.totales}$. Realizar un gráfico de linea con la evolución de este indicador
+  - calcular la brecha entre el salario promedio para asalariados con descuento jubilatorio, respecto a los que no tienen descuento. Luego, realizar un gráfico de barras que muestre la evolución de este indicador
+
+
+
+
+
+
