@@ -1,25 +1,45 @@
 ---
-title: "Herramientas de programación para la producción y difusión de estadísticas socioeconómicas - ASET"
-subtitle: "Clase 3 - Indicadores de Precariedad - Tidyverse 2"
-output:
-  html_notebook:
-    toc: yes
-    toc_float: yes
-  html_document:
-    toc: yes
+title: Clase 3 - Indicadores de Precariedad - Tidyverse 2
+subtitle: Herramientas de programación para la producción y difusión de estadísticas socioeconómicas - ASET
+output: 
+  rmdformats::downcute
 ---
 
-> Reiniciar R
+#Introducción 
 
-# Presentación de la clase
+## Presentación de la clase
 
-Esta clase está destinada a profundizar los conocimientos del paquete **tidyverse** mediante dos ejercicios vinculados al análisis de la precariedad laboral.
+Esta clase está destinada a profundizar los conocimientos del paquete **tidyverse** mediante ejercicios vinculados al análisis de la precariedad laboral y el procesamiento de microdatos provenientes de encuestas de hogares. Luego de esta sección introductoria, el encuentro se organizará en 3 ejercicios: 
 
 -   El primer ejercicio consistirá en la utilización del paquete [**eph**](https://ropensci.github.io/eph/) para la descarga de una base de microdatos de la encuesta y el armado de indicadores de precariedad laboral, cruzados con otras variables de la base individual.
 
--   El segundo ejercicio utilizará las bases de datos del proyecto [Precariedad Mundial](https://ceped-fce-uba.github.io/precariedad.mundial/) para hacer algunas estimaciones de comparación internacional.
+-   En el segundo utilizaremos bases de datos provenientes de distintos países para realizar comparaciones internacionales sobre estimaciones de la precariedad y la informalidad laboral
 
-A continuación cargamos las librerías a nuestro ambiente.
+-   El tercer ejercicio utilizará las bases de datos del proyecto [Precariedad Mundial](https://ceped-fce-uba.github.io/precariedad.mundial/) para hacer más estimaciones de comparación internacional.
+
+## Trabajar con encuestas de hogares
+
+En los Estudios del Trabajo se suele utilizar microdatos provenientes de encuestas de hogares. Estas encuestas son una herramienta para obtener información detallada sobre las características socioeconómicas, demográficas y laborales de las personas que forman parte de los hogares de un país o región. Las encuestas se realizan sobre una muestra de hogares representativa de la población general y suelen ser llevadas a cabo por organismos oficiales de estadística. Su publicación suele hacerse a nivel de personas (donde cada fila del dataframe representa una persona del hogar), aunque también puede haber una publicación a nivel complementaria a nivel de los hogares.
+Si bien las encuestas de hogares tienden a homogeneizarse entre sí, todavía persisten distintos criterios sobre temas como el área de cobertura, las preguntas que se realizan o los clasificadores utilizados, entre otros tantos aspectos. Por ello gran parte del trabajo con los microdatos se realiza junto a un **Diseño de Registro**, que funciona como un ‘diccionario’ sobre las variables del dataframe. En ese documento se indican las preguntas y respuestas relacionadas a cada variable y los valores que éstas toman.
+
+## Estimaciones sobre precariedad e informalidad laboral 
+
+Cuando trabajamos con estadísticas laborales, muchas veces queremos encontrar la expresión empírica de ideas, categorías o conceptos en las características de la población estudiada. Al proceso de ‘bajar’ esas ideas a mediciones o indicadores se lo llama operacionalización. Como las encuestas de hogares muchas veces no tienen el mismo diseño, es nuestra tarea elegir qué preguntas/variables vamos a tomar en consideración.
+
+A lo largo de esta clase vamos a trabajar con dos conceptos muy utilizados en los estudios laborales: la precariedad y la informalidad. Muy sintéticamente hablando, la **precariedad laboral** son situaciones de empleo endeble que implican una inseguridad o riesgo para la persona que trabaja. La forma de medir la incidencia de los empleos precarios se basa en clasificar a las personas ocupadas según si su relación laboral se aleja o no del ‘tipo ideal’ de empleo protegido (con contrato legal, por tiempo indeterminado, tiempo completo, con seguridad social, seguro médico, vacaciones pagas, etc.). En Argentina, por ejemplo, la precariedad se suele medir según la falta de contribuciones al sistema previsional.
+
+Por su parte, el **sector informal** hace referencia una característica típica de los mercados de trabajo latinoamericanos, donde es muy extendido el empleo en actividades simples, en establecimientos pequeños y de muy baja productividad. Según la definición ‘clásica’ del Sector Informal Urbano del PREALC-OIT el sector informal son actividades con poco capital, baja escala y baja tecnología, generalmente realizadas en unidades productivas unipersonales. Cuando existe la contratación de mano de obra, ésta generalmente se basa en relaciones familiares o personales, ya que la relación asalariada no se encuentra plenamente extendida en este sector. 
+Pero ahora ¿Cómo se operacionaliza esto? Hay muchos criterios y formas de medir la informalidad. Este es un ejemplo de criterios para clasificar a una persona como integrante del Sector Informal:
+
+-Asalariado/a en establecimientos de hasta 5 personas
+-Cuentapropistas no profesionales (con ocupación de baja calificación)
+-Trabajador/a familiar sin salario
+-Patrones no profesionales en establecimientos de hasta 5 personas
+
+
+# Ejercicio 1 - Precariedad en EPH
+
+Antes de empezar con los ejercicios, cargamos las librarys en nuestro entonrno de trabajo.
 
 ```{r, warning=FALSE,message=FALSE}
 library(tidyverse)
@@ -27,28 +47,28 @@ library(openxlsx)
 library(eph)
 ```
 
-# Ejercicio 1 - Precariedad en EPH
 
 ## Listado de variables a utilizar
 
 Una opción recomendable a la hora de trabajar con la EPH (u otras bases de microdatos de muchas variables) es operar sobre objetos que solo contengan las variables que son específicamente de nuestro interés. Para ello, aquí creamos un vector con un listado de variables a utilizar.
 
 ```{r}
-variables <- c("CODUSU","NRO_HOGAR","COMPONENTE","ANO4","TRIMESTRE",                "AGLOMERADO","CH03","CH04","CH06","ESTADO","CAT_OCUP","CAT_INAC","PP04A",                "PP04B_COD","PP07H","P21","P47T","PONDERA","PP04D_COD","PP04C",                "PP07A","PP07C","PP05B2_ANO","PP04B3_ANO","PP07E","NIVEL_ED",                "PONDIIO","PP04C","PP03G","PP3E_TOT") 
+variables <- c("CODUSU","NRO_HOGAR","COMPONENTE","ANO4","TRIMESTRE",                "AGLOMERADO","CH03","CH04","CH06","ESTADO","CAT_OCUP","CAT_INAC","PP04A",                "PP04B_COD","PP07H","P21","P47T","PONDERA","PP04D_COD","PP04C",                "PP07A","PP07C","PP05B2_ANO","PP04B3_ANO","PP07E","NIVEL_ED","PONDIIO","PP04C","PP03G","PP3E_TOT") 
 ```
 
 ## Paquete EPH    
 
 El paquete [eph](https://ropensci.github.io/eph/) tiene por objecto facilitar el trabajo de usuaries de la Encuesta Permanente de Hogares. El mismo incluye funciones para facilitar la descarga e importación de las bases de datos, etiquetado automático de las variables, clasificación de las variables de ocupación y ramas de actividad, entre otras.
 
-Usaremos aquí en primera instancia la función **get_microdata()**, que nos permitirá rapidamente importar una base de datos alojada en un repositorio de github. Levantamos la base individual del primer trimestre de 2019, usando también el parametro **vars** que nos permite específicar únicamente las variables que nos interesan conservar de la base.
+Usaremos aquí en primera instancia la función **get_microdata()**, que nos permitirá rapidamente importar una base de datos alojada en un repositorio de Github. Levantamos la base individual del primer trimestre de 2019, usando también el parametro **vars** que nos permite específicar únicamente las variables que nos interesan conservar de la base.
 
 ```{r}
-eph_2019_t1 <-eph::get_microdata(year = 2019,period = 1,vars = variables)
+
+eph_2019_t1 <-eph::get_microdata(year = 2019, period = 1, vars = variables)
   
 ```
 
-## Creando categorías de análisis
+## Creando categorías para el análisis de la precariedad laboral
 
 Un primer paso típico a la hora de procesar la encuesta es crear un nuevo objeto nuevo en el cual (luego de aplicar los filtros de interés) añadiremos variables que conforman nuestras categorías de análisis.
 
@@ -58,7 +78,7 @@ En este caso, crearemos variables que identifiquen a la población según:
 -   Tamaño de establecimiento\
 -   Percepción de descuento jubilatorio\
 -   Trabajo a tiempo parcial o completo\
--   Trabajo con duración estabecida
+-   Trabajo con duración establecida
 
 ```{r}
 asalariados_2019_t1 <- eph_2019_t1 %>%
@@ -106,12 +126,12 @@ calculate_tabulates(base = asalariados_2019_t1,
 El parámetro `add.percentage` nos permite calcular los porcentajes, según filas `(add.percentage = "row")` o columnas `(add.percentage = "col")`.\
 En este caso, si nos interesa ver la tasa de informalidad (típicamnete calculada según la percepción de descuentos jubilatorios) por nivel educativo, debemos calcular los porcentajes a nivel de columnas. Como es esperable, a mayor nivel educativo es mayor el porcentaje de lxs asalariadxs que percibe descuentos jubilatorios
 
-```{r}
+```{r eval=FALSE}
 calculate_tabulates(base = asalariados_2019_t1,
                          x = "descuento_jubil",
                          y = "nivel.ed",
                          add.percentage = "col", 
-                         weights = "PONDERA")
+                         weights = "PONDERA")      ## VER: ME DA ERROR
 ```
 
 > Ejercicio 1 ¿Como calcularíamos la proporción de asalariados con trabajos de duración determinada en cada uno de los grupos de tamaño de establecimiento?
@@ -143,13 +163,27 @@ asalariados_2019_t1_signos %>%
   summarise(Poblacion = sum(PONDERA))
 ```
 
-> Ejercicio 2. Calcular la proporción de asalariados con al menos un signo de precariedad laboral.
+> Ejercicio 3. Calcular la proporción de asalariados con al menos un signo de precariedad laboral utilizando el repositorio ```precariedad.mundial```
 
 ```{r}
 #Ejercicio 2
 ```
 
-# Ejercicio 2 - Precariedad Mundial
+
+# Ejercicio 2 - Estimaciones de la precariedad e informalidad laboral en distintos países
+
+En lo que resta de esta clase vamos a tomar una perspectiva internacional, utilizando bases de datos provenientes de distintos países y calculando indicadores de precariedad e informalidad laboral. Para ello en la carpeta ```fuentes/bases``` tenemos disponible bases correspondientes a Alemania, Brasil, Chile, España, Grecia, Paraguay, Perú y Uruguay. Tan sólo incluimos las columnas que nos interesan, ya que las bases originales tienen muchas más columnas variables y se vuelven muy pesadas para compartir en un repositorio.
+
+Además, en ```fuentes/diccionarios``` podemos encontrar los diccionarios originales de cada una de estas bases de datos y el archivo ```diccionario_resumen.xlsx``` donda ya juntamos las descripciones de las variables que utilizaremos en este ejercicio. Armen grupos, eligan al menos 2 países de dos continentes diferentes y resuelvan las siguientes consignas:
+
+> Consigna 1: ¿Qué variables considerarías para realizar una estimación de la precariedad laboral? Elegí una de ellas o una combinación para crear la variable PRECA que indique si una persona tiene un empleo precario o no. ¿Cuál es la tasa de precariedad según tu operacionalización?
+
+> Consigna 2: Las bases contienen otras variables alternativas que se pueden 'cruzar' con la precareidad. ¿Qué  variables tomarías? Reralizá un tabulado cruzado entre la variable de precariedad y la variable que elegiste. ¿Qué conclusiones podés sacar?
+
+> Ejercicio 3 (si hay tiempo!): ¿Como calcularías la incidencia del Sector Informal en cada uno de los países? ¿Qué variables tomarías en cuenta para operacionalizar el concepto? ¿Qué conclusiones podrías sacar?
+
+
+# Ejercicio 3 - Comparaciones internacionales con el repositorio ```precariedad.mundial```
 
 Comenzamos por importar **base_homogenea.RDS** que contiene la información homogeneizada proveniente de las encuestas de hogares de distintos países y el archivo **metadata.xlsx** que describe las variables disponibles en dicha base y los valores que adquieren en caso de ser variables categóricas.
 
@@ -187,7 +221,7 @@ preca_seg_paises <- preca_mundial %>%
 preca_seg_paises
 ```
 
-Si tomemamos, por ejemplo, la variable **PRECASEG**, podemos notar que en países europeos tenemos **NA** en todos los casos (ya que no existe pregunta vinculada a la cobertura en la seguridad social en la encuesta). En cambio, en Argentina tenemos un bajo de porcentaje de **NA**, pero que obedece a otra razón (dicha variable corresponde sólo a trabajadores asalariados) 
+Si tomamos, por ejemplo, la variable **PRECASEG**, podemos notar que en países europeos tenemos **NA** en todos los casos (ya que no existe pregunta vinculada a la cobertura en la seguridad social en la encuesta). En cambio, en Argentina tenemos un bajo de porcentaje de **NA**, pero que obedece a otra razón (dicha variable corresponde sólo a trabajadores asalariados) 
 
 ## Trabajando con valores NA   
 

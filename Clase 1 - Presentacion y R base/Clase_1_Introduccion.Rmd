@@ -1,5 +1,5 @@
 ---
-title: Clase 1 - Introducción a R y Rstudio - R Base 
+title: Clase 1 - Introducción a R, Rstudio y R Base 
 subtitle: Herramientas de programación para la producción y difusión de estadísticas socioeconómicas - ASET
 output: 
   rmdformats::downcute
@@ -8,9 +8,9 @@ output:
 
 # Introducción al curso 
 
-Este curso busca dar las herramientas básicas para el procesamiento de estadísticas socio-laborales con R y la visualización de resultados con PowerBI y Looker. Este es su cronogama:
+Este curso busca dar las herramientas básicas para el procesamiento de estadísticas socio-laborales con R y la visualización de resultados con PowerBI y Looker. El cronograma es así:
 
-- *1*: Introducción a R y RStudio
+- *1*: Introducción a R, RStudio y RBase
 - *2*: EPH e intro a tidyverse
 - *3*: Indicadores de Precariedad - tidyverse2
 - *4*: Visualización en R
@@ -21,16 +21,16 @@ Este curso busca dar las herramientas básicas para el procesamiento de estadís
 
 Como verán, el cronograma del curso es *muy ambicioso* y cubre una amplia variedad de herramientas. El obetivo es conocer las potencialidades de todas estas herramientas para que ustedes luego profundicen según su interés o necesidades, siempre utilizando el procesamiento de estadísticas socio-laborales como referencia. 
 
-Antes de empezar queremos llamar la atención de que la actividad de programar cambió drásticamente en los últimos años debido al desarrollo de modelos de lenguaje basados en IA. Actualmente, el foco del aprendizaje ya no debe estar puesto en conocer en profundidad los comandos, funciones y operadores de R sino más bien en saber qué es posible hacer con R y cómo aplicar las soluciones a los problemas que se nos presentan. 
+Antes de empezar queremos llamar la atención sobre los cambios que tuvo la actividad de programar en los últimos años debido al desarrollo de modelos de lenguaje basados en IA. Actualmente, el foco del aprendizaje ya no debe estar puesto en conocer en profundidad los comandos, funciones y operadores de R sino más bien en saber qué es posible hacer con R y cómo aplicar las soluciones a los problemas que se nos presentan. 
 
 **Este curso intenta hacerse eco de estos cambios!** Por ello, en paralelo a que cubrimos los elementos básicos de progamación con R, vamos a a trabajar sobre: 
 
 - paquetes que desarrollamos para el procesamiento de estadísticas laborales
 - procesamiento de encuestas de hogares de distintos países
 - automatizaciones con R
-- integración de R con GooglSheets
+- integración de R con GoogleSheets
 
-El curso está pensado para personas que no tienen ninguna experiencia en programación. Si ese es tu caso, te recomendamos que sigas detenidamente el detalle de los comandos utilizados e intentes reproducir la clase ejecutando el código en tu computadora. Además te invitamos a que saques provecho de las herramientas basadas en IA para aprender a programar (sobre el final de este encuentro te compartimos algunos consejos). Ahora a empezar!
+De todas maneras, el curso está pensado para personas que no tienen ninguna experiencia en programación. Si ese es tu caso, te recomendamos que sigas detenidamente el detalle de los comandos utilizados e intentes reproducir la clase ejecutando el código en tu computadora. Además te invitamos a que saques provecho de las herramientas basadas en IA para aprender a programar (sobre el final de este encuentro te compartimos algunos consejos). Ahora a empezar!
 
 # Descripción de R y RStudio     
 
