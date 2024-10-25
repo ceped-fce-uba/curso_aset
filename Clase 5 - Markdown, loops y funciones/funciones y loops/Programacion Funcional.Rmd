@@ -17,14 +17,35 @@ knitr::opts_chunk$set(echo = TRUE)
 
 En este material veremos algunas herramientas un poco más avanzadas que sirven para escalar procedimientos que vimos anteriormente y/o para automatizar (parte de) nuestro trabajo. La idea es un primer acercamiento a herramientas que evitan tener que constantemente copiar nuestro código y modificar algunos paramentos o variables, cada vez que queramos realizar procedimientos parecidos.
 
-Trabajaremos con múltiples bases de la EPH - Argentina. 
+Trabajaremos con múltiples bases de la EPH - Argentina. Para no hacer demasiado pesada la descarga nos limitamos a 3 años (2021 a 2023). Importaremos también un archivo con una seria del Índices de Precios al Consumidor expresada en términos trimestrales descargado de [CEPED-DATA](https://ceped-data.shinyapps.io/ceped-data/)
 
 ```{r message=FALSE, warning=FALSE}
 library(tidyverse)
 library(openxlsx)
 library(eph)
-bases_2019_2023 <- eph::get_microdata(year = 2019:2023,period =1:4)
-ipc_trimestra <- read.xlsx(xlsxFile = "bases/ipc_trimestral.xlsx")
+bases_2021_2023 <- eph::get_microdata(year = 2021:2023,period =1:4)
+ipc_trimestral <- read.xlsx(xlsxFile = "bases/ipc_trimestral.xlsx")
+```
+
+Si observamos rápidamente el objeto `ipc_trimestral` observaremos que la variable *anio_trim* contiene la identificación unificada del Año y Trimestre. A su vez, la base del índice está ubicada en el año 2017 (es decir, que el valor de referencia 100 está establecido como el promedio de los trimestres del 2017)
+
+```{r}
+glimpse(ipc_trimestral)
+```
+
+Replicaremos esta variable en la base de la EPH, para luego hacer un **join** de una estimación del salario promedio por trimestre con la inormación del índice de precios.
+
+```{r}
+bases_2021_2023 <- bases_2021_2023 %>% 
+  mutate(anio_trim  = paste0(ANO4,"T",TRIMESTRE))
+
+base_salarios <- bases_2021_2023 %>% 
+  filter(ESTADO == 1, CAT_OCUP ==3,P21>0) %>% 
+  group_by(anio_trim) %>% 
+  summarise(salario_promedio = weighted.mean(P21,PONDIIO)) %>% 
+  left_join(ipc_trimestral)
+
+base_salarios
 ```
 
 # Estructuras Condicionales
@@ -55,21 +76,14 @@ La función **if** también puede utilizarse para indicar la ejecución de uno u
 
 `if(condicion){codigo a ejecutar si se cumple la condición} else {codigo a ejecutar si NO se cumple la condición}`
 
-Veamos un ejemplo. Queremos que nuestro código nos indique si la fecha de ejecución del código coincide con la de la última actualización de la base de datos. Caso contrario, queremos que se nos indique la diferencia de tiempo entre ambas.
-
-```{r}
-ultima.actualiz.base<- unique(bases_2019_2023 %>% select(ANO4,TRIMESTRE))
-ultima.actualiz.base
-```
-
-¿Es dicha fecha igual a la fecha actual de ejecución del código? Para ello podemos usar la función **Sys.Date()** de RBase
+Veamos un ejemplo. Queremos que nuestro código chequee automáticamente si la base de salarios generada tiene efectivamente la cantidad de trimestres con la que decidimos trabajar (en nuestro caso, 12). Caso contrario, queremos que nos indique que hubo algun problema.
 
 ```{r}
 
-if (ultima.actualiz.base == Sys.Date()) {
-    "Datos al día de hoy"
+if (nrow(base_salarios) == 12) {
+    "Cantidad de trimestres ok"
 } else{
-  paste("Datos actualizados al", ultima.actualiz.base) 
+  paste("Chequear fallas en la descarga" ) 
 }
 ```
 
@@ -77,18 +91,7 @@ if (ultima.actualiz.base == Sys.Date()) {
 
 La creación de **funciones** propias nos permite automatizar todas aquellas partes del código que se repiten mucho. Una vez diseñadas, funcionan igual que cualquier comando.
 
-Arranquemos con un ejemplo básico. Podemos crear una función que al indicare dos valores, devuelva la suma de ellos
-
-```{r}
-saludo <- function(nombre) {
-  print(paste0("Hola,",nombre," que te trae por acá?"))
-  
-}
-```
-
-```{r}
-saludo(nombre = "Juan")
-```
+Arranquemos con un ejemplo básico. Podemos crear una función que al indicar dos valores, devuelva la suma de ellos
 
 ```{r}
 suma <- function(valor1, valor2) {
@@ -105,33 +108,41 @@ En el paso anterior simplemente creamos una función que se guardará en nuestro
 suma(valor1 = 5,valor2 = 6)
 ```
 
-Obviamente las funciones no son sólo para variables numéricas. Por ejemplo, podemos pegar dos strings con una flecha en el medio
+Obviamente las funciones no son sólo para variables numéricas. Por ejemplo, podemos diseñar una función que "espere" un string como input.
 
 ```{r}
-funcion_prueba <- function(parametro1,parametro2) {
-  paste(parametro1, parametro2, sep = " <--> ")
+saludo <- function(nombre) {
+  print(paste0("Hola, ",nombre,". ¿Qué te trae por acá?"))
+  
 }
-
-funcion_prueba(parametro1 = "A ver", parametro2 = "que pasa")
-
 ```
 
-También podemos asignar un **valor por default** para alguno de los parametros. Este es el valor que va a tomar el parametro en caso de que el usuario no lo defina al ejecutar la función
+Ejecutamos la función.
 
 ```{r}
-Otra_funcion_prueba <- function(parametro1,
-                                parametro2 = "colgado") {
- 
-   paste(parametro1, parametro2, sep = ", ")
+saludo(nombre = "Juan")
+```
+
+¿Qué pasa si llamamos a la función sin especificar un valor para el parámetro **nombre**?
+
+```{r,error=TRUE}
+saludo()
+```
+
+Si quisieramos podemos asignar un **valor por default** para los parametros de nuestras funciones. Este es el valor que va a tomar el parametro en caso de que el usuario no lo defina al ejecutar la función.
+
+```{r}
+saludo_def <- function(nombre = "humano") {
+  print(paste0("Hola, ",nombre,". ¿Qué te trae por acá?"))
   
 }
 
 ```
 
-Veamos que pasa al ejecutar la función completando solo el parametro 1:
+Veamos que pasa al ejecutar la función sin completar el parametro:
 
 ```{r}
-Otra_funcion_prueba(parametro1 = "Hola")
+saludo_def()
 ```
 
 Las funciones que creamos nosotros permanecen en el ambiente de R temporariamente. Cuando removemos los objetos del ambiente, la función deja de existir. Por ende, debemos incorporarla en cada uno de los scripts en la cual la necesitemos. Una buena práctica, es incorporar nuestras funciones útiles al comienzo de cada script junto a la carga de las librerías.
@@ -224,6 +235,44 @@ Veamos que pasa
 calcula_ratio(vector = c(1,0,3,4))
 ```
 
+## Deflactando series
+
+Veamos un ejemplo concerto de una función que nos permita transformar una serie nominal (como los salarios estimados en EPH) a valores reales. La idea de la función es pasar como imputs:
+
+-   Un dataframe que contenga
+
+    -   Una variable expresada en términos nominales
+
+    -   Un índice de precios
+
+    -   Una columna que identifique el período
+
+-   Un período hacia el cual reexpresar los valores nominales (es decir "¿a precios de que año queremos transformar los datos?")
+
+```{r}
+deflacta_series <- function(df,valor_nominal,indice_precios,col_periodo,base_elegida){
+
+indice_base <- df[indice_precios]/df[indice_precios][df[col_periodo] == base_elegida]*100 
+
+valor_real <- df[valor_nominal]/indice_base*100
+
+df["valor_real"]  <- valor_real
+  return(df)  
+} 
+
+```
+
+Ejecutamos la función, específicando las columnas correspondientes (en este caso, la función está diseñada para recibir las columnas como strings) y el período más reciente (2023T4) como base elegida para
+
+```{r}
+deflacta_series(df = base_salarios,
+                valor_nominal = "salario_promedio",
+                col_periodo = "anio_trim",
+                indice_precios = "ipc",
+                base_elegida = "2023T4")
+
+```
+
 # Loops
 
 Un **loop** es una estructura de código que nos permite aplicar iterativamente un mismo conjunto de comandos, variando el valor de una variable. Veremos aquí únicamente el loop **for**, cuya sintaxis es la siguiente:
@@ -251,61 +300,61 @@ Un loop puede iterar sobre cualquier tipo de vector, independientemente de lo qu
 
 **Una utilización típica de los loops**: Recorrer las categorías de una variable y hacer el mismo gráfico para cada una de ellas.
 
-Vamos a pedirle perdón a lxs docentes del módulo de visualización, y ver un ejemplo con un gráfico super sencillo. Queremos un histograma de la cantidad de registros por edad, según la clasificación del caso. Veamos que categorías toma la variable `clasificacion_resumen`
+Veamos un ejemplo. Vamos a armar un histograma de la edad, desagregando por la variable de **calificación del puesto**. Para simplificar, nos quedamos con un solo trimestre, y usamos el paquete eph para agregar la variable de calificación del puesto.
 
-```{r}
-clasificacion.casos<- unique(base.covid$clasificacion_resumen)
-clasificacion.casos
+```{r message=FALSE, warning=FALSE}
+base_con_cno <- bases_2021_2023 %>% 
+  filter(anio_trim == "2023T4") %>% 
+  eph::organize_cno() 
+
 ```
 
-**Recomendación:** Antes de hacer un loop (ya sea para gráficos u otros procesamientos), prueben primero obtener lo que quieren para una categoría, y luego lo extienden hacia el resto. En este sentido, armemos el gráfico para la categoría "Confirmado"
+Veamos que valores toma la variable de calificación del puesto...
 
 ```{r}
-base.confirmados  <- base.covid %>% 
-    filter(clasificacion_resumen  == "Confirmado")  
+unique(base_con_cno$CALIFICACION)
+
+```
+
+**Recomendación:** Antes de hacer un loop (ya sea para gráficos u otros procesamientos), prueben primero obtener lo que quieren para una categoría, y luego lo extienden hacia el resto. En este sentido, armemos el gráfico para la categoría "Profesionales"
+
+```{r}
+base.profesionales <- base_con_cno %>% 
+    filter(CALIFICACION  == "Profesionales")  
     
   
-hist(x = base.confirmados$edad,
-     main = "Casos Confirmados",
+hist(x = base.profesionales$CH06,
+     main = "Profesionales",
      xlab = "Edad",
-     xlim = c(0,130))
+     xlim = c(0,100))
+
 
 ```
 
 Una vez que tenemos el gráfico que nos gusta, ahora si armemos el *loop*.
 
-¿Cómo operar con un loop sobre la base de datos? Lo más frecuente es que querramos realizar un mismo procedimiento sobre distintos valores de cierta variable de nuestra base. Para eso es util el vector `clasificacion.casos` que indicaba las cateogrías que tomaba nuestra variable de interés. Ese vector será el que utilizaremos para iterar.
-
-Miren las diferecias entre el código anterior y el siguiente:
-
-```{r,fig.height=8}
-for(categoria in clasificacion.casos){
-   
-base.filtrada  <- base.covid %>% 
-    filter(clasificacion_resumen  == categoria)  
-    
-  
-hist(x = base.filtrada$edad,
-     main = categoria,
-     xlab = "Edad",
-     xlim = c(0,130))
-
-
-}
-```
-
-Hagamos el mismo loop para la variable de fallecidos, para darle más sentido al ejercicio.
+¿Cómo operar con un loop sobre la base de datos? Lo más frecuente es que querramos realizar un mismo procedimiento sobre distintos valores de cierta variable de nuestra base. Para eso, puede ser util crear anticipadamente un vector que indique las cateogrías sobre las que queremos iterar. Ese vector, aqui llamado `vector_calificaciones` será el que utilizaremos para iterar (desechamos los valores **NA, Ns.Nc, falta información**)
 
 ```{r}
-for(categoria in c("SI","NO")){
+vector_calificaciones <- unique(base_salarios_calificacion$CALIFICACION)[c(1,3,4,5)]
+vector_calificaciones
+```
+
+Miren las diferecias entre el código del gráfico anterior y el siguiente:
+
+```{r,fig.height=8}
+for(categoria in vector_calificaciones){
    
-base.filtrada  <- base.covid %>% 
-    filter(fallecido  == categoria)  
+base.filtrada  <- base_salarios_calificacion %>% 
+    filter(CALIFICACION  == categoria)  
     
-hist(x = base.filtrada$edad,
-     main = paste0("Fallecido: ",categoria),
+  
+hist(x = base.filtrada$CH06,
+     main = categoria,
      xlab = "Edad",
-     xlim = c(0,130))
+     xlim = c(0,100))
+
+
 }
 ```
 
@@ -322,9 +371,9 @@ Todas estas variantes, con ejemplos, se pueden consultar [acá](https://ycphs.gi
 Supongamos que queremos un cuadro que nos muestre la cantidad de casos, según `clasificacion_resumen` y `provincia`.
 
 ```{r,eval=T,echo=T}
-cuadro_por_provincia<- base.covid %>% 
-  group_by(residencia_provincia_nombre,clasificacion_resumen) %>% 
-  summarise(casos = n())
+cuadro_por_calificaciones<- base_con_cno %>% 
+  group_by(CALIFICACION,CH04) %>% 
+  summarise(casos = sum(PONDERA,na.rm = T))
   
 ```
 
