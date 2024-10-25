@@ -11,7 +11,7 @@ output:
 -Imputación de ingresos??
 
 
-# Introducción
+# Introducción a la automatización
 
 En el análisis de datos y la ciencia de datos moderna, la automatización es una habilidad fundamental para ahorrar tiempo, reducir errores y aumentar la eficiencia en tareas repetitivas. Cuando automatizamos procesos, podemos realizar tareas de manera programada, sin intervención manual, lo que resulta en flujos de trabajo más consistentes y escalables. Los lenguajes de programación orientados a objetos, como R, pueden ser muy útiles para la automatización
 
@@ -156,7 +156,7 @@ head(titulos, 5)
 
 La interacción con **Google Sheets** desde R permite automatizar el manejo de datos en hojas de cálculo, lo que facilita la colaboración y el análisis. Utilizando el paquete `googlesheets4`, podemos leer, escribir y actualizar datos en Google Sheets de manera eficiente.
 
-## Paquetes Clave para Interacción con Google Sheets
+## Paquetes para Interacción con Google Sheets
 
 - `googlesheets4`: Permite acceder a Google Sheets y realizar operaciones como leer, escribir y modificar datos.
 - `googledrive`: Facilita la autenticación y el manejo de archivos en Google Drive, que es útil cuando se trabaja con múltiples hojas de cálculo.
@@ -170,6 +170,48 @@ Antes de comenzar a interactuar con Google Sheets, asegúrate de haber instalado
 # install.packages("googlesheets4")
 # install.packages("googledrive")
 ```
+
+
+# Github
+
+Desde el primer encuentro que venimos trabajando con Github, pero siempre hay algo nuevo por conocer cuando se trata de esta herramienta para el trabajo colaborativo. 
+
+## Algunos recursos
+
+[¿Cómo crear una cuenta?](https://docs.github.com/es/get-started/onboarding/getting-started-with-your-github-account) 
+
+[Una guía con ejemplos para empezar a usar Git](https://github.com/git-guides)
+
+[Principales comandos](https://git-scm.com/docs):
+
+-   **git clone** clona el repositorio, es decir, nos permite descargar a nuestro directorio local un repositorio.
+
+-   **git status** muestra nuestra situación: el estado de los cambios locales, en qué rama estamos, etc.
+
+-   **git pull** actualiza la línea de desarrollo local con actualizaciones de sus contrapartes remotas. Es decir, descargar a nuestro repositorio local las modificaciones de nuestro equipo.
+
+-   **git add** + **git commit** + **git push** nos permiten enviar nuestros cambios locales al repositorio.
+
+    -   git add es el primer paso, que agrega archivos nuevos o modificados en el directorio local de trabajo al área de *staging* de Git.
+
+    -   git commit -m "bla bla bla estuve haciendo el cmabio x, y , z" guarda nuestros cambios al historial de versiones. Todo lo que se haya almacenado provisionalmente con git add pasará a formar parte del historial. Con este comando incluimos el mensaje explicando los cambios que hicimos.
+
+    -   git push envía nuestros cambios y así actualiza el repositorio remoto con las modificaciones (ya commiteadas) realizadas localmente.
+
+Un poco más avanzado:
+
+-   **git branch** muestra las ramas en las que se trabaja localmente.
+
+-   **git merge** combina las líneas de desarrollo. Este comando habitualmente se utiliza para combinar los cambios que se realizan en dos ramas distintas. Por ejemplo, un desarrollador podría hacer una fusión cuando necesite combinar los cambios de una rama de característica en la rama de desarrollo principal.
+
+
+# Otras funcionalidades de Github
+
+## Issues para colaborar con un repositorio
+
+## Github jobs para automatizaciones
+
+## Githubpages
 
 
 
