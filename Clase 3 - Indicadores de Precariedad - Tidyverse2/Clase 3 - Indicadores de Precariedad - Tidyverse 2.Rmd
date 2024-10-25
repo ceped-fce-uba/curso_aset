@@ -15,7 +15,7 @@ Esta clase está destinada a profundizar los conocimientos del paquete **tidyver
 
 -   En el segundo utilizaremos bases de datos provenientes de distintos países para realizar comparaciones internacionales sobre estimaciones de la precariedad y la informalidad laboral
 
--   El tercer ejercicio utilizará las bases de datos del proyecto [Precariedad Mundial](https://ceped-fce-uba.github.io/precariedad.mundial/) para hacer más estimaciones de comparación internacional.
+-   El tercer ejercicio utilizará las bases de datos del proyecto [Precariedad Mundial](https://ceped-fce-uba.github.io/precariedad.mundial/) para hacer más estimaciones de comparación internacional y ver algunos comandos imporantes para el procesamiento de datos.
 
 ## Trabajar con encuestas de hogares
 
@@ -265,7 +265,7 @@ Por ejemplo, **starts_with()** nos permite especificar aquellas columnas cuyo no
 ```{r}
 preca_select <- preca_mundial %>% 
   select(PAIS,WEIGHT,starts_with("PRECA"))
-preca_select
+preca_select %>% head(10)
 ```
 ### where()     
 La función `where()` nos permite ingresar una condicion lógica a evaluar en las columnas para determinar si estas serán o no seleccionadas. Por ejemplo, evaluar si son columnas de clase numérica.
@@ -274,7 +274,7 @@ La función `where()` nos permite ingresar una condicion lógica a evaluar en la
 preca_numericas <- preca_mundial %>% 
   select(PAIS,where(is.numeric))
 
-preca_numericas
+preca_numericas  %>% head(10)
 ```
 ## if_all()      
 La función `if_all()` nos permite ingresar una condicion lógica a evaluar en el contenido de un conjunto de columnas para realizar un filtro. El primer argumento que requiere la función es el conjunto de columnas y el segundo la función a aplicar a cada una de ellas para  determinar los casos que serán filtrados.    
@@ -286,7 +286,7 @@ preca_completo <- preca_mundial %>%
     if_all(starts_with("PRECA"),~!is.na(.x))
          )
 
-preca_completo
+preca_completo %>% head(10)
 ```
 
 ## across() 
