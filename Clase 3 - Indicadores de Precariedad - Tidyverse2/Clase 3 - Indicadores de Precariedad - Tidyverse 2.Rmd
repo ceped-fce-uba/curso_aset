@@ -19,8 +19,8 @@ Esta clase está destinada a profundizar los conocimientos del paquete **tidyver
 
 ## Trabajar con encuestas de hogares
 
-En los Estudios del Trabajo se suele utilizar microdatos provenientes de encuestas de hogares. Estas encuestas son una herramienta para obtener información detallada sobre las características socioeconómicas, demográficas y laborales de las personas que forman parte de los hogares de un país o región. Las encuestas se realizan sobre una muestra de hogares representativa de la población general y suelen ser llevadas a cabo por organismos oficiales de estadística. Su publicación suele hacerse a nivel de personas (donde cada fila del dataframe representa una persona del hogar), aunque también puede haber una publicación a nivel complementaria a nivel de los hogares.
-Si bien las encuestas de hogares tienden a homogeneizarse entre sí, todavía persisten distintos criterios sobre temas como el área de cobertura, las preguntas que se realizan o los clasificadores utilizados, entre otros tantos aspectos. Por ello gran parte del trabajo con los microdatos se realiza junto a un **Diseño de Registro**, que funciona como un ‘diccionario’ sobre las variables del dataframe. En ese documento se indican las preguntas y respuestas relacionadas a cada variable y los valores que éstas toman.
+En los Estudios del Trabajo se suele utilizar microdatos provenientes de encuestas de hogares. Estas encuestas son una herramienta para obtener información detallada sobre las características socioeconómicas, demográficas y laborales de las personas que forman parte de los hogares de un país o región. Las encuestas se realizan sobre una muestra de hogares representativa de la población general y suelen ser llevadas a cabo por organismos oficiales de estadística. Su publicación suele hacerse a nivel de personas (donde cada fila del dataframe representa una persona del hogar), aunque también puede haber una publicación complementaria a nivel de los hogares.
+Gran parte del trabajo con los microdatos se realiza junto a un **Diseño de Registro**, que funciona como un ‘diccionario’ sobre las variables del dataframe. En ese documento se indican las preguntas y respuestas relacionadas a cada variable y los valores que éstas toman. Si bien las encuestas de hogares tienden a homogeneizarse entre sí, todavía persisten distintos criterios sobre temas como el área de cobertura, las preguntas que se realizan o los clasificadores utilizados, entre otros tantos aspectos. Por ello, para realizar comparaciones entre países debemos tomar decisiones para homogeneizar los datos en base a los diseños de registro.
 
 ## Estimaciones sobre precariedad e informalidad laboral 
 
@@ -28,12 +28,15 @@ Cuando trabajamos con estadísticas laborales, muchas veces queremos encontrar l
 
 A lo largo de esta clase vamos a trabajar con dos conceptos muy utilizados en los estudios laborales: la precariedad y la informalidad. Muy sintéticamente hablando, la **precariedad laboral** son situaciones de empleo endeble que implican una inseguridad o riesgo para la persona que trabaja. La forma de medir la incidencia de los empleos precarios se basa en clasificar a las personas ocupadas según si su relación laboral se aleja o no del ‘tipo ideal’ de empleo protegido (con contrato legal, por tiempo indeterminado, tiempo completo, con seguridad social, seguro médico, vacaciones pagas, etc.). En Argentina, por ejemplo, la precariedad se suele medir según la falta de contribuciones al sistema previsional.
 
-Por su parte, el **sector informal** hace referencia una característica típica de los mercados de trabajo latinoamericanos, donde es muy extendido el empleo en actividades simples, en establecimientos pequeños y de muy baja productividad. Según la definición ‘clásica’ del Sector Informal Urbano del PREALC-OIT el sector informal son actividades con poco capital, baja escala y baja tecnología, generalmente realizadas en unidades productivas unipersonales. Cuando existe la contratación de mano de obra, ésta generalmente se basa en relaciones familiares o personales, ya que la relación asalariada no se encuentra plenamente extendida en este sector. 
+Por su parte, el **sector informal** hace referencia a una característica típica de los mercados de trabajo latinoamericanos, donde es muy extendido el empleo en actividades simples, en establecimientos pequeños y de muy baja productividad. Según la definición ‘clásica’ del Sector Informal Urbano del PREALC-OIT, el sector informal son actividades con poco capital, baja escala y baja tecnología, generalmente realizadas en unidades productivas unipersonales. Cuando existe la contratación de mano de obra, ésta generalmente se basa en relaciones familiares o personales, ya que la relación asalariada no se encuentra plenamente extendida en este sector. 
 Pero ahora ¿Cómo se operacionaliza esto? Hay muchos criterios y formas de medir la informalidad. Este es un ejemplo de criterios para clasificar a una persona como integrante del Sector Informal:
 
 -Asalariado/a en establecimientos de hasta 5 personas
+
 -Cuentapropistas no profesionales (con ocupación de baja calificación)
+
 -Trabajador/a familiar sin salario
+
 -Patrones no profesionales en establecimientos de hasta 5 personas
 
 
