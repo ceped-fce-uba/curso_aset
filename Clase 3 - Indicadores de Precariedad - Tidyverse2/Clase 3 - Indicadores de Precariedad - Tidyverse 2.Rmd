@@ -5,7 +5,7 @@ output:
   rmdformats::downcute
 ---
 
-#Introducción 
+# Introducción 
 
 ## Presentación de la clase
 
