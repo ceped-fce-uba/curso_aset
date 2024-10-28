@@ -44,6 +44,7 @@ install.packages("foreign")
 install.packages("janitor")
 ```
 
+Así se debería ver tu consola luego de copiar y pegar los comandos de instalación. Luego hay que dar enter y comienza el proceso de instalación de los paquetes.
 
 ![](img/paquetes.png){width="60%"}
 
@@ -114,9 +115,5 @@ En RStudio seleccionamos File/New Project, luego elegimos “Version Control” 
 
 ![Pantalla Rstudio](img/tutorial14.png){width="60%"}
 
-Insertamos el URL completo en el primer casillero. Si está todo bien se tiene que autocompletar el nombre de la carpeta del proyecto. Hacemos click en “Create Project” y esperamos a la descarga. La descarga puede tardar unos minutos.
-![Pantalla Rstudio](img/tutorial16.png){width="60%"}
+Insertamos el URL completo en el primer casillero. Si está todo bien se tiene que autocompletar el nombre de la carpeta del proyecto. Hacemos click en “Create Project” y esperamos a la descarga. La descarga puede tardar unos minutos y va a generar un carpeta en tu disco local. Cuando termina, ya estamos trabajando dentro del repositorio ```curso_aset```. Vas a poder encontrar la carpeta usando el explorador de archivos. Por defecto, las carpetas de los respositorios se alojan en Documentos.
 
-Cuando termina la descarga, ya estamos trabajando dentro del proyecto precariedad.mundial. Vas a poder encontrar la carpeta usando el explorador de archivos. Por defecto, las carpetas de los respositorios se alojan en Documentos.
-
-![Carpeta del repositorio en el local de nuestra compu](img/tutorial17.png){width="60%"}
