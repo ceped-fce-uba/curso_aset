@@ -134,10 +134,13 @@ calculate_tabulates(base = asalariados_2019_t1,
                          weights = "PONDERA")      ## VER: ME DA ERROR
 ```
 
-> Ejercicio 1 ¿Como calcularíamos la proporción de asalariados con trabajos de duración determinada en cada uno de los grupos de tamaño de establecimiento?
+## Consignas
+
+
+> Consigna 1 ¿Como calcularíamos la proporción de asalariados con trabajos de duración determinada en cada uno de los grupos de tamaño de establecimiento?
 
 ```{r}
-#Ejercicio 1
+#Consigna 1
 ```
 
 ## Co-ocurrencia de fenomenos
@@ -163,10 +166,10 @@ asalariados_2019_t1_signos %>%
   summarise(Poblacion = sum(PONDERA))
 ```
 
-> Ejercicio 3. Calcular la proporción de asalariados con al menos un signo de precariedad laboral utilizando el repositorio ```precariedad.mundial```
+> Consigna 2. Calcular la proporción de asalariados con al menos un signo de precariedad laboral utilizando el repositorio ```precariedad.mundial```
 
 ```{r}
-#Ejercicio 2
+#Consigna 2
 ```
 
 
@@ -180,7 +183,7 @@ Además, en ```fuentes/diccionarios``` podemos encontrar los diccionarios origin
 
 > Consigna 2: Las bases contienen otras variables alternativas que se pueden 'cruzar' con la precareidad. ¿Qué  variables tomarías? Reralizá un tabulado cruzado entre la variable de precariedad y la variable que elegiste. ¿Qué conclusiones podés sacar?
 
-> Ejercicio 3 (si hay tiempo!): ¿Como calcularías la incidencia del Sector Informal en cada uno de los países? ¿Qué variables tomarías en cuenta para operacionalizar el concepto? ¿Qué conclusiones podrías sacar?
+> Consigna 3 (*si hay tiempo!*): ¿Como calcularías la incidencia del Sector Informal en cada uno de los países? ¿Qué variables tomarías en cuenta para operacionalizar el concepto? ¿Qué conclusiones podrías sacar?
 
 
 # Ejercicio 3 - Comparaciones internacionales con el repositorio ```precariedad.mundial```

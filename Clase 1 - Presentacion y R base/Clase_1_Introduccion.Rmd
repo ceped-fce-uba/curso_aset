@@ -775,9 +775,9 @@ Es la integración de las herramientas de Git y GitHub al IDE de RStudio. En el 
 
 Si cuando hacemos click en "Pull" nos sale un mensaje ```Already up to date.``` significa que no hay cambios en el repositorio que no tengamos en nuestra carpeta local.
 
--   [GitHub Desktop](https://docs.github.com/es/desktop/installing-and-configuring-github-desktop/overview/getting-started-with-github-desktop)
+###   [GitHub Desktop](https://docs.github.com/es/desktop/installing-and-configuring-github-desktop/overview/getting-started-with-github-desktop)
 
-Es una aplicación de escritorio que permite interactuar con GitHub de manera aún más amigable. Permite hacer los mismos pasos que con Git, pero de manera más visual. Es otra buena opción para aquellos que no quieren trabajar con la consola de comandos o quieren revisar los cambios hechos en el código.
+Es una aplicación de escritorio que permite interactuar con GitHub de manera aún más amigable. Permite hacer los mismos pasos que con Git, pero con una interfaz gráfica que permite ver los cambios. Es otra buena opción para aquellos que no quieren trabajar con la consola de comandos o quieren revisar los cambios hechos en el código.
 
 ![Visualización de cambios desde Github Desktop](img/git_captura2.png){width="60%"}
 
@@ -785,13 +785,13 @@ Es una aplicación de escritorio que permite interactuar con GitHub de manera a�
 
 Las herramientas más utilizadas actualmente son: 
 
-- *ChatGPT*: conocidísimo modelo desarrollado por OpenAI. Tener en cuenta que, cuando traabajamos con R, debemos darle contexto al chat para que pueda darnos mejores respuestas. El contexto puede ser nuestro script entero o los mensajes que nos salen por consola (como por ejemplo el mensaje que nos sale cuando tenemos un error). También es una buena práctica dar una introducción en forma de texto sobre la actividad que estamos haciendo al menos una vez en un chat.
+- *ChatGPT*: conocidísimo modelo desarrollado por OpenAI. Tener en cuenta que, cuando trabajamos con R, debemos darle contexto al chat para que pueda darnos mejores respuestas. El contexto puede ser nuestro script entero o los mensajes que nos salen por consola (como por ejemplo el mensaje que nos sale cuando tenemos un error). También es una buena práctica dar una introducción en forma de texto sobre la actividad que estamos haciendo al menos una vez en un chat. La forma más simple de interactuar con ChatGPT es escribiendo texto y pegando código a través de la página web [chat.openai.com](https://chat.openai.com/).
 
 - *Github copilot*: herramienta desarrollada por Github que, si bien no da respuestas tan buenas como ChatGPT, tiene integraciones muy cómodas con IDEs. La principal ventaja de esta herramienta es que 'autocompleta' código con sugerencias que muchas veces parecen 'adivinar' lo que queremos hacer! La principal desventaja de GitHub Copilot es que cuesta U$S 10 por mes, aunque hay una prueba gratuita por 30 días.
 
 ## R Studio y Github copilot
 
-**R Studio** tiene una integración desarrollada con Copilot que permite autocompletar código y tomar los comentarios que hacemos con "#" como si fueran prompts. Como decíamos anteriormente, Github Copilot es pago, por lo que primero es necesario suscribirse desde el sitio web de [Github Copilot](https://copilot.github.com/). Luego, en las "Global Options" de **RStudio** seleccionamos "Github copilot" y nos pedirá que ingresemos nuestro usuario y contraseña de Github.Para activar esta integración debemos ir a la pestaña de "Addins" y seleccionar "Github copilot".
+**R Studio** tiene una integración desarrollada con Copilot que permite autocompletar código y tomar los comentarios que hacemos con "#" como si fueran prompts. Como decíamos anteriormente, Github Copilot es pago, por lo que primero es necesario suscribirse desde el [sitio web](https://copilot.github.com/). Luego, en las "Global Options" de **RStudio** seleccionamos "Github copilot" y nos pedirá que ingresemos nuestro usuario y contraseña de Github. Para activar esta integración debemos ir a la pestaña de "Addins" y seleccionar "Github copilot".
 
 ![https://rstudio.github.io/copilot/](img/options_copilot.png){width="60%"}
 
@@ -823,7 +823,7 @@ La ventaja de trabajar con este tipo de herramientas integradas a nuestro IDE es
   
 ![github.com/mlverse/chattr](img/chattr-diagram.png){width="80%"}
 
-
+Como decíamos al comienzo de esta clase, la actividad de progamar cambió mucho gracias a estas herramientas, haciéndola mucho más sencilla y liviana. Te recomendamos que las uses y las integres a tu práctica habitual de programación!
 
 
 
