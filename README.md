@@ -92,29 +92,37 @@ __Clase 5: Markdown, loops y funciones__
 
 <br>
 
-__Clase 6: Git, Github y Trabajo colaborativo__
+__Clase 6: Git, Github y automatizaciones__
 
- [![](img/Download.png)](Clase6.rar)
-
-+ Temas de clase:
-  + Funciones principales del paquete stringr:
-    + Substraer dígitos específicos, detectar patrones simples, operar con el largo de los caracteres 
-  + Introducción a expresiones regulares
++ Introducción a Git y sus comandos
++ Funcionalidades avanzadas de github
+  + Issues
+  + Branches y merges
+  + Github pages
++ Automatización de procesos con R
+  + Expresiones regulares
+  + Introducción al Web Scraping
+  + Tareas programadas
 
 __Clase 7: Power BI__
 
-[![](img/Download.png)](Clase7.rar)
-
-
 + Temas de clase:
+  + Introducción a Power BI
+  + Conexión a bases de datos
+  + Transformación de datos
+  + Creación de visualizaciones
+  + Creación de Dashboards
+  + Publicación de reportes
   
 <br>
 
-__Clase 8: Looker Studio__
-
-[![](img/Download.png)](Clase8.rar)
+__Clase 8: R, GoogleSheets y Looker__
 
 + Temas de clase:
+  + Conexión a Google Sheets desde R
+  + Armado de flujos de datos automatizados
+  + Creación de visualizaciones y dashboards con Looker
+  + Publicación de reportes
 
 <br>
 
