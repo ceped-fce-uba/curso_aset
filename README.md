@@ -32,7 +32,7 @@ __Clase 2 - EPH e Intro a Tidyverse:__
   +	Presentación de la Encuesta Permanente de Hogares (EPH).
   +	Lectura de bases de datos de distintos formatos/extensiones.
   +	Recomendaciones para análisis exploratorio de la base de datos 
-  +	Limpieza de Base de datos: Renombrar y recodificar variables, tratamiento de valores faltantes (missing values/ NA´s)
+  +	Limpieza de Base de datos: Renombrar y recodificar variables
   +	Creación de nuevas variables, selección de variables, ordenamiento y agrupamiento de la base de datos para realizar estimaciones.
   +	Aplicación de filtros sobre la base de datos
   +	Tidyr: Manejar la disposición de la base de datos, pivotear una base (pivot_longer y pivot_wider)
@@ -48,9 +48,16 @@ __Clase 3 - Indicadores de Precariedad y Tidyverse 2:__
  
  
 + Temas de clase:
-  +	Nociones básicas y disucusiones en torno a la informalidad laboral
-  +	Presentación de la base de datos de Precariedad Mundial
-  +     Estimación de indicadores de precariedad con Tidyverse
+  + Tidyverse 2. Herramientas para escalar los procedimientos
+    +  Selectores (starts_with, endts_with) y funciones para operar sobre multiples columnas (if_all(), where(), across()9
+    +  Tratamiento de valores faltantes (missing values/ NA´s)
+  +	Nociones básicas en torno a la informalidad y precariedad laboral
+    + Operacionalización con variables disponibles en la Encuesta Permanente de Hogares
+    + Indicadores unidimensionales de la precariedad laboral y co-ocurrencia de fenómenos	  
+  +	Precariedad Mundial
+    + Elementos para la comparación internacional. Disponibilidad y homogeinización de información disponible en distintos países
+    + Presentación de la base Precariedad Mundial
+    + Estimación de indicadores de comparación internacional
 
 
 <br>
@@ -64,7 +71,7 @@ __Clase 4 – Visualización en R - ggplot:__
     + Variantes en las geom (gráficos de línea, puntos, barras, boxplot).
     + Aestetics de los gráficos 
     + Facets
-
+  + Gráficos interactivos con ggplotly 
 <br>
 
 
@@ -79,8 +86,9 @@ __Clase 5: Markdown, loops y funciones__
     + Definición de tamaño, títulos y formato con el cual se despliegan los gráficos y tablas en el informe
     + Caracteres especiales para incluir múltiples recursos en el texto del informe: Links a páginas web, notas al pie, enumeraciones, cambios en el formato de letra (tamaño, negrita, cursiva)
     + Código embebido en el texto para automatización de reportes
-  + Creación de funciones propias por parte del usuario
   + Estructuras iterativas (Loops)
+  + Creación de funciones propias por parte del usuario
+
 
 <br>
 
