@@ -9,7 +9,7 @@ Los materiales para la cursada se encuentran estructurados por clases. En esta p
 
 __Clase 1 - Presentación y RBase:__
 
-[![](img/Download.png)](Clase1.rar)
+[![](img/Download.png)](Clase 1 - Presentacion y R base/Clase1.zip)
 
 
 + Temas de clase: 

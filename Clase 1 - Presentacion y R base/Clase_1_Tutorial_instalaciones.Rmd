@@ -31,7 +31,7 @@ Hacemos click en el paso 2: Instalar RSudio. Hacemos la instalación utilizando 
 
 ## Instalación de paquetes
 
-Una vez instalados los programas, abrir *Rstudio* e instalar los principales paquetes a utilizar a lo largo del curso, copiando y ejecutando los siguientes comandos en la consola. Deben tener conexión a internet al momento de realizarlo.
+Una vez instalados los programas, abrir *Rstudio* e instalar los principales paquetes a utilizar a lo largo del curso, copiando y ejecutando los siguientes comandos en la consola que aparece en la parte de abajo de la pantalla. Deben tener conexión a internet al momento de realizarlo.
 
 ```{r, eval=FALSE}
 install.packages("tidyverse",dependencies=TRUE)
@@ -43,6 +43,9 @@ install.packages("ggthemes")
 install.packages("foreign")
 install.packages("janitor")
 ```
+
+
+![](img/paquetes.png){width="60%"}
 
 No es indispensable, pero si quieren testear que los paquetes se hayan instalado bien, pueden ejecutar la función *library()* para importar alguno de los paquetes instalados como se muestra a continuación:
 
@@ -69,7 +72,7 @@ install.packages('[xxxx]')
 
 # Github y Git
 
-Mientras RStudio se instala podemos ir haciéndonos un usuario en github.com. Entramos a “Crear una cuenta” e ingresamos con un mail y una nueva clave
+Comenzamos por hacernos un usuario en github.com. Entramos a “Crear una cuenta” e ingresamos con un mail y una nueva clave
 
 ![github.com](img/tutorial6.png){width="60%"}
 
@@ -99,20 +102,19 @@ Es importante que la dirección de correo en `user.email` sea la misma que pusim
 
 # Clonando un repositorio
 
-Ahora vamos a probar clonando un repositorio hecho por los profes del curso, que vamos a usar mas adelante. Buscá el repositorio precariedad.mundial en github.com/Guidowe/precariedad.mundial
+Ahora vamos a clonar el repositorio del curso, donde vamos a ir compartiendo los materiales de las clases. El link para hacerlo es https://github.com/ceped-fce-uba/curso_aset.git. 
 
 ![github.com](img/tutorial11.png){width="60%"}
 
-En el botón verde de “Codigo” vas a encontrar funcionalidades importantes. Entre otas cosas, ahí está disponible el URL entero que necesitamos para insertar en RStudio: <https://github.com/Guidowe/precariedad.mundial.git>
+En el botón verde de “Codigo” vas a encontrar funcionalidades importantes. Entre otas cosas, ahí está disponible el URL que necesitamos para insertar en RStudio: <https://github.com/ceped-fce-uba/curso_aset.git>
 
 ![Pantalla Rstudio](img/tutorial13.png){width="60%"}
 
-En RStudio seleccionamos File/New Project y luego elegimos “Version Control” y “Git”.
+En RStudio seleccionamos File/New Project, luego elegimos “Version Control” y hacemos click en “Git”.
 
 ![Pantalla Rstudio](img/tutorial14.png){width="60%"}
 
-Insertamos el URL completo en el primer casillero. Si está todo bien se tiene que autocompletar el nombre de la carpeta del proyecto. Hacemos click en “Create Project” y esperamos a la descarga. Puede tardar un ratito en clonar el repositorio porque tiene muchas cosas
-
+Insertamos el URL completo en el primer casillero. Si está todo bien se tiene que autocompletar el nombre de la carpeta del proyecto. Hacemos click en “Create Project” y esperamos a la descarga. La descarga puede tardar unos minutos.
 ![Pantalla Rstudio](img/tutorial16.png){width="60%"}
 
 Cuando termina la descarga, ya estamos trabajando dentro del proyecto precariedad.mundial. Vas a poder encontrar la carpeta usando el explorador de archivos. Por defecto, las carpetas de los respositorios se alojan en Documentos.
