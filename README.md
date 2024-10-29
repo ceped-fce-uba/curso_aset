@@ -24,9 +24,7 @@ __Clase 1 - Presentación y RBase:__
 <br>
 
 __Clase 2 - EPH e Intro a Tidyverse:__
- 
- [![](img/Download.png)](Clase2.rar)
- 
+  
  
 + Temas de clase:
   +	Presentación de la Encuesta Permanente de Hogares (EPH).
@@ -43,9 +41,7 @@ __Clase 2 - EPH e Intro a Tidyverse:__
 <br>
 
 __Clase 3 - Indicadores de Precariedad y Tidyverse 2:__
- 
- [![](img/Download.png)](Clase3.rar)
- 
+  
  
 + Temas de clase:
   + Tidyverse 2. Herramientas para escalar los procedimientos
@@ -64,8 +60,6 @@ __Clase 3 - Indicadores de Precariedad y Tidyverse 2:__
 
 __Clase 4 – Visualización en R - ggplot:__
 
- [![](img/Download.png)](Clase4.rar)
-
 + Temas de clase:
   + Introducción al paquete ggplot y la lógica de capas en el armado de gráficos 
     + Variantes en las geom (gráficos de línea, puntos, barras, boxplot).
@@ -77,7 +71,6 @@ __Clase 4 – Visualización en R - ggplot:__
 
 __Clase 5: Markdown, loops y funciones__
 
- [![](img/Download.png)](Clase5.rar)
 
 
 + Temas de clase:
