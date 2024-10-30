@@ -56,7 +56,7 @@ library(tidyverse)
 
 Es normal que algunos de los paquetes arrojen advertencias (*warnings*) o conflictos con otros paquetes, tal como se muestra debajo. Ello no es motivo de preocupación!
 
-![](img/tutorial_warnings_paquetes.png){width="60%"}
+![](img/tutorial_warnings_paquetes.png){width="90%"}
 
 Si existió algún error de instalación, al intentar importar un paquete Rstudio explicitamente nos señalará con el término *Error* la existencia de un problema. Por ejemplo:
 
@@ -73,7 +73,7 @@ install.packages('[xxxx]')
 
 # Github y Git
 
-Comenzamos por hacernos un usuario en github.com. Entramos a “Crear una cuenta” e ingresamos con un mail y una nueva clave
+Git y Github son herramientas para el trabajo colaborativo con código. Comenzamos por hacernos un usuario en github.com. Entramos a “Crear una cuenta” e ingresamos con un mail y una nueva clave.
 
 ![github.com](img/tutorial6.png){width="60%"}
 

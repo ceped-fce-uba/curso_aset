@@ -13,22 +13,11 @@ output:
 
 # Introducción a la automatización
 
-En el análisis de datos y la ciencia de datos moderna, la automatización es una habilidad fundamental para ahorrar tiempo, reducir errores y aumentar la eficiencia en tareas repetitivas. Cuando automatizamos procesos, podemos realizar tareas de manera programada, sin intervención manual, lo que resulta en flujos de trabajo más consistentes y escalables. Los lenguajes de programación orientados a objetos, como R, pueden ser muy útiles para la automatización
-
-
-
-
-
-
-
-
-
+En el análisis de datos, la automatización es una habilidad fundamental para ahorrar tiempo, reducir errores y aumentar la eficiencia en tareas repetitivas. Cuando automatizamos procesos, podemos realizar tareas de manera programada, sin intervención manual, lo que resulta en flujos de trabajo más consistentes y escalables. Los lenguajes de programación orientados a objetos, como R, pueden ser muy útiles para la automatización. En este encuentro vamos a cubrir las siguientes actividades vinculadas al diverso mundo de la automatización: identificación de patrones en texto, web scraping e interacción con Google Sheets.
 
 # Expresiones Regulares (Regex) en R
 
-Las **expresiones regulares** (regex) son una herramienta poderosa para buscar, extraer y manipular texto de manera flexible. En R, las regex son ampliamente utilizadas para tareas como limpieza de datos, validación de formatos de texto, y extracción de patrones específicos dentro de cadenas.
-
-Las regex permiten definir patrones de texto de una forma concisa, especificando caracteres literales, combinaciones de letras, números, y símbolos especiales. Con ellas, es posible realizar tareas que van desde la simple búsqueda de una palabra en un texto hasta la validación de formatos complejos como correos electrónicos o números de teléfono.
+Las **expresiones regulares** (regex) son una herramienta poderosa para buscar, extraer y manipular texto de manera flexible. En R, las regex son ampliamente utilizadas para tareas como limpieza de datos, validación de formatos de texto, y extracción de patrones específicos dentro de cadenas. Las regex permiten definir patrones de texto de una forma concisa, especificando caracteres literales, combinaciones de letras, números, y símbolos especiales. Con ellas, es posible realizar tareas que van desde la simple búsqueda de una palabra en un texto hasta la validación de formatos complejos como correos electrónicos o números de teléfono.
 
 ## Componentes Básicos de las Expresiones Regulares
 
@@ -106,18 +95,85 @@ montos_limpios
 
 #### Ejemplo 4: Pensar algo con EPH o similar
 
+Con la EPH, supongamos que queremos obtener sólos las columnas que empiezan con **VER**. El uso de regex nos permite identificar patrones de texto y extraer las columnas que nos interesan.
+
+```{r ejemplo EPH}
+
+```
+
+# Organización y lectura de archivos
+
+R nos permite escrbir, borrar y guardar archivos, de manera que podemos interactuar con la organización del directorio y los archivos. En RBase tenemos el comando ```list.files()``` que nos permite listar los archivos de un directorio. Si no le ponemos ningún argumento, por defecto lista los archivos del directorio de trabajo en forma de un vector.
+
+```{r list-files}
+# Listar los archivos del directorio de trabajo
+archivos <- list.files()
+
+archivos
+```
+Ingresando el directorio es posible también acceder a los nombres de los archivos en una carpeta específica.
+
+```{r list-files-dir}
+# Listar los archivos de un directorio específico
+archivos_carpeta <- list.files("img")
+archivos_carpeta
+
+```
+Con estos vectores podemos hacer un loop para leer los archivos y utilizar un patrón de texto para utilizar sólo los archivos que cumplen con ese patrón. A continuación un ejemplo de ello un pedazo de script del repositorio **precariedad.mundial**
+
+```{r eval=FALSE}
+rutas <- list.files("Bases_homog/",full.names = T,pattern = ".rds")
+Base <- data.frame()
+for(i in rutas){
+  base_temp<- readRDS(i) %>%
+    mutate(PERIODO = as.character(PERIODO),
+           EDAD = as.numeric(EDAD),
+           ING = as.numeric(ING))
+Base <-   bind_rows(Base,base_temp)
+print(i)
+}
+```
+
+En este ejemplo se el elemento ```rutas``` es un vector con las rutas completas de los archivos con formato .rds en la carpeta **Bases_homog**. Luego se crea un data frame vacío y se itera sobre cada ruta, leyendo el archivo y guardándolo en una base temporal. Luego se unen las bases con ```bind_rows()``` y se imprime la ruta para saber en qué archivo se está trabajando.
 
 # Web Scraping
 
-El **web scraping** es la técnica de extraer datos de páginas web de manera automatizada. En lugar de copiar manualmente la información, con web scraping podemos acceder a páginas web y extraer los datos necesarios de manera eficiente. Es una herramienta muy útil cuando la información no está fácilmente disponible para descarga o en una estructura de base de datos.
+**Web scraping** es la técnica de extraer datos de páginas web de manera automatizada. Utilizando R podemos acceder a páginas web y extraer los datos necesarios de manera eficiente, evitando copiar manualmente la información. En R, el paquete `rvest` es ampliamente utilizado para realizar tareas de web scraping de forma sencilla y efectiva. Otros paquetes útiles incluyen `httr` para manejar solicitudes HTTP y `xml2` para procesar el HTML de las páginas.
 
-En R, el paquete `rvest` es ampliamente utilizado para realizar tareas de web scraping de forma sencilla y efectiva. Otros paquetes útiles incluyen `httr` para manejar solicitudes HTTP y `xml2` para procesar el HTML de las páginas.
+Para hacer web scraping es necesario conocer algunos conceptos básicos de HTML, el lenguaje que se utilza en la web para estructurar y presentar la información. Las páginas web están compuestas por elementos HTML, que se organizan en una estructura jerárquica de etiquetas. Por ejemplo, un título de una noticia puede estar dentro de una etiqueta `<h3>`, mientras que un párrafo de texto puede estar dentro de una etiqueta `<p>`. Para extraer información de una página web, necesitamos identificar las etiquetas HTML que contienen los datos que queremos obtener.
 
-## Paquetes Clave para Web Scraping en R
+```
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Ejemplo1</title>
+  </head>
+  <body>
+    <p>Párrafo de ejemplo</p>
+  </body>
+</html>
+```
 
-- `rvest`: Extrae datos estructurados de HTML.
-- `httr`: Hace solicitudes HTTP.
-- `xml2`: Procesa documentos HTML y XML.
+Hay distintos métodos para acceder a la información que está en una página web. En este curso nos vamos a centrarnos en XPath, un lenguaje de consulta para seleccionar nodos en un documento XML o HTML. Permite navegar a través de la estructura jerárquica de un documento y seleccionar elementos específicos basados en su posición, atributos, o contenido. En el contexto de web scraping, XPath es una herramienta poderosa para identificar y extraer información de páginas web.
+
+```{r }
+
+library(RSelenium)
+
+rD <- rsDriver(browser = "firefox", port = 4545L, verbose = FALSE, 
+               geckoversion = "latest", check = TRUE)
+
+remDr <- rD[["client"]]
+
+# Navigate to a webpage
+remDr$navigate("http://example.com")
+
+
+
+//*[@id="content"]/div[1]/div/div/div/div/div[1]/a/div/div[2]/div[1]
+
+```
 
 ## Ejemplo de Web Scraping con `rvest`
 
