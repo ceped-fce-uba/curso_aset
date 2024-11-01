@@ -89,12 +89,12 @@ Ejecutamos el instalador y elegimos todas las opciones por default. Luego abrimo
 
 ![Pantalla Rstudio](img/tutorial9.png){width="60%"}
 
-Vamos a usar el paquete usethis para configurar Git desde R. Entramos nuestros datos con el siguiente código (si ya está instalado usethis no es necesario correr la primera línea):
+Vamos a usar el paquete ```usethis``` para configurar Git desde R. Entramos nuestros datos con el siguiente código:
 
 ```{r, eval=FALSE}
-Install.packages(“usethis”)
+install.packages("usethis") # Si ya está instalado usethis no es necesario correr esto
 library(usethis)
-use_git_config(user.name="tu_nombre", user.email="tucorreo@gmail.com.ar") #la dirección de correo debe coincidir con la ingresada en Github
+use_git_config(user.name="tu_nombre", user.email="tucorreo@gmail.com.ar") # La dirección de correo debe coincidir con la ingresada en Github
 ```
 
 ![Pantalla Rstudio](img/tutorial10.png){width="60%"}

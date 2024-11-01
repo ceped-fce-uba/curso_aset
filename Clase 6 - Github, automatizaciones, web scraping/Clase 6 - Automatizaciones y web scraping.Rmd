@@ -5,13 +5,9 @@ output:
   rmdformats::downcute
 ---
 
-# Notas
--ver si incluyo Regex
--Incluyo limpieza de datos u
--Imputación de ingresos??
-
-
 # Introducción a la automatización
+
+> ATENCION: Este material todavía está en preparación
 
 En el análisis de datos, la automatización es una habilidad fundamental para ahorrar tiempo, reducir errores y aumentar la eficiencia en tareas repetitivas. Cuando automatizamos procesos, podemos realizar tareas de manera programada, sin intervención manual, lo que resulta en flujos de trabajo más consistentes y escalables. Los lenguajes de programación orientados a objetos, como R, pueden ser muy útiles para la automatización. En este encuentro vamos a cubrir las siguientes actividades vinculadas al diverso mundo de la automatización: identificación de patrones en texto, web scraping e interacción con Google Sheets.
 
@@ -51,8 +47,12 @@ Las **expresiones regulares** (regex) son una herramienta poderosa para buscar, 
 # Vector de prueba
 textos <- c("R es genial", "Regex es poderosa", "R puede ser difícil al principio")
 
-# Buscar la palabra "R"
+# Buscar la letra "R"
 grep("R", textos)
+
+#Buscar la palabra "R"
+grep("\\bR\\b", textos)
+
 ```
 
 ### Ejemplo 2: Uso de `grep()` para buscar un patrón
@@ -93,17 +93,37 @@ montos_limpios <- convertir_a_numerico(montos)
 montos_limpios
 ```
 
-#### Ejemplo 4: Pensar algo con EPH o similar
+#### Ejemplo 4: Seleccionando columnas de la EPH
 
-Con la EPH, supongamos que queremos obtener sólos las columnas que empiezan con **VER**. El uso de regex nos permite identificar patrones de texto y extraer las columnas que nos interesan.
+Con la EPH, supongamos que queremos obtener sólos las columnas que empiezan con "CH". El uso de regex nos permite identificar patrones de texto y extraer las columnas que nos interesan.
 
-```{r ejemplo EPH}
+```{r eval=FALSE}
+
+individual_t117 <- read.table(file = 'bases/usu_individual_t117.txt',
+                              sep=";", 
+                              dec=",", 
+                              header = TRUE, 
+                              fill = TRUE)
+
+colnames(individual_t117)
 
 ```
 
+Con la función grep podemos indicar que sólo tome los nombres que comienzan con "CH" del vector generado por la función ```colnames```. Notar que en la expresión regular se utiliza el caracter especial `^` para indicar que tiene que ser un patrón que se ubique al comienzo del texto. 
+
+```{r eval=FALSE}
+
+ch_columns <- individual_t117[, grep("^CH", colnames(individual_t117))]
+
+ch_columns
+
+```
+
+Este ejemplo puede parecer trivial, pero en la práctica es muy útil para seleccionar columnas de bases de datos con muchas variables y facilita el trabajo de análisis de datos. También sirve para cuando trabajamos con bases datos cuyas variables pueden variar en el nombre de columna pero respetando un patrón.
+
 # Organización y lectura de archivos
 
-R nos permite escrbir, borrar y guardar archivos, de manera que podemos interactuar con la organización del directorio y los archivos. En RBase tenemos el comando ```list.files()``` que nos permite listar los archivos de un directorio. Si no le ponemos ningún argumento, por defecto lista los archivos del directorio de trabajo en forma de un vector.
+R nos permite escrbir, borrar y guardar archivos, de manera que podemos interactuar con la organización del directorio de nuestro disco local. En RBase tenemos el comando ```list.files()``` que nos permite listar los archivos de un directorio. Si no le ponemos ningún argumento, por defecto lista los archivos del directorio de trabajo en forma de un vector.
 
 ```{r list-files}
 # Listar los archivos del directorio de trabajo
@@ -119,7 +139,7 @@ archivos_carpeta <- list.files("img")
 archivos_carpeta
 
 ```
-Con estos vectores podemos hacer un loop para leer los archivos y utilizar un patrón de texto para utilizar sólo los archivos que cumplen con ese patrón. A continuación un ejemplo de ello un pedazo de script del repositorio **precariedad.mundial**
+Con estos vectores podemos hacer un loop para leer los archivos y utilizar un patrón de texto para utilizar sólo los archivos que cumplen con ese patrón. A continuación presentamos un ejemplo de ello en una parte de un script del repositorio **precariedad.mundial**, utilizado para 'pegar' las bases nacionales y crear una base homogénea.
 
 ```{r eval=FALSE}
 rutas <- list.files("Bases_homog/",full.names = T,pattern = ".rds")
@@ -138,9 +158,9 @@ En este ejemplo se el elemento ```rutas``` es un vector con las rutas completas 
 
 # Web Scraping
 
-**Web scraping** es la técnica de extraer datos de páginas web de manera automatizada. Utilizando R podemos acceder a páginas web y extraer los datos necesarios de manera eficiente, evitando copiar manualmente la información. En R, el paquete `rvest` es ampliamente utilizado para realizar tareas de web scraping de forma sencilla y efectiva. Otros paquetes útiles incluyen `httr` para manejar solicitudes HTTP y `xml2` para procesar el HTML de las páginas.
+**Web scraping** es la técnica de extraer datos de páginas web de manera automatizada. Utilizando R podemos acceder a páginas web y extraer los datos necesarios de manera eficiente, evitando copiar manualmente la información. En R, el paquete `rvest` es el más utilizado para realizar tareas de web scraping de forma sencilla y efectiva. Otros paquetes útiles incluyen `httr` para manejar solicitudes HTTP y `xml2` para procesar el HTML de las páginas.
 
-Para hacer web scraping es necesario conocer algunos conceptos básicos de HTML, el lenguaje que se utilza en la web para estructurar y presentar la información. Las páginas web están compuestas por elementos HTML, que se organizan en una estructura jerárquica de etiquetas. Por ejemplo, un título de una noticia puede estar dentro de una etiqueta `<h3>`, mientras que un párrafo de texto puede estar dentro de una etiqueta `<p>`. Para extraer información de una página web, necesitamos identificar las etiquetas HTML que contienen los datos que queremos obtener.
+Para hacer web scraping es necesario conocer algunos conceptos básicos de HTML, que es el lenguaje que se utilza en la web para estructurar y presentar la información. Las páginas web están compuestas por elementos HTML, que se organizan en una estructura jerárquica de etiquetas. Por ejemplo, un título de una noticia puede estar dentro de una etiqueta `<h3>`, mientras que un párrafo de texto puede estar dentro de una etiqueta `<p>`. Para extraer información de una página web, necesitamos identificar las etiquetas HTML que contienen los datos que queremos obtener.
 
 ```
 <!DOCTYPE HTML>
@@ -155,38 +175,18 @@ Para hacer web scraping es necesario conocer algunos conceptos básicos de HTML,
 </html>
 ```
 
-Hay distintos métodos para acceder a la información que está en una página web. En este curso nos vamos a centrarnos en XPath, un lenguaje de consulta para seleccionar nodos en un documento XML o HTML. Permite navegar a través de la estructura jerárquica de un documento y seleccionar elementos específicos basados en su posición, atributos, o contenido. En el contexto de web scraping, XPath es una herramienta poderosa para identificar y extraer información de páginas web.
-
-```{r }
-
-library(RSelenium)
-
-rD <- rsDriver(browser = "firefox", port = 4545L, verbose = FALSE, 
-               geckoversion = "latest", check = TRUE)
-
-remDr <- rD[["client"]]
-
-# Navigate to a webpage
-remDr$navigate("http://example.com")
+Comencemos mirando cómo se ve la página del INDEC si la visitamos utilizando el paquete ```rvest```.
 
 
-
-//*[@id="content"]/div[1]/div/div/div/div/div[1]/a/div/div[2]/div[1]
-
-```
-
-## Ejemplo de Web Scraping con `rvest`
-
-Supongamos que queremos extraer los títulos de las noticias de la página principal de un medio de noticias. Aquí tienes un ejemplo de cómo hacerlo usando R y `rvest`:
-
-```{r scraping-ejemplo, message=FALSE}
-# Instalar y cargar el paquete rvest si no lo tienes instalado
+```{r eval=FALSE }
+# Instalar y cargar el paquete rvest si no lo tenes instalado
 # install.packages("rvest")
+
 library(rvest)
 
-url_indec <- "www.indec.gob.ar"
+page <- read_html("https://www.indec.gob.ar/")
 
-pagina_indec <- read_html(url_indec)
+page
 
 # Extraer los títulos de las noticias (etiquetas <h3>)
 titulos <- pagina %>%
@@ -198,15 +198,17 @@ titulos <- pagina %>%
 head(titulos, 5)
 ```
 
-# Ejemplo con página del INDEC
+Cuando ingresamos la dirección de la página web en la función ```read_html()``` de rvest, obtenemos un objeto HTML del que podemos analizar y extraer información. Este objeto es el mismo código que nuestros navegadores 'leen' para luego mostrarnos una página web. Desde los navegadores usualmente accedemos al código html haciendo click en 'Inspeccionar'. Para extraer datos de la página, necesitamos identificar las etiquetas HTML que contienen la información que queremos obtener. Por ejemplo, si queremos extraer los títulos de las noticias de la página principal, podemos buscar las etiquetas `<h3>` que contienen los títulos.
 
-```{r scraping-indec, message=FALSE}
+### Scrapear con IA
 
+>En construcción
 
+### Xpaths
 
+Hay distintos métodos para acceder a la información que está en una página web. El más utilzado actualmente es XPath, un lenguaje de consulta para seleccionar nodos en un documento XML o HTML. Permite navegar a través de la estructura jerárquica de un documento y seleccionar elementos específicos basados en su posición, atributos, o contenido.
 
-```
-
+>En construcción
 
 # Interacción con Google Sheets
 
@@ -261,13 +263,15 @@ Un poco más avanzado:
 -   **git merge** combina las líneas de desarrollo. Este comando habitualmente se utiliza para combinar los cambios que se realizan en dos ramas distintas. Por ejemplo, un desarrollador podría hacer una fusión cuando necesite combinar los cambios de una rama de característica en la rama de desarrollo principal.
 
 
-# Otras funcionalidades de Github
+## Otras funcionalidades de Github
 
-## Issues para colaborar con un repositorio
+>En construcción
 
-## Github jobs para automatizaciones
+### Issues para colaborar con un repositorio
 
-## Githubpages
+### Github jobs para automatizaciones
+
+### Githubpages
 
 
 
