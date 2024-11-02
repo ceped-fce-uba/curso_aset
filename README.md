@@ -9,9 +9,9 @@ Los materiales para la cursada se encuentran estructurados por clases. En esta p
 
 __Clase 1 - Presentación y RBase:__
 
-[![Download](img/descarga.png)](Clase%201%20-%20Presentacion%20y%20R%20base/Clase1.zip)
-[![Grabación Clase 1 - Parte I](img/YouTubelogo.png)](https://youtu.be/nBEco0mhE2c)
-[![Grabación Clase 1 - Parte II](img/YouTubelogo.png)](https://youtu.be/328iDHikltk)
+[![Download](img/link_zip.png)](Clase%201%20-%20Presentacion%20y%20R%20base/Clase1.zip)
+[![Grabación Clase 1 - Parte I](img/link_video.png)](https://youtu.be/nBEco0mhE2c)
+[![Grabación Clase 1 - Parte II](img/link_video.png)](https://youtu.be/328iDHikltk)
 
 + Temas de clase: 
   +	Descripción del programa “R”. Lógica sintáctica del lenguaje y comandos básicos 
