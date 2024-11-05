@@ -25,7 +25,8 @@ __Clase 1 - Presentación y RBase:__
 <br>
 
 __Clase 2 - EPH e Intro a Tidyverse:__
-  
+
+[![Download](img/link_zip.png)](Clase%202%20-%20EPH%20e%20Intro%20a%20Tidyverse/Clase2.rar)  
  
 + Temas de clase:
   +	Presentación de la Encuesta Permanente de Hogares (EPH).
