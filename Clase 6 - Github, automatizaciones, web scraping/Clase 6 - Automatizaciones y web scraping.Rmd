@@ -9,7 +9,7 @@ output:
 
 > ATENCION: Este material todavía está en preparación
 
-En el análisis de datos, la automatización es una habilidad fundamental para ahorrar tiempo, reducir errores y aumentar la eficiencia en tareas repetitivas. Cuando automatizamos procesos, podemos realizar tareas de manera programada, sin intervención manual, lo que resulta en flujos de trabajo más consistentes y escalables. Los lenguajes de programación orientados a objetos, como R, pueden ser muy útiles para la automatización. En este encuentro vamos a cubrir las siguientes actividades vinculadas al diverso mundo de la automatización: identificación de patrones en texto, web scraping e interacción con Google Sheets.
+En el análisis de datos, la automatización es una habilidad fundamental para ahorrar tiempo, reducir errores y aumentar la eficiencia en tareas repetitivas. Cuando automatizamos procesos, podemos realizar tareas de manera programada, sin intervención manual, lo que resulta en flujos de trabajo más consistentes y escalables. Los lenguajes de programación orientados a objetos, como R, pueden ser muy útiles para la automatización. En este encuentro vamos a cubrir las siguientes actividades vinculadas al diverso mundo de la automatización: identificación de patrones en texto, web scraping, interacción con Google Sheets y programación de tareas. Además profundizaremos en el uso de Github y sus diversas funcionalidades.
 
 # Expresiones Regulares (Regex) en R
 
@@ -184,25 +184,15 @@ Comencemos mirando cómo se ve la página del INDEC si la visitamos utilizando e
 
 library(rvest)
 
-page <- read_html("https://www.indec.gob.ar/")
+page <- read_html("https://www.economia.gob.ar/datos/")
+
+class(page)
 
 page
 
-# Extraer los títulos de las noticias (etiquetas <h3>)
-titulos <- pagina %>%
-  html_nodes("h3") %>%
-  html_text()
-
-
-# Mostrar los primeros 5 títulos extraídos
-head(titulos, 5)
 ```
 
 Cuando ingresamos la dirección de la página web en la función ```read_html()``` de rvest, obtenemos un objeto HTML del que podemos analizar y extraer información. Este objeto es el mismo código que nuestros navegadores 'leen' para luego mostrarnos una página web. Desde los navegadores usualmente accedemos al código html haciendo click en 'Inspeccionar'. Para extraer datos de la página, necesitamos identificar las etiquetas HTML que contienen la información que queremos obtener. Por ejemplo, si queremos extraer los títulos de las noticias de la página principal, podemos buscar las etiquetas `<h3>` que contienen los títulos.
-
-### Scrapear con IA
-
->En construcción
 
 ### Xpaths
 
@@ -221,18 +211,48 @@ La interacción con **Google Sheets** desde R permite automatizar el manejo de d
 
 ## Configuración Inicial
 
-Antes de comenzar a interactuar con Google Sheets, asegúrate de haber instalado los paquetes necesarios:
+Antes de comenzar a interactuar con Google Sheets, asegurate de haber instalado los paquetes necesarios. Luego vas a poder autenticarte con tu usuario corriendo ```gs4_auth()```.
 
 ```{r install-packages}
 # Instalar los paquetes si no están instalados
 # install.packages("googlesheets4")
 # install.packages("googledrive")
+
+library(googlesheets4)
+
+gs4_auth()
+
+```
+Cuando corremos la autenticación por primera vez, se nos va a abrir una ventana en el navegador para que nos autentiquemos con nuestra cuenta de Google. Luego de hacerlo, vamos a poder interactuar con Google Sheets desde R. En caso de que ya lo hayamos hecho antes, tan solo tenemos que seleccionar la cuenta con la que queremos logearnos. Luego podemos crear una hoja de cálculo nueva pasándole como argumentos a ```gs4_create``` un nombre y una lista de data frames que queremos incluir en las distintas hojas de la planilla.
+
+```{r creando_sheet}
+gsheet <- gs4_create("GoogleSheet de prueba", sheets = list(sheet1 = data.frame(A = 1:3, B = 4:6)))
 ```
 
+Para leer una hoja de cálculo existente, podemos utilizar la función ```gs4_get()``` pasándole como argumento el id de la hoja de cálculo. Para obtener el id de una hoja de cálculo, podemos copiar la parte de la URL que contiene el id. Por ejemplo, en la URL `https://docs.google.com/spreadsheets/d/1X2Y3Z/edit#gid=0`, el id es `1X2Y3Z`. Otra forma muy cómoda de acceder a las planillas es mediante la web como lo hacemos normalmente. Para ello podemos compartir el sheet desde el paquete ```googledrive```.
+
+
+```{r compartiendo_sheet}
+
+library(googledrive)
+
+drive_auth() 
+
+drive_share(as_id(gsheet), email_address = "marajadesantelmo@gmail.com", role = "writer")
+```
+Si todo salió bien, nos debería llegar un correo con el link a la hoja de cálculo, tal como nos llega cuando alguien nos comparte un documento de Drive. Ahora veamos un ejemplo en donde procesamos datos y los subimos a googlesheet. 
+
+>En construcción
+
+# Tareas programadas en Windows
+
+Dependiendo el sistema operativo que tengamos, vamos a tener distintas formas de programar tareas. En Windows, podemos utilizar el programador de tareas para ejecutar scripts de R en momentos específicos. Para ello, vamos a necesitar el archivo .bat que nos permitirá ejecutar el script de R. Los .bat son archivos de procesamiento por lotes que contienen una serie de comandos que se ejecutan en secuencia, como si lo estuvieramos ejecutando por la consola de CMD o powershell. En este caso, el archivo .bat va a contener el comando para ejecutar el script de R.
+
+>En construcción
 
 # Github
 
-Desde el primer encuentro que venimos trabajando con Github, pero siempre hay algo nuevo por conocer cuando se trata de esta herramienta para el trabajo colaborativo. 
+Desde el primer encuentro que venimos trabajando con Github, pero siempre hay algo nuevo por conocer cuando se trata de esta herramienta. 
 
 ## Algunos recursos
 
@@ -271,7 +291,7 @@ Un poco más avanzado:
 
 ### Github jobs para automatizaciones
 
-### Githubpages
+### Github Pages
 
 
 

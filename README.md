@@ -21,6 +21,8 @@ __Clase 1 - Presentación y RBase:__
   +	Definición de Objetos: Valores, Vectores, DataFrames y Tibbles, Listas
   +	Tipos de variable (numérica, de caracteres, factores, lógicas)
   +	Funciones
+  + Primera introducción a Github
+  + Programar con herramientas basadas en IA
 
 <br>
 
