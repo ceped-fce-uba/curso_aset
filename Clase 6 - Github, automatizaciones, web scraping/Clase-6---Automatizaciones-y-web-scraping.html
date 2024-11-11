@@ -1510,18 +1510,13 @@ margin-left: 0 !important;
             <li><a href="#configuración-inicial" id="toc-configuración-inicial">Configuración
             Inicial</a></li>
             </ul></li>
+            <li><a href="#tareas-programadas-en-windows" id="toc-tareas-programadas-en-windows">Tareas programadas en
+            Windows</a></li>
             <li><a href="#github" id="toc-github">Github</a>
             <ul>
             <li><a href="#algunos-recursos" id="toc-algunos-recursos">Algunos recursos</a></li>
-            </ul></li>
             <li><a href="#otras-funcionalidades-de-github" id="toc-otras-funcionalidades-de-github">Otras
-            funcionalidades de Github</a>
-            <ul>
-            <li><a href="#issues-para-colaborar-con-un-repositorio" id="toc-issues-para-colaborar-con-un-repositorio">Issues
-            para colaborar con un repositorio</a></li>
-            <li><a href="#github-jobs-para-automatizaciones" id="toc-github-jobs-para-automatizaciones">Github jobs para
-            automatizaciones</a></li>
-            <li><a href="#githubpages" id="toc-githubpages">Githubpages</a></li>
+            funcionalidades de Github</a></li>
             </ul></li>
             </ul>
           </div>
@@ -1547,6 +1542,9 @@ producción y difusión de estadísticas socioeconómicas - ASET</h1>
 <div class="page-content has-page-title">
 <div id="introducción-a-la-automatización" class="section level1">
 <h1>Introducción a la automatización</h1>
+<blockquote>
+<p>ATENCION: Este material todavía está en preparación</p>
+</blockquote>
 <p>En el análisis de datos, la automatización es una habilidad
 fundamental para ahorrar tiempo, reducir errores y aumentar la
 eficiencia en tareas repetitivas. Cuando automatizamos procesos, podemos
@@ -1555,8 +1553,9 @@ resulta en flujos de trabajo más consistentes y escalables. Los
 lenguajes de programación orientados a objetos, como R, pueden ser muy
 útiles para la automatización. En este encuentro vamos a cubrir las
 siguientes actividades vinculadas al diverso mundo de la automatización:
-identificación de patrones en texto, web scraping e interacción con
-Google Sheets.</p>
+identificación de patrones en texto, web scraping, interacción con
+Google Sheets y programación de tareas. Además profundizaremos en el uso
+de Github y sus diversas funcionalidades.</p>
 </div>
 <div id="expresiones-regulares-regex-en-r" class="section level1">
 <h1>Expresiones Regulares (Regex) en R</h1>
@@ -1708,17 +1707,14 @@ forma de un vector.</p>
 archivos &lt;- list.files()
 
 archivos</code></pre>
-<pre><code>##  [1] &quot;bases&quot;                                        
-##  [2] &quot;Clase-6---Automatizaciones-y-web-scraping.Rmd&quot;
-##  [3] &quot;Clase 6 - Automatizaciones y web scraping.Rmd&quot;
-##  [4] &quot;flujos_de_trabajo.html&quot;                       
-##  [5] &quot;flujos_de_trabajo.Rmd&quot;                        
-##  [6] &quot;geckodriver.exe&quot;                              
-##  [7] &quot;google_sheets.R&quot;                              
-##  [8] &quot;img&quot;                                          
-##  [9] &quot;libs&quot;                                         
-## [10] &quot;nota_git.html&quot;                                
-## [11] &quot;nota_git.Rmd&quot;</code></pre>
+<pre><code>## [1] &quot;bases&quot;                                         
+## [2] &quot;Clase-6---Automatizaciones-y-web-scraping.html&quot;
+## [3] &quot;Clase-6---Automatizaciones-y-web-scraping.Rmd&quot; 
+## [4] &quot;Clase 6 - Automatizaciones y web scraping.Rmd&quot; 
+## [5] &quot;geckodriver.exe&quot;                               
+## [6] &quot;google_sheets.R&quot;                               
+## [7] &quot;img&quot;                                           
+## [8] &quot;libs&quot;</code></pre>
 <p>Ingresando el directorio es posible también acceder a los nombres de
 los archivos en una carpeta específica.</p>
 <pre class="r"><code># Listar los archivos de un directorio específico
@@ -1797,18 +1793,11 @@ utilizando el paquete <code>rvest</code>.</p>
 
 library(rvest)
 
-page &lt;- read_html(&quot;https://www.indec.gob.ar/&quot;)
+page &lt;- read_html(&quot;https://www.economia.gob.ar/datos/&quot;)
 
-page
+class(page)
 
-# Extraer los títulos de las noticias (etiquetas &lt;h3&gt;)
-titulos &lt;- pagina %&gt;%
-  html_nodes(&quot;h3&quot;) %&gt;%
-  html_text()
-
-
-# Mostrar los primeros 5 títulos extraídos
-head(titulos, 5)</code></pre>
+page</code></pre>
 <p>Cuando ingresamos la dirección de la página web en la función
 <code>read_html()</code> de rvest, obtenemos un objeto HTML del que
 podemos analizar y extraer información. Este objeto es el mismo código
@@ -1819,12 +1808,6 @@ identificar las etiquetas HTML que contienen la información que queremos
 obtener. Por ejemplo, si queremos extraer los títulos de las noticias de
 la página principal, podemos buscar las etiquetas
 <code>&lt;h3&gt;</code> que contienen los títulos.</p>
-<div id="scrapear-con-ia" class="section level3">
-<h3>Scrapear con IA</h3>
-<blockquote>
-<p>En construcción</p>
-</blockquote>
-</div>
 <div id="xpaths" class="section level3">
 <h3>Xpaths</h3>
 <p>Hay distintos métodos para acceder a la información que está en una
@@ -1857,18 +1840,92 @@ hojas de cálculo.</li>
 </div>
 <div id="configuración-inicial" class="section level2">
 <h2>Configuración Inicial</h2>
-<p>Antes de comenzar a interactuar con Google Sheets, asegúrate de haber
-instalado los paquetes necesarios:</p>
+<p>Antes de comenzar a interactuar con Google Sheets, asegurate de haber
+instalado los paquetes necesarios. Luego vas a poder autenticarte con tu
+usuario corriendo <code>gs4_auth()</code>.</p>
 <pre class="r"><code># Instalar los paquetes si no están instalados
 # install.packages(&quot;googlesheets4&quot;)
-# install.packages(&quot;googledrive&quot;)</code></pre>
+# install.packages(&quot;googledrive&quot;)
+
+library(googlesheets4)</code></pre>
+<pre><code>## Warning: package &#39;googlesheets4&#39; was built under R version 4.2.3</code></pre>
+<pre class="r"><code>gs4_auth()</code></pre>
+<pre><code>## ! Using an auto-discovered, cached token.</code></pre>
+<pre><code>##   To suppress this message, modify your code or options to clearly consent to
+##   the use of a cached token.</code></pre>
+<pre><code>##   See gargle&#39;s &quot;Non-interactive auth&quot; vignette for more details:</code></pre>
+<pre><code>##   &lt;https://gargle.r-lib.org/articles/non-interactive-auth.html&gt;</code></pre>
+<pre><code>## ℹ The googlesheets4 package is using a cached token for
+##   &#39;marajadesantelmo@gmail.com&#39;.</code></pre>
+<p>Cuando corremos la autenticación por primera vez, se nos va a abrir
+una ventana en el navegador para que nos autentiquemos con nuestra
+cuenta de Google. Luego de hacerlo, vamos a poder interactuar con Google
+Sheets desde R. En caso de que ya lo hayamos hecho antes, tan solo
+tenemos que seleccionar la cuenta con la que queremos logearnos. Luego
+podemos crear una hoja de cálculo nueva pasándole como argumentos a
+<code>gs4_create</code> un nombre y una lista de data frames que
+queremos incluir en las distintas hojas de la planilla.</p>
+<pre class="r"><code>gsheet &lt;- gs4_create(&quot;GoogleSheet de prueba&quot;, sheets = list(sheet1 = data.frame(A = 1:3, B = 4:6)))</code></pre>
+<pre><code>## ✔ Creating new Sheet: &quot;GoogleSheet de prueba&quot;.</code></pre>
+<p>Para leer una hoja de cálculo existente, podemos utilizar la función
+<code>gs4_get()</code> pasándole como argumento el id de la hoja de
+cálculo. Para obtener el id de una hoja de cálculo, podemos copiar la
+parte de la URL que contiene el id. Por ejemplo, en la URL
+<code>https://docs.google.com/spreadsheets/d/1X2Y3Z/edit#gid=0</code>,
+el id es <code>1X2Y3Z</code>. Otra forma muy cómoda de acceder a las
+planillas es mediante la web como lo hacemos normalmente. Para ello
+podemos compartir el sheet desde el paquete
+<code>googledrive</code>.</p>
+<pre class="r"><code>library(googledrive)</code></pre>
+<pre><code>## Warning: package &#39;googledrive&#39; was built under R version 4.2.3</code></pre>
+<pre><code>## 
+## Attaching package: &#39;googledrive&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:googlesheets4&#39;:
+## 
+##     request_generate, request_make</code></pre>
+<pre class="r"><code>drive_auth() </code></pre>
+<pre><code>## ! Using an auto-discovered, cached token.</code></pre>
+<pre><code>##   To suppress this message, modify your code or options to clearly consent to
+##   the use of a cached token.</code></pre>
+<pre><code>##   See gargle&#39;s &quot;Non-interactive auth&quot; vignette for more details:</code></pre>
+<pre><code>##   &lt;https://gargle.r-lib.org/articles/non-interactive-auth.html&gt;</code></pre>
+<pre><code>## ℹ The googledrive package is using a cached token for
+##   &#39;marajadesantelmo@gmail.com&#39;.</code></pre>
+<pre class="r"><code>drive_share(as_id(gsheet), email_address = &quot;marajadesantelmo@gmail.com&quot;, role = &quot;writer&quot;)</code></pre>
+<pre><code>## Permissions updated:</code></pre>
+<pre><code>## • role = writer</code></pre>
+<pre><code>## • type = user</code></pre>
+<pre><code>## For file:</code></pre>
+<pre><code>## • &#39;GoogleSheet de prueba&#39; &lt;id: 1m7MhNnIcpWOWLTmXnFh78YVCSlfjo0Q_kE2BbMccmEU&gt;</code></pre>
+<p>Si todo salió bien, nos debería llegar un correo con el link a la
+hoja de cálculo, tal como nos llega cuando alguien nos comparte un
+documento de Drive. Ahora veamos un ejemplo en donde procesamos datos y
+los subimos a googlesheet.</p>
+<blockquote>
+<p>En construcción</p>
+</blockquote>
 </div>
+</div>
+<div id="tareas-programadas-en-windows" class="section level1">
+<h1>Tareas programadas en Windows</h1>
+<p>Dependiendo el sistema operativo que tengamos, vamos a tener
+distintas formas de programar tareas. En Windows, podemos utilizar el
+programador de tareas para ejecutar scripts de R en momentos
+específicos. Para ello, vamos a necesitar el archivo .bat que nos
+permitirá ejecutar el script de R. Los .bat son archivos de
+procesamiento por lotes que contienen una serie de comandos que se
+ejecutan en secuencia, como si lo estuvieramos ejecutando por la consola
+de CMD o powershell. En este caso, el archivo .bat va a contener el
+comando para ejecutar el script de R.</p>
+<blockquote>
+<p>En construcción</p>
+</blockquote>
 </div>
 <div id="github" class="section level1">
 <h1>Github</h1>
 <p>Desde el primer encuentro que venimos trabajando con Github, pero
-siempre hay algo nuevo por conocer cuando se trata de esta herramienta
-para el trabajo colaborativo.</p>
+siempre hay algo nuevo por conocer cuando se trata de esta
+herramienta.</p>
 <div id="algunos-recursos" class="section level2">
 <h2>Algunos recursos</h2>
 <p><a href="https://docs.github.com/es/get-started/onboarding/getting-started-with-your-github-account">¿Cómo
@@ -1912,17 +1969,20 @@ hacer una fusión cuando necesite combinar los cambios de una rama de
 característica en la rama de desarrollo principal.</p></li>
 </ul>
 </div>
+<div id="otras-funcionalidades-de-github" class="section level2">
+<h2>Otras funcionalidades de Github</h2>
+<blockquote>
+<p>En construcción</p>
+</blockquote>
+<div id="issues-para-colaborar-con-un-repositorio" class="section level3">
+<h3>Issues para colaborar con un repositorio</h3>
 </div>
-<div id="otras-funcionalidades-de-github" class="section level1">
-<h1>Otras funcionalidades de Github</h1>
-<div id="issues-para-colaborar-con-un-repositorio" class="section level2">
-<h2>Issues para colaborar con un repositorio</h2>
+<div id="github-jobs-para-automatizaciones" class="section level3">
+<h3>Github jobs para automatizaciones</h3>
 </div>
-<div id="github-jobs-para-automatizaciones" class="section level2">
-<h2>Github jobs para automatizaciones</h2>
+<div id="github-pages" class="section level3">
+<h3>Github Pages</h3>
 </div>
-<div id="githubpages" class="section level2">
-<h2>Githubpages</h2>
 </div>
 </div>
 </div>
