@@ -43,6 +43,8 @@ __Clase 2 - EPH e Intro a Tidyverse:__
 <br>
 
 __Clase 3 - Indicadores de Precariedad y Tidyverse 2:__
+
+[![Download](img/link_zip.png)](Clase%203%20-%20Indicadores%20de%20Precariedad%20-%20Tidyverse2/Clase3.rar)  
   
  
 + Temas de clase:
