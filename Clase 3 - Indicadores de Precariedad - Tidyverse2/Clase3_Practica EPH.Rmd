@@ -1,0 +1,71 @@
+---
+title: "Clase 3. Práctica EPH"
+output: html_notebook
+---
+
+# Ejercicios de práctica con variables de ingresos.
+
+Levantar la base individual de la EPH del 1t de 2017 (Pueden tomarla de la clase 1 o usar el paquete "eph")
+
+```{r message=FALSE, warning=FALSE}
+# library(tidyverse)
+# base <- eph::get_microdata(2017,1)
+```
+
+Crear un dataframe con las siguientes estimaciones:
+
+-   Total ponderado de perceptores de ingresos (es decir con ingresos totales individuales mayores a 0. Variable **P47T**, ver ponderador adecuado!)
+-   Cantidad de perceptores de ingresos con ingreso individual total menor a \$8.000
+-   Cantidad de perceptores de ingresos con ingreso individual total entre \$8.000 y \$15.000
+-   Cantidad de perceptores de ingresos con ingreso individual total mayor a \$15.000
+
+```{r}
+
+```
+
+Estimar cuantas personas habitan en hogares con ingresos totales familiares (ITF) menores a \$15.000
+
+```{r echo=TRUE}
+
+```
+
+# Composición de Hogares
+
+-   La variable **CODUSU** distingue distintas viviendas dentro de la base de datos. O lo que es lo mismo, un mismo CODUSU permite identificar que registros corresponden a personas que habitan una misma vivienda.\
+-   La variable **NRO_HOGAR** distingue distintos hogares dentro de una misma vivienda. Un **mismo CODUSU y mismo NRO_HOGAR** permite identificar personas que forman parte de un mismo hogar
+-   La variable **COMPONENTE** distingue distintas personas dentro de un hogar.
+
+<br>
+
+Por ejemplo, en estos 10 casos tenemos 5 hogares diferentes:
+
+-   El finalizado en **338**: Dos personas, una mujer de 75 años y un varón de 68\
+-   El finalizado en **007**: Hogar unipersonal, varón de 69.\
+-   El finalizado en **345**: Hogar de 3 personas. Mujer de 39, mujer de 16, varón de 9 años.
+
+![](img/ejemplo%20eph.JPG)
+
+En este caso, no vemos dos hogares distintos en una misma vivienda...
+
+<br>
+
+Consignas:
+
+-   ¿Cuantas viviendas distintas hay en la base de datos?\
+
+-   ¿Cuantos hogares distintos hay en la base de datos?\
+
+-   Construir dentro de la base una variable que identifique el total de personas presentes en el hogar que habita cada individuo. Pista: La función *n()* permite contar la cantidad de registros de un determinado agrupamiento.\
+
+-   ¿Cuantas personas habitan en hogares de 7 o más integrantes?
+
+-   ¿Cual es el ingreso familiar per capita en estos hogares?
+
+```{r, include=FALSE}
+#length(unique(base$CODUSU))
+#nrow(unique(base[,c("CODUSU","NRO_HOGAR")]))
+
+#base_2 <- base %>% 
+#  group_by(CODUSU,NRO_HOGAR) %>% 
+#  mutate(personas_en_hogar = n())
+```

@@ -30,20 +30,24 @@ Los materiales para la cursada se encuentran estructurados por clases. En esta p
 [![Download](img/link_zip.png)](Clase%202%20-%20EPH%20e%20Intro%20a%20Tidyverse/Clase2.rar) [![Grabación Clase 2](img/link_video.png)](https://www.youtube.com/watch?v=SU7Jq3P3Iok)
 
 -   Temas de clase:
-    -   Presentación de la Encuesta Permanente de Hogares (EPH).
-    -   Lectura de bases de datos de distintos formatos/extensiones.
-    -   Recomendaciones para análisis exploratorio de la base de datos
-    -   Limpieza de Base de datos: Renombrar y recodificar variables
-    -   Creación de nuevas variables, selección de variables, ordenamiento y agrupamiento de la base de datos para realizar estimaciones.
-    -   Aplicación de filtros sobre la base de datos
-    -   Tidyr: Manejar la disposición de la base de datos, pivotear una base (pivot_longer y pivot_wider)
-    -   Operaciones de unión de bases de datos (Joins y bind_rows)
-    -   Medidas de resumen de la información
+  +	Presentación de la Encuesta Permanente de Hogares (EPH).
+  +	Lectura de bases de datos de distintos formatos/extensiones.
+  +	Recomendaciones para análisis exploratorio de la base de datos 
+  +	Limpieza de Base de datos: Renombrar y recodificar variables
+  +	Creación de nuevas variables, selección de variables, ordenamiento y agrupamiento de la base de datos para realizar estimaciones.
+  +	Aplicación de filtros sobre la base de datos
+  +	Tidyr: Manejar la disposición de la base de datos, pivotear una base (pivot_longer y pivot_wider)
+  +	Operaciones de unión de bases de datos (Joins y bind_rows) 
+  +	Medidas de resumen de la información
 
+  
 <br>
 
-**Clase 3 - Indicadores de Precariedad y Tidyverse 2:**
+__Clase 3 - Indicadores de Precariedad y Tidyverse 2:__
 
+[![Download](img/link_zip.png)](Clase%203%20-%20Indicadores%20de%20Precariedad%20-%20Tidyverse2/Clase3.rar)  
+  
+ 
 -   Temas de clase:
     -   Tidyverse 2. Herramientas para escalar los procedimientos
         -   Selectores (starts_with, endts_with) y funciones para operar sobre multiples columnas (if_all(), where(), across()9
