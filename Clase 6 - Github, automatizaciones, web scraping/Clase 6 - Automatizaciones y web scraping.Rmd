@@ -17,25 +17,25 @@ Las **expresiones regulares** (regex) son una herramienta poderosa para buscar, 
 
 ## Componentes Básicos de las Expresiones Regulares
 
-- `.`: Representa cualquier carácter.
-- `*`: Cero o más repeticiones del carácter o grupo anterior.
-- `+`: Una o más repeticiones del carácter o grupo anterior.
-- `?`: Cero o una aparición del carácter o grupo anterior.
-- `^`: Inicio de una línea.
-- `$`: Fin de una línea.
-- `[ ]`: Define un conjunto de caracteres. Por ejemplo, `[0-9]` busca cualquier número del 0 al 9.
-- `|`: Alternativa lógica (OR). Por ejemplo, `a|b` busca 'a' o 'b'.
-- `()` : Agrupa caracteres para aplicar operadores.
-- `\`: Escapa caracteres especiales para usarlos como literales.
+-   `.`: Representa cualquier carácter.
+-   `*`: Cero o más repeticiones del carácter o grupo anterior.
+-   `+`: Una o más repeticiones del carácter o grupo anterior.
+-   `?`: Cero o una aparición del carácter o grupo anterior.
+-   `^`: Inicio de una línea.
+-   `$`: Fin de una línea.
+-   `[ ]`: Define un conjunto de caracteres. Por ejemplo, `[0-9]` busca cualquier número del 0 al 9.
+-   `|`: Alternativa lógica (OR). Por ejemplo, `a|b` busca 'a' o 'b'.
+-   `()` : Agrupa caracteres para aplicar operadores.
+-   `\`: Escapa caracteres especiales para usarlos como literales.
 
 *Atención!* Hoy en día con las herramientas basadas en IA ya no hace falta aprender cómo redactar una expresión regular, lo que ha facilitado mucho el trabajo con regex. Sí es importante que chequeemos el correcto funcionamiento de nuestra expresión regular para ver si matchea como los esperamos. Una herramienta muy práctica para ello está en <https://reger.com/>
 
 ## Funciones Clave de Regex en R
 
-- `grep()`: Encuentra coincidencias en vectores.
-- `grepl()`: Retorna un valor lógico (`TRUE` o `FALSE`) si encuentra coincidencias.
-- `gsub()`: Reemplaza coincidencias de un patrón en un texto.
-- `str_extract()` y `str_replace()` del paquete **stringr**.
+-   `grep()`: Encuentra coincidencias en vectores.
+-   `grepl()`: Retorna un valor lógico (`TRUE` o `FALSE`) si encuentra coincidencias.
+-   `gsub()`: Reemplaza coincidencias de un patrón en un texto.
+-   `str_extract()` y `str_replace()` del paquete **stringr**.
 
 ## Ejemplos
 
@@ -66,9 +66,9 @@ texto_numeros <- "Hay 12 gatos y 34 perros en 2024"
 str_extract_all(texto_numeros, "[0-9]+")
 ```
 
-### Ejemplo 3: Limpio valores en $
+### Ejemplo 3: Limpio valores en \$
 
-Es muy común encontrar valores 'sucios' cuando tratamos con montos de dinero. El comando ```gsub``` permite sustitur los strings que matcheen con nuestro regex por los caracteres que queramos. Cuando le pasamos "" como argumento, le estamos diciendo que directamente borre los caracteres que coinciden con nuestra búsqueda 
+Es muy común encontrar valores 'sucios' cuando tratamos con montos de dinero. El comando `gsub` permite sustitur los strings que matcheen con nuestro regex por los caracteres que queramos. Cuando le pasamos "" como argumento, le estamos diciendo que directamente borre los caracteres que coinciden con nuestra búsqueda
 
 ```{r gsub-ejemplo}
 # Crear un vector con ejemplos de montos en formato string
@@ -109,7 +109,7 @@ colnames(individual_t117)
 
 ```
 
-Con la función grep podemos indicar que sólo tome los nombres que comienzan con "CH" del vector generado por la función ```colnames```. Notar que en la expresión regular se utiliza el caracter especial `^` para indicar que tiene que ser un patrón que se ubique al comienzo del texto. 
+Con la función grep podemos indicar que sólo tome los nombres que comienzan con "CH" del vector generado por la función `colnames`. Notar que en la expresión regular se utiliza el caracter especial `^` para indicar que tiene que ser un patrón que se ubique al comienzo del texto.
 
 ```{r eval=FALSE}
 
@@ -123,7 +123,7 @@ Este ejemplo puede parecer trivial, pero en la práctica es muy útil para selec
 
 # Organización y lectura de archivos
 
-R nos permite escrbir, borrar y guardar archivos, de manera que podemos interactuar con la organización del directorio de nuestro disco local. En RBase tenemos el comando ```list.files()``` que nos permite listar los archivos de un directorio. Si no le ponemos ningún argumento, por defecto lista los archivos del directorio de trabajo en forma de un vector.
+R nos permite escrbir, borrar y guardar archivos, de manera que podemos interactuar con la organización del directorio de nuestro disco local. En RBase tenemos el comando `list.files()` que nos permite listar los archivos de un directorio. Si no le ponemos ningún argumento, por defecto lista los archivos del directorio de trabajo en forma de un vector.
 
 ```{r list-files}
 # Listar los archivos del directorio de trabajo
@@ -131,6 +131,7 @@ archivos <- list.files()
 
 archivos
 ```
+
 Ingresando el directorio es posible también acceder a los nombres de los archivos en una carpeta específica.
 
 ```{r list-files-dir}
@@ -139,6 +140,7 @@ archivos_carpeta <- list.files("img")
 archivos_carpeta
 
 ```
+
 Con estos vectores podemos hacer un loop para leer los archivos y utilizar un patrón de texto para utilizar sólo los archivos que cumplen con ese patrón. A continuación presentamos un ejemplo de ello en una parte de un script del repositorio **precariedad.mundial**, utilizado para 'pegar' las bases nacionales y crear una base homogénea.
 
 ```{r eval=FALSE}
@@ -154,7 +156,7 @@ print(i)
 }
 ```
 
-En este ejemplo se el elemento ```rutas``` es un vector con las rutas completas de los archivos con formato .rds en la carpeta **Bases_homog**. Luego se crea un data frame vacío y se itera sobre cada ruta, leyendo el archivo y guardándolo en una base temporal. Luego se unen las bases con ```bind_rows()``` y se imprime la ruta para saber en qué archivo se está trabajando.
+En este ejemplo se el elemento `rutas` es un vector con las rutas completas de los archivos con formato .rds en la carpeta **Bases_homog**. Luego se crea un data frame vacío y se itera sobre cada ruta, leyendo el archivo y guardándolo en una base temporal. Luego se unen las bases con `bind_rows()` y se imprime la ruta para saber en qué archivo se está trabajando.
 
 # Web Scraping
 
@@ -162,7 +164,7 @@ En este ejemplo se el elemento ```rutas``` es un vector con las rutas completas 
 
 Para hacer web scraping es necesario conocer algunos conceptos básicos de HTML, que es el lenguaje que se utilza en la web para estructurar y presentar la información. Las páginas web están compuestas por elementos HTML, que se organizan en una estructura jerárquica de etiquetas. Por ejemplo, un título de una noticia puede estar dentro de una etiqueta `<h3>`, mientras que un párrafo de texto puede estar dentro de una etiqueta `<p>`. Para extraer información de una página web, necesitamos identificar las etiquetas HTML que contienen los datos que queremos obtener.
 
-```
+```         
 <!DOCTYPE HTML>
 <html>
   <head>
@@ -175,8 +177,7 @@ Para hacer web scraping es necesario conocer algunos conceptos básicos de HTML,
 </html>
 ```
 
-Comencemos mirando cómo se ve la página del INDEC si la visitamos utilizando el paquete ```rvest```.
-
+Comencemos mirando cómo se ve una página de noticias usando `rvest`.
 
 ```{r eval=FALSE }
 # Instalar y cargar el paquete rvest si no lo tenes instalado
@@ -184,7 +185,7 @@ Comencemos mirando cómo se ve la página del INDEC si la visitamos utilizando e
 
 library(rvest)
 
-page <- read_html("https://www.economia.gob.ar/datos/")
+page <- read_html("https://www.pagina12.com.ar")
 
 class(page)
 
@@ -192,13 +193,55 @@ page
 
 ```
 
-Cuando ingresamos la dirección de la página web en la función ```read_html()``` de rvest, obtenemos un objeto HTML del que podemos analizar y extraer información. Este objeto es el mismo código que nuestros navegadores 'leen' para luego mostrarnos una página web. Desde los navegadores usualmente accedemos al código html haciendo click en 'Inspeccionar'. Para extraer datos de la página, necesitamos identificar las etiquetas HTML que contienen la información que queremos obtener. Por ejemplo, si queremos extraer los títulos de las noticias de la página principal, podemos buscar las etiquetas `<h3>` que contienen los títulos.
+Cuando ingresamos la dirección de la página web en la función `read_html()` de rvest, obtenemos un objeto HTML del que podemos analizar y extraer información. Este objeto es el mismo código que nuestros navegadores 'leen' para luego mostrarnos una página web. Desde los navegadores usualmente accedemos al código html haciendo click en 'Inspeccionar'. Para extraer datos de la página, necesitamos identificar las etiquetas HTML que contienen la información que queremos obtener. Por ejemplo, si queremos extraer los títulos de las noticias de la página principal, podemos buscar las etiquetas `<h3>` que contienen los títulos. El comando `html_nodes()` nos permite seleccionar nodos HTML de la página, y `html_text()` nos permite extraer el texto de los nodos seleccionados.
+
+```{r }
+# get text of all h2 tags
+h2_tags <- page %>% html_nodes("h2") %>% html_text()
+
+```
 
 ### Xpaths
 
 Hay distintos métodos para acceder a la información que está en una página web. El más utilzado actualmente es XPath, un lenguaje de consulta para seleccionar nodos en un documento XML o HTML. Permite navegar a través de la estructura jerárquica de un documento y seleccionar elementos específicos basados en su posición, atributos, o contenido.
 
->En construcción
+```{r }
+
+page2 <- read_html("https://www.argentina.gob.ar/encuesta-de-indicadores-laborales")
+
+
+# get text using xpath
+h2_tags_xpath <- page2 %>% html_nodes(xpath = '//*[@id="block-system-main"]/section[1]/article/div/div/div/div/table') %>% html_text()
+
+
+```
+
+```{r }
+library(tidyverse)
+
+lines <- str_split(h2_tags_xpath, "\n")[[1]]
+
+cleaned_lines <- lines %>%
+  str_trim() %>%
+  .[. != ""]
+
+encabezados <- cleaned_lines[1:2] 
+regiones <- cleaned_lines[c(3,6,9)]
+mensual_values <- cleaned_lines[c(4,7,10)]
+anual_values <- cleaned_lines[c(5,8,11)]
+
+# Combine data into a DataFrame
+df <- data.frame(
+  regiones,
+  mensual_values,
+  anual_values
+)
+
+colnames(df) <- c("Region", encabezados)
+
+print(df)
+```
+
 
 # Interacción con Google Sheets
 
@@ -206,14 +249,14 @@ La interacción con **Google Sheets** desde R permite automatizar el manejo de d
 
 ## Paquetes para Interacción con Google Sheets
 
-- `googlesheets4`: Permite acceder a Google Sheets y realizar operaciones como leer, escribir y modificar datos.
-- `googledrive`: Facilita la autenticación y el manejo de archivos en Google Drive, que es útil cuando se trabaja con múltiples hojas de cálculo.
+-   `googlesheets4`: Permite acceder a Google Sheets y realizar operaciones como leer, escribir y modificar datos.
+-   `googledrive`: Facilita la autenticación y el manejo de archivos en Google Drive, que es útil cuando se trabaja con múltiples hojas de cálculo.
 
 ## Configuración Inicial
 
-Antes de comenzar a interactuar con Google Sheets, asegurate de haber instalado los paquetes necesarios. Luego vas a poder autenticarte con tu usuario corriendo ```gs4_auth()```.
+Antes de comenzar a interactuar con Google Sheets, asegurate de haber instalado los paquetes necesarios. Luego vas a poder autenticarte con tu usuario corriendo `gs4_auth()`.
 
-```{r install-packages}
+```{r install-packages, eval=FALSE}
 # Instalar los paquetes si no están instalados
 # install.packages("googlesheets4")
 # install.packages("googledrive")
@@ -223,16 +266,16 @@ library(googlesheets4)
 gs4_auth()
 
 ```
-Cuando corremos la autenticación por primera vez, se nos va a abrir una ventana en el navegador para que nos autentiquemos con nuestra cuenta de Google. Luego de hacerlo, vamos a poder interactuar con Google Sheets desde R. En caso de que ya lo hayamos hecho antes, tan solo tenemos que seleccionar la cuenta con la que queremos logearnos. Luego podemos crear una hoja de cálculo nueva pasándole como argumentos a ```gs4_create``` un nombre y una lista de data frames que queremos incluir en las distintas hojas de la planilla.
 
-```{r creando_sheet}
-gsheet <- gs4_create("GoogleSheet de prueba", sheets = list(sheet1 = data.frame(A = 1:3, B = 4:6)))
+Cuando corremos la autenticación por primera vez, se nos va a abrir una ventana en el navegador para que nos autentiquemos con nuestra cuenta de Google. Luego de hacerlo, vamos a poder interactuar con Google Sheets desde R. En caso de que ya lo hayamos hecho antes, tan solo tenemos que seleccionar la cuenta con la que queremos logearnos. Luego podemos crear una hoja de cálculo nueva pasándole como argumentos a `gs4_create` un nombre y una lista de data frames que queremos incluir en las distintas hojas de la planilla.
+
+```{r creando_sheet, eval=FALSE}
+gsheet <- gs4_create("GoogleSheet de prueba2", sheets = list(sheet1 = data.frame(A = 1:3, B = 4:6)))
 ```
 
-Para leer una hoja de cálculo existente, podemos utilizar la función ```gs4_get()``` pasándole como argumento el id de la hoja de cálculo. Para obtener el id de una hoja de cálculo, podemos copiar la parte de la URL que contiene el id. Por ejemplo, en la URL `https://docs.google.com/spreadsheets/d/1X2Y3Z/edit#gid=0`, el id es `1X2Y3Z`. Otra forma muy cómoda de acceder a las planillas es mediante la web como lo hacemos normalmente. Para ello podemos compartir el sheet desde el paquete ```googledrive```.
+De esta manera creamos el objeto `gsheet`, que representa a una hoja de cálculo en GoogleSheets. Un comando muy útil va a ser `as_id()`, que nos devuelve el id de la hoja del cálculo, con el cual vamos a poder operar sobre el elemento. En general, los ids de los sheets están disponibles en su URL. Por ejemplo, en la URL `https://docs.google.com/spreadsheets/d/1X2Y3Z/edit#gid=0`, el id es `1X2Y3Z`. Para leer una hoja de cálculo existente, podemos utilizar la función `gs4_get()` pasándole como argumento el id de la hoja de cálculo. También podemos compartir el sheet desde el paquete `googledrive`, que lo comporte al igual que lo haríamos normalmente cuando interactuamos desde el sitio de Drive o GoogleSheets.
 
-
-```{r compartiendo_sheet}
+```{r compartiendo_sheet, eval=FALSE}
 
 library(googledrive)
 
@@ -240,23 +283,35 @@ drive_auth()
 
 drive_share(as_id(gsheet), email_address = "marajadesantelmo@gmail.com", role = "writer")
 ```
-Si todo salió bien, nos debería llegar un correo con el link a la hoja de cálculo, tal como nos llega cuando alguien nos comparte un documento de Drive. Ahora veamos un ejemplo en donde procesamos datos y los subimos a googlesheet. 
 
->En construcción
+Si todo salió bien, nos debería llegar un correo con el link a la hoja de cálculo, tal como nos llega cuando alguien nos comparte un documento de Drive. Además vamos a poder hacer muchas de las operaciones que normalmente hacemos en Google Sheets, como agregar valores, filas, columnas, hojas, como también subir y bajar información. Por ejemplo, podríamos crear una hoja y subir la información que acabamos de scrapear.
+
+```{r subiendo_info, eval=FALSE}
+# Subo los datos scrapeados a una nueva hoja llamada "Mis Datos"
+sheet_write(data = df,  ss = as_id(gsheet), sheet = "Mis datos")
+
+# Borro datos de la primera hoja creada
+range_clear(ss = as_id(gsheet), sheet = "sheet1")
+
+```
 
 # Tareas programadas en Windows
 
-Dependiendo el sistema operativo que tengamos, vamos a tener distintas formas de programar tareas. En Windows, podemos utilizar el programador de tareas para ejecutar scripts de R en momentos específicos. Para ello, vamos a necesitar el archivo .bat que nos permitirá ejecutar el script de R. Los .bat son archivos de procesamiento por lotes que contienen una serie de comandos que se ejecutan en secuencia, como si lo estuvieramos ejecutando por la consola de CMD o powershell. En este caso, el archivo .bat va a contener el comando para ejecutar el script de R.
+La programación de tareas consiste en la ejecución automática de un script en un momento específico. Esto es útil para tareas que se repiten con frecuencia, como la actualización de datos y la generación de reportes. Dependiendo el sistema operativo que tengamos, vamos a tener distintas formas de programar tareas (en este curso nos centramos en Window). Para Linux existe una forma muy cómoda de programar tareas mediante comando de código con ```CRON``` (ver aquí).  En Windows podemos utilizar el Programador de Tareas, que ejecuta progamas según desencadenadores. Para ello, vamos a necesitar el archivo .bat que nos permitirá ejecutar el script de R. Los .bat son archivos de procesamiento por lotes que contienen una serie de comandos que se ejecutan en secuencia, como si lo estuvieramos ejecutando por la consola de CMD o powershell. En este caso, el archivo .bat va a contener el comando para ejecutar el script de R.
 
->En construcción
+```
+"C:\Program Files\R\R-4.1.1\bin\Rscript.exe" "C:\Users\Usuario\Documents\script.R"
+```
+
+El archivo .bat imita básicamente la ejecución de comandos en el CMD o powershell de Windows. En este caso le estamso diciendo a la computadora que ejecue nuestro archivo de R con el comando `Rscript.exe` que se encuentra en la carpeta de instalación de R. Luego le pasamos la ruta del archivo de R que queremos ejecutar. Para programar la tarea, vamos a abrir el Programador de Tareas de Windows y vamos a crear una tarea nueva. En la pestaña de desencadenadores vamos a seleccionar la frecuencia con la que queremos que se ejecute el script, y en la pestaña de acciones vamos a seleccionar el archivo .bat que creamos. De esta manera, el script de R se va a ejecutar automáticamente en el momento que hayamos programado.
 
 # Github
 
-Desde el primer encuentro que venimos trabajando con Github, pero siempre hay algo nuevo por conocer cuando se trata de esta herramienta. 
+Desde el primer encuentro que venimos trabajando con Github, pero siempre hay algo nuevo por conocer cuando se trata de esta herramienta.
 
 ## Algunos recursos
 
-[¿Cómo crear una cuenta?](https://docs.github.com/es/get-started/onboarding/getting-started-with-your-github-account) 
+[¿Cómo crear una cuenta?](https://docs.github.com/es/get-started/onboarding/getting-started-with-your-github-account)
 
 [Una guía con ejemplos para empezar a usar Git](https://github.com/git-guides)
 
@@ -282,10 +337,9 @@ Un poco más avanzado:
 
 -   **git merge** combina las líneas de desarrollo. Este comando habitualmente se utiliza para combinar los cambios que se realizan en dos ramas distintas. Por ejemplo, un desarrollador podría hacer una fusión cuando necesite combinar los cambios de una rama de característica en la rama de desarrollo principal.
 
-
 ## Otras funcionalidades de Github
 
->En construcción
+> En construcción
 
 ### Issues para colaborar con un repositorio
 
@@ -293,7 +347,7 @@ Un poco más avanzado:
 
 ### Github Pages
 
+# Imputación de datos
 
-
-
+> En construcción
 

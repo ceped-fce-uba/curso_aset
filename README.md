@@ -27,7 +27,7 @@ Los materiales para la cursada se encuentran estructurados por clases. En esta p
 
 **Clase 2 - EPH e Intro a Tidyverse:**
 
-[![Download](img/link_zip.png)](Clase%202%20-%20EPH%20e%20Intro%20a%20Tidyverse/Clase2.rar) [![Grabación Clase 1 - Parte I](img/link_video.png)](https://www.youtube.com/watch?v=SU7Jq3P3Iok)
+[![Download](img/link_zip.png)](Clase%202%20-%20EPH%20e%20Intro%20a%20Tidyverse/Clase2.rar) [![Grabación Clase 2](img/link_video.png)](https://www.youtube.com/watch?v=SU7Jq3P3Iok)
 
 -   Temas de clase:
     -   Presentación de la Encuesta Permanente de Hogares (EPH).
