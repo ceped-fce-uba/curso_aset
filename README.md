@@ -45,7 +45,7 @@ Los materiales para la cursada se encuentran estructurados por clases. En esta p
 
 __Clase 3 - Indicadores de Precariedad y Tidyverse 2:__
 
-[![Download](img/link_zip.png)](Clase%203%20-%20Indicadores%20de%20Precariedad%20-%20Tidyverse2/Clase3.rar)  
+[![Download](img/link_zip.png)](Clase%203%20-%20Indicadores%20de%20Precariedad%20-%20Tidyverse2/Clase3.rar)  [![Grabación Clase 3 - Parte I](img/link_video.png)](https://youtu.be/ZgOCJZMIMLo) [![Grabación Clase 3 - Parte II](img/link_video.png)](https://youtu.be/y325TxXxnNM)
   
  
 -   Temas de clase:
