@@ -1,5 +1,5 @@
 ---
-title: "Clase 6 - Github, automatizaciones y web-scraping"
+title: "Clase 6 - Automatizaciones y Github"
 subtitle: Herramientas de programación para la producción y difusión de estadísticas socioeconómicas - ASET
 output: 
   rmdformats::downcute
@@ -13,7 +13,7 @@ En el análisis de datos, la automatización es una habilidad fundamental para a
 
 # Expresiones Regulares (Regex) en R
 
-Las **expresiones regulares** (regex) son una herramienta poderosa para buscar, extraer y manipular texto de manera flexible. En R, las regex son ampliamente utilizadas para tareas como limpieza de datos, validación de formatos de texto, y extracción de patrones específicos dentro de cadenas. Las regex permiten definir patrones de texto de una forma concisa, especificando caracteres literales, combinaciones de letras, números, y símbolos especiales. Con ellas, es posible realizar tareas que van desde la simple búsqueda de una palabra en un texto hasta la validación de formatos complejos como correos electrónicos o números de teléfono.
+Las **expresiones regulares** (regex) son una herramienta poderosa para buscar, extraer y manipular texto de manera flexible. En R, las regex son ampliamente utilizadas para tareas como limpieza de datos, validación de formatos de texto, y extracción de patrones específicos dentro de cadenas. Las regex permiten definir patrones de texto de una forma concisa, especificando caracteres literales, combinaciones de letras, números, y símbolos especiales. Con ellas, es posible realizar tareas que van desde la simple búsqueda de una palabra en un texto hasta la validación de formatos complejos como correos electrónicos o números de teléfono. El trabajo con regex es una forma avanzada de hacer selecciones como las que trabajamos con los **selection helpers** `starts_with()`, `contains()`, `matches()` y `ends_with()` de **dplyr**.
 
 ## Componentes Básicos de las Expresiones Regulares
 
@@ -93,7 +93,7 @@ montos_limpios <- convertir_a_numerico(montos)
 montos_limpios
 ```
 
-#### Ejemplo 4: Seleccionando columnas de la EPH
+### Ejemplo 4: Seleccionando columnas de la EPH
 
 Con la EPH, supongamos que queremos obtener sólos las columnas que empiezan con "CH". El uso de regex nos permite identificar patrones de texto y extraer las columnas que nos interesan.
 
@@ -156,13 +156,13 @@ print(i)
 }
 ```
 
-En este ejemplo se el elemento `rutas` es un vector con las rutas completas de los archivos con formato .rds en la carpeta **Bases_homog**. Luego se crea un data frame vacío y se itera sobre cada ruta, leyendo el archivo y guardándolo en una base temporal. Luego se unen las bases con `bind_rows()` y se imprime la ruta para saber en qué archivo se está trabajando.
+En este ejemplo se define el elemento `rutas`, que es un vector con las rutas completas de los archivos con formato .rds en la carpeta **Bases_homog**. Luego se crea un data frame vacío y se itera sobre cada ruta, leyendo cada archivo y guardándolo en una base temporal. Luego se unen las bases con `bind_rows()` y se imprime la ruta para saber en qué archivo se está trabajando. Esta lógica de trabajo en loops es muy utilizada para cargar información de distitnas fuentes.
 
 # Web Scraping
 
-**Web scraping** es la técnica de extraer datos de páginas web de manera automatizada. Utilizando R podemos acceder a páginas web y extraer los datos necesarios de manera eficiente, evitando copiar manualmente la información. En R, el paquete `rvest` es el más utilizado para realizar tareas de web scraping de forma sencilla y efectiva. Otros paquetes útiles incluyen `httr` para manejar solicitudes HTTP y `xml2` para procesar el HTML de las páginas.
+**Web scraping** es la técnica de extraer datos de páginas web de manera automatizada. Utilizando R podemos acceder a páginas web y extraer los datos necesarios de manera eficiente, evitando copiar manualmente la información. En R, el paquete `rvest` es el más utilizado para realizar tareas de web scraping de forma sencilla y efectiva. Otros paquetes útiles incluyen `httr` para manejar solicitudes HTTP y `xml2` para procesar el HTML de las páginas. Para sitios web más complejos (principalmente aquellos programados en Java) es recomendable usar `Selenium`
 
-Para hacer web scraping es necesario conocer algunos conceptos básicos de HTML, que es el lenguaje que se utilza en la web para estructurar y presentar la información. Las páginas web están compuestas por elementos HTML, que se organizan en una estructura jerárquica de etiquetas. Por ejemplo, un título de una noticia puede estar dentro de una etiqueta `<h3>`, mientras que un párrafo de texto puede estar dentro de una etiqueta `<p>`. Para extraer información de una página web, necesitamos identificar las etiquetas HTML que contienen los datos que queremos obtener.
+Para hacer web scraping es necesario conocer algunos conceptos básicos de HTML, que es el lenguaje que se utilza en la web para estructurar y presentar la información. Las páginas web están compuestas por elementos HTML, que se organizan en una estructura jerárquica de etiquetas. Por ejemplo, un título de una noticia puede estar dentro de una etiqueta `<h3>`, mientras que un párrafo de texto puede estar dentro de una etiqueta `<p>`. Para extraer información de una página web, necesitamos identificar las etiquetas HTML que contienen los datos que queremos obtener. Desde los navegadores podemos acceder a este código con la herramienta `inspeccionar`
 
 ```         
 <!DOCTYPE HTML>
@@ -193,9 +193,9 @@ page
 
 ```
 
-Cuando ingresamos la dirección de la página web en la función `read_html()` de rvest, obtenemos un objeto HTML del que podemos analizar y extraer información. Este objeto es el mismo código que nuestros navegadores 'leen' para luego mostrarnos una página web. Desde los navegadores usualmente accedemos al código html haciendo click en 'Inspeccionar'. Para extraer datos de la página, necesitamos identificar las etiquetas HTML que contienen la información que queremos obtener. Por ejemplo, si queremos extraer los títulos de las noticias de la página principal, podemos buscar las etiquetas `<h3>` que contienen los títulos. El comando `html_nodes()` nos permite seleccionar nodos HTML de la página, y `html_text()` nos permite extraer el texto de los nodos seleccionados.
+Cuando ingresamos la dirección de la página web en la función `read_html()` de rvest, obtenemos un objeto HTML del que podemos analizar y extraer información. Este objeto es el mismo código que nuestros navegadores 'leen' para luego mostrarnos una página web. Para extraer datos de la página, necesitamos identificar las etiquetas HTML que contienen la información que queremos obtener. Por ejemplo, si queremos extraer los títulos de las noticias de la página principal, podemos buscar las etiquetas `<h3>` que contienen los títulos. El comando `html_nodes()` nos permite seleccionar nodos HTML de la página, y `html_text()` nos permite extraer el texto de los nodos seleccionados.
 
-```{r }
+```{r eval=FALSE }
 # get text of all h2 tags
 h2_tags <- page %>% html_nodes("h2") %>% html_text()
 
@@ -203,20 +203,20 @@ h2_tags <- page %>% html_nodes("h2") %>% html_text()
 
 ### Xpaths
 
-Hay distintos métodos para acceder a la información que está en una página web. El más utilzado actualmente es XPath, un lenguaje de consulta para seleccionar nodos en un documento XML o HTML. Permite navegar a través de la estructura jerárquica de un documento y seleccionar elementos específicos basados en su posición, atributos, o contenido.
+Hay distintos métodos para acceder a la información que está en una página web. El más utilzado actualmente es XPath, un lenguaje de consulta para seleccionar nodos en un documento HTML. Permite navegar a través de la estructura jerárquica de un documento y seleccionar elementos específicos basados en su posición, atributos, o contenido.
 
-```{r }
+```{r eval=FALSE  }
 
 page2 <- read_html("https://www.argentina.gob.ar/encuesta-de-indicadores-laborales")
 
 
 # get text using xpath
-h2_tags_xpath <- page2 %>% html_nodes(xpath = '//*[@id="block-system-main"]/section[1]/article/div/div/div/div/table') %>% html_text()
+h2_tags_xpath <- page2 %>% html_nodes(xpath ='//*[@id="block-system-main"]/section[1]/article/div/div/div/div/table') %>% html_text()
 
 
 ```
 
-```{r }
+```{r eval=FALSE}
 library(tidyverse)
 
 lines <- str_split(h2_tags_xpath, "\n")[[1]]
@@ -266,14 +266,15 @@ library(googlesheets4)
 gs4_auth()
 
 ```
-
 Cuando corremos la autenticación por primera vez, se nos va a abrir una ventana en el navegador para que nos autentiquemos con nuestra cuenta de Google. Luego de hacerlo, vamos a poder interactuar con Google Sheets desde R. En caso de que ya lo hayamos hecho antes, tan solo tenemos que seleccionar la cuenta con la que queremos logearnos. Luego podemos crear una hoja de cálculo nueva pasándole como argumentos a `gs4_create` un nombre y una lista de data frames que queremos incluir en las distintas hojas de la planilla.
+
+## Manipulando sheets desde R
 
 ```{r creando_sheet, eval=FALSE}
 gsheet <- gs4_create("GoogleSheet de prueba2", sheets = list(sheet1 = data.frame(A = 1:3, B = 4:6)))
 ```
 
-De esta manera creamos el objeto `gsheet`, que representa a una hoja de cálculo en GoogleSheets. Un comando muy útil va a ser `as_id()`, que nos devuelve el id de la hoja del cálculo, con el cual vamos a poder operar sobre el elemento. En general, los ids de los sheets están disponibles en su URL. Por ejemplo, en la URL `https://docs.google.com/spreadsheets/d/1X2Y3Z/edit#gid=0`, el id es `1X2Y3Z`. Para leer una hoja de cálculo existente, podemos utilizar la función `gs4_get()` pasándole como argumento el id de la hoja de cálculo. También podemos compartir el sheet desde el paquete `googledrive`, que lo comporte al igual que lo haríamos normalmente cuando interactuamos desde el sitio de Drive o GoogleSheets.
+De esta manera creamos el objeto `gsheet`, que representa en nuestro entorno de trabajo a una hoja de cálculo en GoogleSheets. Un comando muy útil va a ser `as_id()`, que nos devuelve el id de la hoja del cálculo, con el cual vamos a poder operar sobre el elemento. En general, los ids de los sheets están disponibles en su URL. Por ejemplo, en la URL `https://docs.google.com/spreadsheets/d/1X2Y3Z/edit#gid=0`, el id es `1X2Y3Z`. Para leer una hoja de cálculo existente, podemos utilizar la función `gs4_get()` pasándole como argumento el id de la hoja de cálculo. También podemos compartir el sheet desde el paquete `googledrive`, que lo comporte al igual que lo haríamos normalmente cuando interactuamos desde el sitio de Drive o GoogleSheets.
 
 ```{r compartiendo_sheet, eval=FALSE}
 
@@ -297,7 +298,7 @@ range_clear(ss = as_id(gsheet), sheet = "sheet1")
 
 # Tareas programadas en Windows
 
-La programación de tareas consiste en la ejecución automática de un script en un momento específico. Esto es útil para tareas que se repiten con frecuencia, como la actualización de datos y la generación de reportes. Dependiendo el sistema operativo que tengamos, vamos a tener distintas formas de programar tareas (en este curso nos centramos en Window). Para Linux existe una forma muy cómoda de programar tareas mediante comando de código con ```CRON``` (ver aquí).  En Windows podemos utilizar el Programador de Tareas, que ejecuta progamas según desencadenadores. Para ello, vamos a necesitar el archivo .bat que nos permitirá ejecutar el script de R. Los .bat son archivos de procesamiento por lotes que contienen una serie de comandos que se ejecutan en secuencia, como si lo estuvieramos ejecutando por la consola de CMD o powershell. En este caso, el archivo .bat va a contener el comando para ejecutar el script de R.
+La programación de tareas consiste en la ejecución automática de un script en un momento específico. Esto es útil para tareas que se repiten con frecuencia, como la actualización de datos y la generación de reportes. Dependiendo el sistema operativo que tengamos, vamos a tener distintas formas de programar tareas (en este curso nos centramos en Windows). Para Linux existe una forma muy cómoda de programar tareas mediante comando de código con ```CRON``` (ver aquí).  En Windows podemos utilizar el Programador de Tareas, que ejecuta progamas según desencadenadores. Para ello, vamos a necesitar el archivo .bat que nos permitirá ejecutar el script de R. Los .bat son archivos de procesamiento por lotes que contienen una serie de comandos que se ejecutan en secuencia, como si lo estuvieramos ejecutando por la consola de CMD o powershell. En este caso, el archivo .bat va a contener el comando para ejecutar el script de R.
 
 ```
 "C:\Program Files\R\R-4.1.1\bin\Rscript.exe" "C:\Users\Usuario\Documents\script.R"
@@ -307,7 +308,9 @@ El archivo .bat imita básicamente la ejecución de comandos en el CMD o powersh
 
 # Github
 
-Desde el primer encuentro que venimos trabajando con Github, pero siempre hay algo nuevo por conocer cuando se trata de esta herramienta.
+Desde el primer encuentro que venimos trabajando con Github, pero siempre hay algo nuevo por conocer cuando se trata de esta herramienta. La lógica general es que podemos hacer cambios, que se agrupan en tandas de cambios llamados `commits`. Luego, esos `commits` se `pushean` al repositorio en la nube. Para bajar los commits que hicieron otros, usamos el comando `pull`. En general, la idea es que cada vez que trabajemos en un proyecto, hagamos un `pull` para tener la última versión del proyecto, y luego un `push` para subir nuestros cambios.
+
+![Imagen de https://www.linkedin.com/in/suresh-kumar-455903287/](img/git_workflow.gif){width="60%"}
 
 ## Algunos recursos
 
@@ -317,6 +320,8 @@ Desde el primer encuentro que venimos trabajando con Github, pero siempre hay al
 
 [Principales comandos](https://git-scm.com/docs):
 
+Git funciona por línea de comandos que se ejecutan por consola. Esta forma de interactuar con git suele ser más eficiente que las interfaces gráficas, aunque estas últimas son más amigables para comenzar. Los comandos más utilizados son:
+
 -   **git clone** clona el repositorio, es decir, nos permite descargar a nuestro directorio local un repositorio.
 
 -   **git status** muestra nuestra situación: el estado de los cambios locales, en qué rama estamos, etc.
@@ -325,11 +330,11 @@ Desde el primer encuentro que venimos trabajando con Github, pero siempre hay al
 
 -   **git add** + **git commit** + **git push** nos permiten enviar nuestros cambios locales al repositorio.
 
-    -   git add es el primer paso, que agrega archivos nuevos o modificados en el directorio local de trabajo al área de *staging* de Git.
+-   **git add** es el primer paso, que agrega archivos nuevos o modificados en el directorio local de trabajo al área de *staging* de Git.
 
-    -   git commit -m "bla bla bla estuve haciendo el cmabio x, y , z" guarda nuestros cambios al historial de versiones. Todo lo que se haya almacenado provisionalmente con git add pasará a formar parte del historial. Con este comando incluimos el mensaje explicando los cambios que hicimos.
+-   **git commit -m "stuve haciendo el cmabio x, y , z"** guarda nuestros cambios al historial de versiones. Todo lo que se haya almacenado provisionalmente con git add pasará a formar parte del historial. Hay que inclur un mensaje entre comillas, usualmente explicando los cambios que hicimos.
 
-    -   git push envía nuestros cambios y así actualiza el repositorio remoto con las modificaciones (ya commiteadas) realizadas localmente.
+-   **git push** envía nuestros cambios y así actualiza el repositorio remoto con las modificaciones (ya commiteadas) realizadas localmente.
 
 Un poco más avanzado:
 
@@ -337,17 +342,169 @@ Un poco más avanzado:
 
 -   **git merge** combina las líneas de desarrollo. Este comando habitualmente se utiliza para combinar los cambios que se realizan en dos ramas distintas. Por ejemplo, un desarrollador podría hacer una fusión cuando necesite combinar los cambios de una rama de característica en la rama de desarrollo principal.
 
-## Otras funcionalidades de Github
+Podemos ingresar estos comandos directamente en la consola de RStudio, o en la consola de Windows. En el caso de RStudio, se accede directamente en la pestaña de terminal (generalmente ubicada debajo dentro de la ventana de RStudio). En caso de que la terminal no esté visible, abrirla yendo a *Tools -> Terminal -> New Terminal*.
 
-> En construcción
+![Visualización de ejecución de git status por terminal](img/git_status.jpg){width="60%"}
 
-### Issues para colaborar con un repositorio
+## Interactuar desde RStudio
 
-### Github jobs para automatizaciones
+RStudio tiene una interfaz gráfica que nos permite interactuar con Github de manera más amigable. 
 
-### Github Pages
+![Seccion de Git en nuestra ventana de RStudio](img/git_console_r.png){width="60%"}
 
-# Imputación de datos
+Por ejemplo, en la anterior captura de pantalla, podemos ver que hay un cambio en el archivo `Clase 6.Rmd`, que se agregan imágenes y un script en la Clase 3. Para subir algunos de los cambios a Github, tenemos que pasar los cambios a `Staging`. Si queremos por ejemplo subir las imágenes al repositorio, debemos crear un commit.
 
-> En construcción
+![Creación de un commit en RStudio](img/git_commit_r.png){width="60%"}
+
+Si queremos bajar los cambios que hicieron otros, hacemos click en `Pull`. También podemos ver el historial de cambios, las ramas, y otras funcionalidades de Git.
+
+## Ignorar archivos con `.gitignore`
+
+Para que los archivos del directorio se tengan en cuenta en el repositorio, deben estar inicializados. Por le contrario, para que los achivos no sean tenidos en cuenta no deben estar inicializadio y se debe agregar un archivo `.gitignore` en la raíz del proyecto. En este archivo se pueden especificar los archivos y carpetas que no queremos que se suban al repositorio. Por ejemplo, si no queremos que se suban los archivos `.RData`, los archivos `.csv` o las carpetas `data` y `img`, el archivo `.gitignore` debería tener el siguiente contenido:
+
+```
+*.RData
+*.csv
+data/
+img/
+```
+
+Se trata de un archivo de texto plano que se puede crear con cualquier editor de texto. En general, se recomienda utilizar el archivo `.gitignore` para evitar subir archivos innecesarios al repositorio, como archivos de datos pesados, archivos temporales, o archivos que contienen información sensible.
+
+## Github Pages
+
+Una funcionalidad muy interesante de Github es la posibilidad de hacer páginas web de acceso público con Github pages (ver pages.github.com). Para generar la página web hay que ir a la configuración del repositorio, seleccionar la rama que publicará la página web (por defecto es main) y luego activar Github pages.
+
+![Activación de Github Pages](img/github_pages.png){width="60%"}
+
+Por defecto, Github pages toma como página principal el archivo `index.html` o el archivo `README.md` que están en el raíz del directorio. Para crear una página web con Github pages, simplemente hay que subir los archivos al repositorio haciendo **push** y luego de unos minutos el sitio se publica automáticamente. Si estamos trabajando con R, lo más común es que usemos archivos de extensión .md para sitios simples y .Rmd para presentación más complejas. Si le queremos dar formato más lindo, Github viene con el servicio integrado de `jekyll`, que es un generador de sitios estáticos. Con simplemente agregar un archivo `_config.yml` en la raíz del directorio, podemos personalizar el sitio web. Por ejemplo, el siguiente archivo `_config.yml` es el que tenemos en el repositorio del curso 
+
+```
+theme: jekyll-theme-slate
+title: "Herramientas de programación para la producción y difusión de estadísticas socioeconómicas - ASET"
+description: ""
+``` 
+
+Hoy en día existen varios generadores de sitios estáticos que nos permite deployar sitios web estáticos de forma muy sencilla. Muchos de ellos tienen templates muy buenos que nos permiten hacer sitios web muy atractivos sin tener que saber de diseño web. Algunos de los más populares son `Hugo`, `Jekyll`, `Pelican`, `Gatsby`, entre otros. También podemos generar .htmls y arhivos de estilo .css mediante promtos en ChatGPT o cualquier otra herramienta basadas en IA
+
+
+# EXTRA: Imputación de datos
+
+En el trabajo con bases de datos, es común encontrarnos con valores faltantes o datos incompletos. La imputación de datos es el proceso de reemplazar los valores faltantes con valores estimados utilizando distintos métodos o modelos para elegir cuál va a ser el valor a imputar para cada caso. Entre las muchísimas formas de aplicar imputaciones, a continuación revisaremos ejemplos de imputación por media, mediana o moda, utilización de regiresiones y un ejemplo (muy sintético) de aplicación de modos de machine learnirg. En este encuentro vamos a cubrir las siguientes técnicas de imputación de datos.
+
+## Imputaciones por promedios
+
+Una forma muy sencilla de imputar es calcular una métrica para un grupo particular y aplicar el valor de dicha métrica para los miembros del gupo que tienen valores faltantes. Por ejemplo, tomemos la eph para el primer trimestre del año 2024.
+
+
+```{r warning=FALSE, eval=FALSE}
+library(eph)
+
+variables_EPH <- c("P21", "CAT_OCUP",  "ESTADO", "PP07H", "PP07I",
+                   "PP04B1", "PP04A", "REGION", "ANO4", "PONDERA",
+                   "REGION", "CH04", "CH06", "PP04C", "PP04C99",
+                   "PP04B_COD", "P21")
+
+base <- get_microdata(year=2024, period = 1, vars = variables_EPH )
+```
+
+En la variable de ingresos de la ocupación principal (p21), los casos de no respuesta tienen el valor -9. Los vamos a redefinir como NAs para poder trabajar con ellos. Luego definimos grupos en base a las variables edad y región, y por último realizamos la imputación según la media de los ingresos agrupando casos por sexo, edad y región.
+
+```{r warning=FALSE, eval=FALSE}
+# Asigno NAs a casos con variable de ingreso de la ocupación principal igual a -9
+base$P21[base$P21 == -9] <- NA
+
+# Filtro ocupados y genero variables de grupos etarios y regiones
+base <- base %>%
+  filter(ESTADO==1) %>% 
+  mutate(
+          edad=CH06, 
+          edad2=edad*edad,
+          tramo_etario= case_when(
+            edad<=30 ~ "Joven", 
+            edad>30 & edad<=50 ~ "Adulto", 
+            edad>50 ~ "Adulto mayor"),
+          sexo= case_when(
+            CH04 ==1 ~ "Hombre", 
+            CH04 ==2 ~ "Mujer"), 
+         region= factor(
+           case_when(
+             REGION ==01 ~ "AMBA", 
+             REGION ==43 ~ "Centro",
+             REGION ==40 ~ "NOA",
+             REGION ==41 ~ "NEA",
+             REGION ==42 ~ "Cuyo",
+             REGION ==44 ~ "Patagonia"), 
+           levels=c("AMBA", "Centro", "NEA", "Cuyo", "Patagonia", "NOA")),
+         sexo= factor(sexo,
+              levels=c("Mujer", "Hombre")))
+
+base <- base %>% select(sexo, edad, region, edad2, tramo_etario, P21)
+
+base <- base %>%
+  group_by(sexo, tramo_etario, region) %>%
+  mutate(P21_imputado = ifelse(is.na(P21), mean(P21, na.rm = TRUE), P21)) %>%
+  ungroup()
+```
+
+Esta forma de imputar (muy simple y sencilla) tan sólo asigna los siguientes valores a los casos con NA.
+
+```{r warning=FALSE, eval=FALSE}
+library(kableExtra)
+
+tabla <- base %>%
+  group_by(sexo, tramo_etario, region) %>%
+  summarise(P21_imputado = mean(P21, na.rm = TRUE)) 
+
+tabla %>% 
+  head(10) %>% 
+  kable(caption = "<b>Tabla 1. </b> Valores imputados en el ejemplo") %>% 
+  kable_styling(bootstrap_options = c("striped"), full_width = F,  position = "float_left")
+
+```
+
+A pesar de ser muy simple, este ejemplo nos sirve para entender la lógica de las imputaciones: reemaplazar los NAs con valores basados en la información de otros casos. En la práctica, las imputaciones suelen ser más complejas. En el siguiente ejemplo vamos a ver cómo se puede hacer una imputación de ingresos utilizando un modelo de regresión lineal.
+
+
+## Regresión
+
+En este caso, vamos a utilizar un modelo de regresión lineal para imputar los valores faltantes de la variable de ingresos. Para ello, vamos a utilizar las variables de edad, edad al cuadrado, sexo, región y tramo etario como predictores. Utilizamos la función `lm()` para ajustar el modelo y luego vamos a predecir los valores faltantes.
+
+```{r warning=FALSE, eval=FALSE}
+# Creamos el elemento modelo
+modelo <- lm(P21 ~ edad + edad2 + sexo + region + tramo_etario, data = base)
+
+#Lo aplicamos con nuestra base de datos
+base$P21_prediccion<- predict(modelo, newdata = base)
+
+#Completamos los datos sobre los casos falantes
+base$p21_imputado_regresion <- ifelse(is.na(base$P21), base$P21_prediccion, base$P21)
+
+```
+
+En este caso, el modelo de regresión lineal nos permite predecir los valores faltantes de la variable de ingresos utilizando la información de las variables de edad, edad al cuadrado, sexo, región y tramo etario. En la práctica los modelos econométricos suelen estudiarse y ajustarse con más detalles, lo que queda por fuera del alancance de este curso. En el siguiente ejemplo vamos a ver cómo se puede hacer una imputación de ingresos utilizando un modelo de machine learning.
+
+## Modelo de Machine Learning
+
+Los modelos de machine learning son una herramienta poderosa para imputar valores faltantes en bases de datos. En este caso, vamos a utilizar un modelo de regresión de *random forest* para imputar los valores faltantes de la variable de ingresos. Para ello, vamos a utilizar las variables de edad, edad al cuadrado, sexo, región y tramo etario como predictores. Utilizamos la función `ranger()` del paquete `ranger` para ajustar el modelo y luego vamos a predecir los valores faltantes.
+
+```{r warning=FALSE, eval=FALSE}
+
+# Instalar y cargar el paquete ranger si no lo tenes instalado
+# install.packages("ranger")
+library(ranger)
+
+# Creamos el elemento modelo
+base_train <- base %>% filter(!is.na(P21))
+modelo_ml <- ranger(P21 ~ edad + edad2 + sexo + region + tramo_etario, data = base_train)
+
+#Lo aplicamos con nuestra base de datos
+base$P21_prediccion_ml <- predict(modelo_ml, data = base)$predictions
+
+#Imputamos valores de p21 sólo a las filas con NAs en dicha variable
+base$p21_imputado_ml <- ifelse(is.na(base$P21), base$P21_prediccion_ml, base$P21)
+
+```
+
+Al igual que con las regresiones, normalmente los modelos de machine learning se trabajan con mucha profundidad, evaluando distintas métricas de performance, tipos de modelos y manipulando los datos de entrenamiento y validación. En este caso, simplemente utilizamos un modelo de *random forest* para imputar los valores faltantes de la variable de ingresos. En la práctica, las imputaciones suelen ser más complejas y requieren de un análisis más detallado de los datos y de los modelos a utilizar.
 
