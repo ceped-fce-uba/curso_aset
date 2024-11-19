@@ -1,0 +1,77 @@
+---
+title: Visualización de la información
+subtitle: Práctica
+output:
+  html_notebook: 
+    toc: true
+    toc_float: true 
+---
+
+## Ejercicios con EPH
+
+Importar la base del 4to trimestre de 2022 con el paquete EPH
+
+```{r, eval = FALSE, include = FALSE}
+library(tidyverse)
+library(eph)
+library(ggthemes)
+base <-eph::get_microdata(year = 2022,period = 4) 
+```
+
+1.  Calcular el promedio del ingreso por ocupación principal (Variable **P21**) para **asalariados** con y sin **descuento jubilatorio** (Variable **PP07H**). Luego realizar un gráfico de barras donde se comparen ambos valores.
+
+Pistas: Se deben filtrar previamente los ingresos mayores a 0 (**P21\>0**). Chequear que ponderador corresponde utilizar y transformarlo en una variable numérica con la función **`as.numeric()`**
+
+```{r, eval=FALSE, include=FALSE}
+base_asal <- base %>% 
+  filter(ESTADO == 1, CAT_OCUP == 3, P21>0) %>% 
+  mutate(PONDIIO = as.numeric(PONDIIO),
+         condicion = ifelse(PP07H == 1,"Registrados","No Registrados"))
+
+salarios_s_reg<- base_asal %>% 
+  group_by(condicion) %>% 
+  summarise(ing_prom = weighted.mean(P21,PONDIIO,na.rm = T)) 
+
+ggplot(salarios_s_reg,aes(x = condicion, y = ing_prom,fill = condicion))+
+  geom_col()+
+  theme(legend.position = "none")+
+  labs(y = "Ingreso Promedio en $")
+```
+
+2.  Hacer un gráfico boxplot de la distribución de edades de los asalariados con descuento jubilatorio, y de los asalariados sin descuento jubilatorio.
+
+```{r, eval=FALSE, include=FALSE}
+ggplot(base_asal,aes(x = condicion, y = CH06,fill = condicion))+
+  geom_boxplot()+
+  theme(legend.position = "none")+
+  labs(y = "Edades")
+```
+
+3.  Descarguen las bases de al menos 4 trimestres de la EPH:
+
+-   calcular, para varones y mujeres, el procentaje de asalariados sin descuento jubilatorio como $\frac{Asal. s/ desc jubil}{Asalariados.totales}$. Realizar un gráfico de linea con la evolución de este indicador
+
+```{r, eval=FALSE, include=FALSE}
+bases_2022 <- get_microdata(year = 2022,period = 1:4)
+
+tasas_precariedad <- bases_2022 %>% 
+  filter(ESTADO == 1, CAT_OCUP == 3, P21>0) %>% 
+  mutate(Sexo = ifelse(CH04 == 1, "Varón","Mujer")) %>% 
+  group_by(ANO4,TRIMESTRE,Sexo) %>% 
+  summarise(registrados = sum(PONDERA[PP07H == 1],na.rm = T),
+            no_registrados = sum(PONDERA[PP07H == 2],na.rm = T),
+            tasa_no_reg = no_registrados/(registrados + no_registrados)) %>% 
+  mutate(periodo = paste(ANO4,TRIMESTRE,sep = "_"))
+
+ggplot(tasas_precariedad,
+       aes(x = periodo, y = tasa_no_reg,group = Sexo, color = Sexo))+
+  geom_line()+
+  geom_point()+
+  labs(y = "tasa de no regisro")
+```
+
+## Ejercicios con la base Precariedad Mundial
+
+1.  Levantar la **base_homogenea.RDS** disponible en la clase 3. Filtrar para conservar únicamente a la población asalariada. Calcular, para cada país, el promedio del ingreso en paridad de poder adquisitivo (Variable **ING_PPA**) y la tasa de precariedad considerando sólo una de las dimensiones presentes.
+    a.  Realizar un gráfico de barras donde se ordene de mayor a menor el ingreso promedio por país.
+    b.  Realizar un gráfico de puntos donde en el *eje x* se visualize el salario promedio y en el *eje y* la tasa de precariedad

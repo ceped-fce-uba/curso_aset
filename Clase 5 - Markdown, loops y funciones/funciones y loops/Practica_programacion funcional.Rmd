@@ -1,56 +1,52 @@
 ---
 title: Practica - Programación Funcional 
-subtitle: Diplomatura en Ciencias Sociales Computacionales y Humanidades Digitales - UNSAM
+subtitle: Herramientas de programación para la producción y difusión de estadísticas socioeconómicas - ASET
 output:
   html_notebook:
     toc: yes
     toc_float: yes
 date: ""
 ---
-```{r setup,include=FALSE}
+
+```{r setup,include=FALSE, eval = FALSE}
 knitr::opts_chunk$set(include = F, eval = F)
 ```
-## estructuras condicionales   
 
-- Levantar la base de datos de casos del covid19.  
-- Diseñar una estructura de código condicional que nos imprima un aviso (función `print()`) de que estamos trabajando con una muestra  **únicamente en caso de que la cantidad de casos de la base sea menor a 1 millón**
-```{r}
+## estructuras condicionales
+
+-   Utilizar el paqete EPH para importar la base de datos del 4to trimestre de 2023.\
+-   Diseñar una estructura de código condicional que chequeé si la base importada contiene más de 40.000 registros e imprima un aviso (función `print()`) que aclare que la base fue importada correctamente y nos muestre **la cantidad de casos.**
+
+```{r, eval=FALSE}
 library(tidyverse)
-base.covid <- readRDS('bases/base_covid_sample.RDS')
-
+library(eph)
+base <- eph::get_microdata(year = 2023,period = 4)
+base_hogar <- eph::get_microdata(year = 2023,period = 4,type = "hogar")
 ```
 
-
 ```{r}
-if (nrow(base.covid)<1000000) {
-  print("GUARDA! ESTO ES UNA MUESTRA!")
+if (nrow(base)>40000) {
+  print(
+    paste0("Base importada corrctamente! Cantidad de casos: ", nrow(base)))
 }
 ```
 
-
-- Diseñar una estructura de código condicional que:
-   - calcule la cantidad de casos diarios confrimados **por departamento**, en caso de que la base de datos cuenta con menos de 100.000 registros
-   - calcule la cantidad de casos diarios confrimados **por provincia**, si la base de datos cuenta con 100.000 registros o más
-
+-   Diseñar una estructura de código condicional que evalue la cantidad de casos de la base de datos:
+    -   Si los casos en la base de datos son más de 40.000, imprima el texto "Estás trabajando con la base individual"
+    -   Si los casos en la base de datos son menos de 40.000, imprima otro aviso "
 
 ```{r}
-if (nrow(base.covid)<100000) {
-  base.covid %>%
-    filter(clasificacion_resumen == "Confirmado") %>% 
-    group_by(residencia_departamento_nombre) %>% 
-    summarise(casos = n())
+if (nrow(base)>40000) {
+ print("Estás trabajando con la base individual")
 } else{
-  base.covid %>%
-    filter(clasificacion_resumen == "Confirmado") %>% 
-    group_by(residencia_provincia_nombre) %>% 
-    summarise(casos = n())
+  print("Chequear cantidad de casos. ¿Importaste la base base individual?")
 }
 ```
-
 
 ## definición de funciones
 
-Crear una **función** llamada _Saludo_ que tenga un parámetro para pasarle un nombre, y que al ejecutarla imprima un texto con algún saludo hacia esa persona
+Crear una **función** llamada *Saludo* que tenga un parámetro para pasarle un nombre, y que al ejecutarla imprima un texto con algún saludo hacia esa persona
+
 ```{r}
 Saludo <- function(tu_nombre){
   print(paste0("Hola, ",tu_nombre,". Todo tranquilo, che?"))
@@ -59,7 +55,8 @@ Saludo <- function(tu_nombre){
 Saludo(tu_nombre = "Guido")
 ```
 
-Crear una **función** que devuelva la sumatoria de los números enteros comprendidos entre 1 y un parámetro _x_ a definir.
+Crear una **función** que devuelva la sumatoria de los números enteros comprendidos entre 1 y un parámetro *x* a definir.
+
 ```{r}
 sumatoria_enteros <- function(x){
 sum(1:x)
@@ -69,6 +66,7 @@ sumatoria_enteros(x = 10)
 ```
 
 Modificar la **función** anterior para que brinde un mensaje de error claro en caso de que al utilizarla se especifique un valor no numérico.
+
 ```{r,error=TRUE}
 sumatoria_enteros_correc <- function(x){
 assertthat::assert_that(is.numeric(x),
@@ -79,16 +77,14 @@ assertthat::assert_that(is.numeric(x),
 sumatoria_enteros_correc(x = "a")
 ```
 
+Crear una función llamada `estandariza_vector` que, dado un parámetro denominado `vector_num`:
 
-Crear una función llamada `estandariza_vector` que, dado un parámetro denominado `vector_num`:     
-
-- Imprima en consola (``print()``) un texto que me muestre los siguientes datos:      
-    - la media del vector
-    - el máximo valor del vector
-    - el minimo valor del vector
-    - el desvío estándar del vector (función ``sd()``)    
-- Devuelva (``return()``) el vector estandarizado (Esto es, a cada elemento del vector restarle la media y dividirlo por el desvío estándar)       
-
+-   Imprima en consola (`print()`) un texto que me muestre los siguientes datos:
+    -   la media del vector
+    -   el máximo valor del vector
+    -   el minimo valor del vector
+    -   el desvío estándar del vector (función `sd()`)\
+-   Devuelva (`return()`) el vector estandarizado (Esto es, a cada elemento del vector restarle la media y dividirlo por el desvío estándar)
 
 ```{r}
 estandariza_vector <- function(vector_num){
@@ -113,61 +109,75 @@ vec_stand <- estandariza_vector(c(19,990,223,420,3,4))
 vec_stand
 ```
 
-## loops    
+## loops
 
-- A partir del gráfico sencillo utilizado en clase: diseñar un loop que imprima un gráfico por cada provincia con la cantidad de casos diarios
+-   A partir del gráfico de histograma sencillo utilizado en clase: diseñar un loop que imprima un gráfico por cada región con la distribución de edades
+
 ```{r}
-base.confirmados  <- base.covid %>% 
-    filter(clasificacion_resumen  == "Confirmado")  
+regiones <- openxlsx::read.xlsx("bases/diccionario_aglos_regiones.xlsx",sheet = 1)
 
-for(prov in unique(base.confirmados$residencia_provincia_nombre)){
+base_regiones <- base %>% 
+  left_join(regiones)
+
+for(i in unique(base_regiones$Region)){
   
-base_prov <- base.confirmados %>% 
-  filter(residencia_provincia_nombre == prov)
+base_filtrada <- base_regiones %>% 
+  filter(Region == i)
  
- hist(x = base_prov$fecha_diagnostico,
-     main = paste("Casos Confirmados: ", prov),
-     freq = T,
-     format = "",
-     breaks = "days")
+hist(x = base_filtrada$CH06,
+     main = i,
+     xlab = "Edad",
+     xlim = c(0,100))
 
     
 }
 ```
-- Diseñar un loop que nos permita exportar un excel con las siguientes caracteristicas 
-  - Debemos crear 1 pestaña por provincia, nombrada según el nombre de la provincia
-  - Cada pestaña debe tener un título que diga "Cantidad de casos por sexo - Provincia de ..." (con la provincia en cuestión)
-  - Luego, debe visualizarse un cuadro que muestre la cantidad de casos por sexo
-```{r}
-baese.casos.sexo <-   base.covid %>%
-    group_by(residencia_provincia_nombre,sexo) %>% 
-    summarise(casos = n())
 
-wb <- createWorkbook() # CREAR OBJETO TIPO WORKBOOK 
+-   Diseñar un loop que nos permita exportar un excel con las siguientes caracteristicas
 
-for(prov in unique(baese.casos.sexo$residencia_provincia_nombre)){
-  
-base_1_prov <-  baese.casos.sexo %>% 
-    filter(residencia_provincia_nombre == prov)
- 
-addWorksheet(wb,sheetName =  prov) # AGREGAR UNA PESTAÑA
+    -   Debemos crear 1 pestaña por región, nombrada según el nombre de la provincia
+    -   Cada pestaña debe tener un título que diga "Tasas básicas por sexo - Región ..." (con la región en cuestión)
+    -   Luego, debe visualizarse un cuadro que muestre la tasa de empleo, actividad y desempleo por sexo y por región
 
-writeData(wb,
-          sheet=prov,
-          x = paste0("Cantidad de casos por sexo - Provincia de ",prov), #Lo uso para crear un titulo
-          startRow = 1)
+    ```{r}
+    tasas_regiones <-   base_regiones %>%
+        group_by(Region,CH04) %>% 
+        summarise(poblacion = sum(PONDERA),
+                  ocupados = sum(PONDERA[ESTADO == 1]),
+                  desocupados = sum(PONDERA[ESTADO == 2]),
+                  pea = ocupados+desocupados,
+                  tasa_activ = pea/poblacion,
+                  tasa_empleo = ocupados/poblacion,
+                  tasa_desocup = desocupados/pea
+                  ) %>% 
+      ungroup()
+    nombres_regiones <- unique(tasas_regiones$Region)
+
+    wb <- createWorkbook() # CREAR OBJETO TIPO WORKBOOK 
+
+    for(i in nombres_regiones){
+      
+    base_1_reg <-  tasas_regiones %>% 
+        filter(Region == i)
+     
+    addWorksheet(wb,sheetName =  i) # AGREGAR UNA PESTAÑA
+
+    writeData(wb,
+              sheet=i,
+              x = paste0("Tasas básicas por sexo - Región ",i), #Lo uso para crear un titulo
+              startRow = 1)
 
 
-writeData(wb,
-          sheet=prov,
-          x = base_1_prov,   #Acá va la base de datos
-          startRow = 3) #Dejo un espacio entre titulo y datos
+    writeData(wb,
+              sheet=i,
+              x = base_1_reg,   #Acá va la base de datos
+              startRow = 3) #Dejo un espacio entre titulo y datos
 
 
- 
-}
+     
+    }
 
 
-saveWorkbook(wb, "Resultados/excel.xlsx") ## EXPORTACION FINAL
+    saveWorkbook(wb, "Resultados/tasas_regiones.xlsx") ## EXPORTACION FINAL
 
-```
+    ```

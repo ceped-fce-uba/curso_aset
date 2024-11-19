@@ -16,7 +16,7 @@ Los archivos R Markdown nos permiten combinar código, resultados y texto. El ob
 - Compartir código y resultados con gente que también trabaja en R.
 - Compartir resultados con gente que no trabaja en R, y simplemente necesita enfocarse en las conclusiones.
 
-Las presentes notas de clase están basadas en el libro [R4DS](https://es.r4ds.hadley.nz/r-markdown.html) y las [cheatsheets](https://www.rstudio.com/resources/cheatsheets/). También se recomienda el libro [R Markdown: The Definitive Guide](https://bookdown.org/yihui/rmarkdown/).
+Las presentes notas de clase están basadas en el libro [R4DS](https://r4ds.had.co.nz/) y las [cheatsheets](https://www.rstudio.com/resources/cheatsheets/). También se recomienda el libro [R Markdown: The Definitive Guide](https://bookdown.org/yihui/rmarkdown/).
 
 ### Requisitos
 
@@ -31,7 +31,7 @@ Se trata de un archivo de extensión __.Rmd__. Contiene en su estructura tres ti
 ```
 ---
 title: "El título de nuestro informe"
-date: Septiembre 2019
+date: Noviembre 2024
 output: html_document
 ---
 ```
