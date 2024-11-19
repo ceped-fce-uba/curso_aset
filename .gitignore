@@ -42,3 +42,4 @@ vignettes/*.pdf
 .DS_Store
 
 recursos_ignore/
+*practica_en_clase.R
