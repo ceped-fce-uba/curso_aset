@@ -2,14 +2,22 @@
 title: "Clase 3. Práctica EPH"
 output: html_notebook
 ---
+```{r setup}
+knitr::opts_chunk$set(
+	eval = FALSE,
+	message = FALSE,
+	warning = FALSE,
+	include = FALSE
+)
+```
 
 # Ejercicios de práctica con variables de ingresos.
 
 Levantar la base individual de la EPH del 1t de 2017 (Pueden tomarla de la clase 1 o usar el paquete "eph")
 
 ```{r message=FALSE, warning=FALSE}
-# library(tidyverse)
-# base <- eph::get_microdata(2017,1)
+ library(tidyverse)
+ base <- eph::get_microdata(2017,1)
 ```
 
 Crear un dataframe con las siguientes estimaciones:
@@ -20,13 +28,21 @@ Crear un dataframe con las siguientes estimaciones:
 -   Cantidad de perceptores de ingresos con ingreso individual total mayor a \$15.000
 
 ```{r}
-
+ej1 <- base %>% 
+  filter(P47T>0) %>% 
+  summarise(perceptores = sum(PONDII,na.rm = T),
+            p_menos_8 = sum(PONDII[P47T<8000],na.rm = T),
+            p_8a15 = sum(PONDII[P47T>=8000 & P47T<= 15000],na.rm = T),
+            p_mas_15 = sum(PONDII[P47T>15000],na.rm = T),
+            )
 ```
 
 Estimar cuantas personas habitan en hogares con ingresos totales familiares (ITF) menores a \$15.000
 
 ```{r echo=TRUE}
-
+base %>% 
+  filter(ITF<15000) %>% 
+  summarise(personas = sum(PONDIH,na.rm = T))
 ```
 
 # Composición de Hogares
@@ -62,10 +78,19 @@ Consignas:
 -   ¿Cual es el ingreso familiar per capita en estos hogares?
 
 ```{r, include=FALSE}
-#length(unique(base$CODUSU))
-#nrow(unique(base[,c("CODUSU","NRO_HOGAR")]))
+cant_viviendas_distintas<- length(unique(base$CODUSU))
 
-#base_2 <- base %>% 
-#  group_by(CODUSU,NRO_HOGAR) %>% 
-#  mutate(personas_en_hogar = n())
+unicos_hogares<- unique(base[,c("CODUSU","NRO_HOGAR")])
+
+cant_hogares_distintos <- nrow(unicos_hogares)
+
+base_conteo_personas <- base %>%
+ group_by(CODUSU,NRO_HOGAR) %>%
+ mutate(personas_en_hogar = n())
+
+resolucion <- base_conteo_personas %>%
+  ungroup() %>% 
+  filter(personas_en_hogar >= 7) %>% 
+  summarise(personas_en_hogares_grandes = sum(PONDERA,na.rm = T),
+            itf_promedio_hogares_grandes = weighted.mean(IPCF,PONDIH)) 
 ```
