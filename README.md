@@ -64,6 +64,8 @@ __Clase 3 - Indicadores de Precariedad y Tidyverse 2:__
 
 **Clase 4 – Visualización en R - ggplot:**
 
+[![Download](img/link_zip.png)](Clase%204%20-%20Visualizacion%20en%20R%20-%20ggplot/Clase4.rar)
+
 -   Temas de clase:
     -   Introducción al paquete ggplot y la lógica de capas en el armado de gráficos
         -   Variantes en las geom (gráficos de línea, puntos, barras, boxplot).
@@ -72,6 +74,8 @@ __Clase 3 - Indicadores de Precariedad y Tidyverse 2:__
     -   Gráficos interactivos con ggplotly <br>
 
 **Clase 5: Markdown, loops y funciones**
+
+[![Download](img/link_zip.png)](Clase%205%20-%20Markdown,%20loops%20y%20funciones/Clase5.rar)
 
 -   Temas de clase:
     -   Manejo de las extensiones del software “Rmarkdown” y “RNotebook” para elaborar documentos de trabajo, presentaciones interactivas e informes:
