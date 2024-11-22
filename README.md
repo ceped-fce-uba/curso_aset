@@ -64,7 +64,7 @@ __Clase 3 - Indicadores de Precariedad y Tidyverse 2:__
 
 **Clase 4 – Visualización en R - ggplot:**
 
-[![Download](img/link_zip.png)](Clase%204%20-%20Visualizacion%20en%20R%20-%20ggplot/Clase4.rar)
+[![Download](img/link_zip.png)](Clase%204%20-%20Visualizacion%20en%20R%20-%20ggplot/Clase4.rar) [![Grabación Clase 4 - Parte I](img/link_video.png)](https://youtu.be/7wLbOUGRnOc) [![Grabación Clase 4 - Parte II](img/link_video.png)](https://youtu.be/ampAhhbwUmI)
 
 -   Temas de clase:
     -   Introducción al paquete ggplot y la lógica de capas en el armado de gráficos
