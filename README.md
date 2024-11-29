@@ -75,7 +75,7 @@ __Clase 3 - Indicadores de Precariedad y Tidyverse 2:__
 
 **Clase 5: Markdown, loops y funciones**
 
-[![Download](img/link_zip.png)](Clase%205%20-%20Markdown,%20loops%20y%20funciones/Clase5.rar)
+[![Download](img/link_zip.png)](Clase%205%20-%20Markdown,%20loops%20y%20funciones/Clase5.rar)  [![Grabación Clase 5 - Parte I](img/link_video.png)](https://youtu.be/hG29WYFWhVM) [![Grabación Clase 5 - Parte II](img/link_video.png)](https://youtu.be/hG29WYFWhVM)
 
 -   Temas de clase:
     -   Manejo de las extensiones del software “Rmarkdown” y “RNotebook” para elaborar documentos de trabajo, presentaciones interactivas e informes:
