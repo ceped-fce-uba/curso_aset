@@ -1,0 +1,25 @@
+---
+title: "Clase 7 - PowerBI"
+subtitle: Herramientas de programación para la producción y difusión de estadísticas socioeconómicas - ASET
+output: 
+  rmdformats::downcute
+---
+
+Las herramientas de visualización en tableros (o dashboards) son una forma de presentar información de manera atractiva y accesible. Si bien se las asocia al mundo del BI (Business Intelligence), también pueden ser utilizadas para presentar estadísticas económicas y socio-laborales, de forma manera clara y comprensible. Las herramientas de visualización, como los tableros interactivos, permiten transformar conjuntos de datos complejos en narrativas visuales que facilitan la comunicación y el entendimiento de la información. Para Argentina está el ejemplo de los tableros desarrollados en PowerBI por el [CEP XXI - Centro de Estudios para la Producción](CEP XXI - Centro de Estudios para la Producción)
+
+# Introducción a PowerBI
+
+PowerBI es una herramienta desarrollada por Microsoft que se ha convertido en un estándar en el ámbito de la visualización y análisis de datos. Aunque inicialmente se diseñó para entornos empresariales, su flexibilidad y capacidad de integración con distintas fuentes de datos lo hacen igualmente valioso en el análisis estadístico y la difusión de resultados en áreas como las estadísticas laborales y económicas.
+
+## PowerQuery
+
+Uno de los pilares de PowerBI es PowerQuery, una herramienta integrada que permite transformar y limpiar datos de manera intuitiva. Permite importar datos desde múltiples fuentes (archivos Excel, bases SQL, APIs, etc.) y realizar transformaciones de los datos.
+
+## Organización del trabajo en PowerBI
+
+
+
+
+
+
+

@@ -1,0 +1,98 @@
+---
+title: "Clase 8 - GoogleSheets y Looker"
+subtitle: Herramientas de programación para la producción y difusión de estadísticas socioeconómicas - ASET
+output: 
+  rmdformats::downcute
+---
+
+<style>
+.warning-box {
+  border: 2px solid #FFA500;
+  background-color: #FFF8E1;
+  padding: 20px;
+  border-radius: 10px;
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  color: #FF6F00;
+  text-align: center;
+  margin-top: 10px;
+}
+.warning-box h1 {
+  font-size: 24px;
+  margin-bottom: 10px;
+  color: #D84315;
+}
+.warning-box p {
+  margin: 0;
+}
+</style>
+
+::: warning-box
+<h1>⚠️ Sitio en Construcción ⚠️</h1>
+:::
+
+La interacción con **Google Sheets** desde R permite automatizar el manejo de datos en hojas de cálculo, lo que facilita la colaboración y el análisis. Utilizando el paquete `googlesheets4`, podemos leer, escribir y actualizar datos en Google Sheets de manera eficiente.
+
+## Paquetes para Interacción con Google Sheets
+
+-   `googlesheets4`: Permite acceder a Google Sheets y realizar operaciones como leer, escribir y modificar datos.
+-   `googledrive`: Facilita la autenticación y el manejo de archivos en Google Drive, que es útil cuando se trabaja con múltiples hojas de cálculo.
+
+## Configuración Inicial
+
+Antes de comenzar a interactuar con Google Sheets, asegurate de haber instalado los paquetes necesarios. Luego vas a poder autenticarte con tu usuario corriendo `gs4_auth()`.
+
+```{r install-packages, eval=FALSE}
+# Instalar los paquetes si no están instalados
+# install.packages("googlesheets4")
+# install.packages("googledrive")
+
+library(googlesheets4)
+
+gs4_auth()
+
+```
+
+Cuando corremos la autenticación por primera vez, se nos va a abrir una ventana en el navegador para que nos autentiquemos con nuestra cuenta de Google. Luego de hacerlo, vamos a poder interactuar con Google Sheets desde R. En caso de que ya lo hayamos hecho antes, tan solo tenemos que seleccionar la cuenta con la que queremos logearnos. Luego podemos crear una hoja de cálculo nueva pasándole como argumentos a `gs4_create` un nombre y una lista de data frames que queremos incluir en las distintas hojas de la planilla.
+
+## Manipulando sheets desde R
+
+```{r creando_sheet, eval=FALSE}
+gsheet <- gs4_create("GoogleSheet de prueba2", sheets = list(sheet1 = data.frame(A = 1:3, B = 4:6)))
+```
+
+De esta manera creamos el objeto `gsheet`, que representa en nuestro entorno de trabajo a una hoja de cálculo en GoogleSheets. Un comando muy útil va a ser `as_id()`, que nos devuelve el id de la hoja del cálculo, con el cual vamos a poder operar sobre el elemento. En general, los ids de los sheets están disponibles en su URL. Por ejemplo, en la URL `https://docs.google.com/spreadsheets/d/1X2Y3Z/edit#gid=0`, el id es `1X2Y3Z`. Para leer una hoja de cálculo existente, podemos utilizar la función `gs4_get()` pasándole como argumento el id de la hoja de cálculo. También podemos compartir el sheet desde el paquete `googledrive`, que lo comporte al igual que lo haríamos normalmente cuando interactuamos desde el sitio de Drive o GoogleSheets.
+
+```{r compartiendo_sheet, eval=FALSE}
+
+library(googledrive)
+
+drive_auth() 
+
+drive_share(as_id(gsheet), email_address = "marajadesantelmo@gmail.com", role = "writer")
+```
+
+Si todo salió bien, nos debería llegar un correo con el link a la hoja de cálculo, tal como nos llega cuando alguien nos comparte un documento de Drive. Además vamos a poder hacer muchas de las operaciones que normalmente hacemos en Google Sheets, como agregar valores, filas, columnas, hojas, como también subir y bajar información. Por ejemplo, podríamos crear una hoja y subir la información que acabamos de scrapear.
+
+```{r subiendo_info, eval=FALSE}
+# Subo los datos scrapeados a una nueva hoja llamada "Mis Datos"
+sheet_write(data = df,  ss = as_id(gsheet), sheet = "Mis datos")
+
+# Borro datos de la primera hoja creada
+range_clear(ss = as_id(gsheet), sheet = "sheet1")
+
+```
+
+# Tareas programadas en Windows
+
+La programación de tareas consiste en la ejecución automática de un script en un momento específico. Esto es útil para tareas que se repiten con frecuencia, como la actualización de datos y la generación de reportes. Dependiendo el sistema operativo que tengamos, vamos a tener distintas formas de programar tareas (en este curso nos centramos en Windows). Para Linux existe una forma muy cómoda de programar tareas mediante comando de código con `CRON` ([ver aqu](https://es.wikipedia.org/wiki/Cron_(Unix))í). En Windows podemos utilizar el Programador de Tareas, que ejecuta progamas según desencadenadores. Para ello, vamos a necesitar el archivo .bat que nos permitirá ejecutar el script de R. Los .bat son archivos de procesamiento por lotes que contienen una serie de comandos que se ejecutan en secuencia, como si lo estuvieramos ejecutando por la consola de CMD o powershell. En este caso, el archivo .bat va a contener el comando para ejecutar el script de R.
+
+```         
+"C:\Program Files\R\R-4.1.1\bin\Rscript.exe" "C:\Users\Usuario\Documents\script.R"
+```
+
+El archivo .bat imita básicamente la ejecución de comandos en el CMD o powershell de Windows. En este caso le estamos diciendo a nuestra computadora que ejecute `script.R` con el comando `Rscript.exe` que se encuentra en la carpeta de instalación de R. Luego le pasamos la ruta del archivo de R que queremos ejecutar. Para programar la tarea, abrimos el Programador de Tareas de Windows y creamos una tarea nueva. En la pestaña de desencadenadores seleccionamos la frecuencia con la que queremos que se ejecute el script, y en la pestaña de acciones le asignamos el archivo .bat que creamos. De esta manera, el script de R se va a ejecutar automáticamente en el momento que lo hayamos programado.
+
+# Envios de correo electrónico
+
+Con R es posible enviar correos electrónicos de manera automática. Para ello, vamos a utilizar el paquete `blastula`, que nos permite enviar correos con contenido HTML. Para enviar un correo, vamos a tener que configurar un servidor SMTP, que es el servidor que se encarga de enviar correos electrónicos. En este caso, vamos a utilizar el servidor de Gmail, que es uno de los más utilizados. Para ello, vamos a tener que configurar nuestra cuenta de Gmail para que permita el acceso de aplicaciones menos seguras. Para ello, vamos a tener que ir a la configuración de nuestra cuenta de Google y habilitar el acceso de aplicaciones menos seguras. Luego, vamos a tener que configurar el servidor SMTP de Gmail en R. Para ello, vamos a utilizar la función `smtp_server()` del paquete `blastula`.

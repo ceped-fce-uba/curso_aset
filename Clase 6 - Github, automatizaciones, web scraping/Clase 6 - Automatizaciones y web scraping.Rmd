@@ -7,9 +7,7 @@ output:
 
 # Introducción a la automatización
 
-> ATENCION: Este material todavía está en preparación
-
-En el análisis de datos, la automatización es una habilidad fundamental para ahorrar tiempo, reducir errores y aumentar la eficiencia en tareas repetitivas. Cuando automatizamos procesos, podemos realizar tareas de manera programada, sin intervención manual, lo que resulta en flujos de trabajo más consistentes y escalables. Los lenguajes de programación orientados a objetos, como R, pueden ser muy útiles para la automatización. En este encuentro vamos a cubrir las siguientes actividades vinculadas al diverso mundo de la automatización: identificación de patrones en texto, web scraping, interacción con Google Sheets y programación de tareas. Además profundizaremos en el uso de Github y sus diversas funcionalidades.
+En el análisis de datos, la automatización es una habilidad fundamental para ahorrar tiempo, reducir errores y aumentar la eficiencia en tareas repetitivas. Cuando automatizamos procesos, podemos realizar tareas de manera programada, sin intervención manual, lo que resulta en flujos de trabajo más consistentes y escalables. Los lenguajes de programación orientados a objetos, como R, pueden ser muy útiles para la automatización. En este encuentro vamos a cubrir las siguientes actividades vinculadas al diverso mundo de la automatización: identificación de patrones en texto, web scraping y modificación de archivos con R. En la Clase 8 también vamos a trabajar en la interacción con Google Sheets desde R y programación de tareas.
 
 # Expresiones Regulares (Regex) en R
 
@@ -68,7 +66,7 @@ str_extract_all(texto_numeros, "[0-9]+")
 
 ### Ejemplo 3: Limpio valores en \$
 
-Es muy común encontrar valores 'sucios' cuando tratamos con montos de dinero. El comando `gsub` permite sustitur los strings que matcheen con nuestro regex por los caracteres que queramos. Cuando le pasamos "" como argumento, le estamos diciendo que directamente borre los caracteres que coinciden con nuestra búsqueda
+Es muy común encontrar valores 'sucios' cuando tratamos con montos de dinero en algunas fuentes de datos. El comando `gsub` permite sustitur los strings que matcheen con nuestro regex por los caracteres que queramos. Cuando le pasamos "" como argumento, le estamos diciendo que directamente borre los caracteres que coinciden con nuestra búsqueda
 
 ```{r gsub-ejemplo}
 # Crear un vector con ejemplos de montos en formato string
@@ -144,6 +142,7 @@ archivos_carpeta
 Con estos vectores podemos hacer un loop para leer los archivos y utilizar un patrón de texto para utilizar sólo los archivos que cumplen con ese patrón. A continuación presentamos un ejemplo de ello en una parte de un script del repositorio **precariedad.mundial**, utilizado para 'pegar' las bases nacionales y crear una base homogénea.
 
 ```{r eval=FALSE}
+#Este chunck solo corre en el contexto del repositorio precariedad.mundial
 rutas <- list.files("Bases_homog/",full.names = T,pattern = ".rds")
 Base <- data.frame()
 for(i in rutas){
@@ -193,7 +192,7 @@ page
 
 ```
 
-Cuando ingresamos la dirección de la página web en la función `read_html()` de rvest, obtenemos un objeto HTML del que podemos analizar y extraer información. Este objeto es el mismo código que nuestros navegadores 'leen' para luego mostrarnos una página web. Para extraer datos de la página, necesitamos identificar las etiquetas HTML que contienen la información que queremos obtener. Por ejemplo, si queremos extraer los títulos de las noticias de la página principal, podemos buscar las etiquetas `<h3>` que contienen los títulos. El comando `html_nodes()` nos permite seleccionar nodos HTML de la página, y `html_text()` nos permite extraer el texto de los nodos seleccionados.
+Cuando ingresamos la dirección de la página web en la función `read_html()` de rvest, obtenemos un objeto HTML del que podemos analizar y extraer información. Este objeto es el mismo código que nuestros navegadores 'leen' para luego mostrarnos una página web. Para extraer datos de la página, necesitamos identificar las etiquetas HTML que contienen la información que queremos obtener. En nuestro ejemplo, si queremos extraer los títulos de las noticias de la página principal, podemos buscar las etiquetas `<h3>` que contienen los títulos. El comando `html_nodes()` nos permite seleccionar nodos HTML de la página, y `html_text()` nos permite extraer el texto de los nodos seleccionados.
 
 ```{r eval=FALSE }
 # get text of all h2 tags
@@ -210,11 +209,13 @@ Hay distintos métodos para acceder a la información que está en una página w
 page2 <- read_html("https://www.argentina.gob.ar/encuesta-de-indicadores-laborales")
 
 
-# get text using xpath
+# Obtengo infromación usando Xpath
 h2_tags_xpath <- page2 %>% html_nodes(xpath ='//*[@id="block-system-main"]/section[1]/article/div/div/div/div/table') %>% html_text()
 
 
 ```
+
+Una vez obtenida la información por Xpaht podemos procesarla y guardarla como dataframe
 
 ```{r eval=FALSE}
 library(tidyverse)
@@ -230,7 +231,7 @@ regiones <- cleaned_lines[c(3,6,9)]
 mensual_values <- cleaned_lines[c(4,7,10)]
 anual_values <- cleaned_lines[c(5,8,11)]
 
-# Combine data into a DataFrame
+# Combino datos en un df
 df <- data.frame(
   regiones,
   mensual_values,
@@ -242,75 +243,11 @@ colnames(df) <- c("Region", encabezados)
 print(df)
 ```
 
+# Git y Github
 
-# Interacción con Google Sheets
+Desde el primer encuentro que venimos trabajando con Git y Github, pero siempre hay algo nuevo por conocer cuando se trata de estas herramientas. La lógica general es que podemos hacer cambios, que se agrupan en tandas de cambios llamados `commits`. Luego, esos `commits` se `pushean` al repositorio en la nube. Para bajar los commits que hicieron otros, usamos el comando `pull`. En general, la idea es que cada vez que trabajemos en un proyecto, hagamos un `pull` para tener la última versión del proyecto, y luego un `push` para subir nuestros cambios.
 
-La interacción con **Google Sheets** desde R permite automatizar el manejo de datos en hojas de cálculo, lo que facilita la colaboración y el análisis. Utilizando el paquete `googlesheets4`, podemos leer, escribir y actualizar datos en Google Sheets de manera eficiente.
-
-## Paquetes para Interacción con Google Sheets
-
--   `googlesheets4`: Permite acceder a Google Sheets y realizar operaciones como leer, escribir y modificar datos.
--   `googledrive`: Facilita la autenticación y el manejo de archivos en Google Drive, que es útil cuando se trabaja con múltiples hojas de cálculo.
-
-## Configuración Inicial
-
-Antes de comenzar a interactuar con Google Sheets, asegurate de haber instalado los paquetes necesarios. Luego vas a poder autenticarte con tu usuario corriendo `gs4_auth()`.
-
-```{r install-packages, eval=FALSE}
-# Instalar los paquetes si no están instalados
-# install.packages("googlesheets4")
-# install.packages("googledrive")
-
-library(googlesheets4)
-
-gs4_auth()
-
-```
-Cuando corremos la autenticación por primera vez, se nos va a abrir una ventana en el navegador para que nos autentiquemos con nuestra cuenta de Google. Luego de hacerlo, vamos a poder interactuar con Google Sheets desde R. En caso de que ya lo hayamos hecho antes, tan solo tenemos que seleccionar la cuenta con la que queremos logearnos. Luego podemos crear una hoja de cálculo nueva pasándole como argumentos a `gs4_create` un nombre y una lista de data frames que queremos incluir en las distintas hojas de la planilla.
-
-## Manipulando sheets desde R
-
-```{r creando_sheet, eval=FALSE}
-gsheet <- gs4_create("GoogleSheet de prueba2", sheets = list(sheet1 = data.frame(A = 1:3, B = 4:6)))
-```
-
-De esta manera creamos el objeto `gsheet`, que representa en nuestro entorno de trabajo a una hoja de cálculo en GoogleSheets. Un comando muy útil va a ser `as_id()`, que nos devuelve el id de la hoja del cálculo, con el cual vamos a poder operar sobre el elemento. En general, los ids de los sheets están disponibles en su URL. Por ejemplo, en la URL `https://docs.google.com/spreadsheets/d/1X2Y3Z/edit#gid=0`, el id es `1X2Y3Z`. Para leer una hoja de cálculo existente, podemos utilizar la función `gs4_get()` pasándole como argumento el id de la hoja de cálculo. También podemos compartir el sheet desde el paquete `googledrive`, que lo comporte al igual que lo haríamos normalmente cuando interactuamos desde el sitio de Drive o GoogleSheets.
-
-```{r compartiendo_sheet, eval=FALSE}
-
-library(googledrive)
-
-drive_auth() 
-
-drive_share(as_id(gsheet), email_address = "marajadesantelmo@gmail.com", role = "writer")
-```
-
-Si todo salió bien, nos debería llegar un correo con el link a la hoja de cálculo, tal como nos llega cuando alguien nos comparte un documento de Drive. Además vamos a poder hacer muchas de las operaciones que normalmente hacemos en Google Sheets, como agregar valores, filas, columnas, hojas, como también subir y bajar información. Por ejemplo, podríamos crear una hoja y subir la información que acabamos de scrapear.
-
-```{r subiendo_info, eval=FALSE}
-# Subo los datos scrapeados a una nueva hoja llamada "Mis Datos"
-sheet_write(data = df,  ss = as_id(gsheet), sheet = "Mis datos")
-
-# Borro datos de la primera hoja creada
-range_clear(ss = as_id(gsheet), sheet = "sheet1")
-
-```
-
-# Tareas programadas en Windows
-
-La programación de tareas consiste en la ejecución automática de un script en un momento específico. Esto es útil para tareas que se repiten con frecuencia, como la actualización de datos y la generación de reportes. Dependiendo el sistema operativo que tengamos, vamos a tener distintas formas de programar tareas (en este curso nos centramos en Windows). Para Linux existe una forma muy cómoda de programar tareas mediante comando de código con ```CRON``` (ver aquí).  En Windows podemos utilizar el Programador de Tareas, que ejecuta progamas según desencadenadores. Para ello, vamos a necesitar el archivo .bat que nos permitirá ejecutar el script de R. Los .bat son archivos de procesamiento por lotes que contienen una serie de comandos que se ejecutan en secuencia, como si lo estuvieramos ejecutando por la consola de CMD o powershell. En este caso, el archivo .bat va a contener el comando para ejecutar el script de R.
-
-```
-"C:\Program Files\R\R-4.1.1\bin\Rscript.exe" "C:\Users\Usuario\Documents\script.R"
-```
-
-El archivo .bat imita básicamente la ejecución de comandos en el CMD o powershell de Windows. En este caso le estamso diciendo a la computadora que ejecue nuestro archivo de R con el comando `Rscript.exe` que se encuentra en la carpeta de instalación de R. Luego le pasamos la ruta del archivo de R que queremos ejecutar. Para programar la tarea, vamos a abrir el Programador de Tareas de Windows y vamos a crear una tarea nueva. En la pestaña de desencadenadores vamos a seleccionar la frecuencia con la que queremos que se ejecute el script, y en la pestaña de acciones vamos a seleccionar el archivo .bat que creamos. De esta manera, el script de R se va a ejecutar automáticamente en el momento que hayamos programado.
-
-# Github
-
-Desde el primer encuentro que venimos trabajando con Github, pero siempre hay algo nuevo por conocer cuando se trata de esta herramienta. La lógica general es que podemos hacer cambios, que se agrupan en tandas de cambios llamados `commits`. Luego, esos `commits` se `pushean` al repositorio en la nube. Para bajar los commits que hicieron otros, usamos el comando `pull`. En general, la idea es que cada vez que trabajemos en un proyecto, hagamos un `pull` para tener la última versión del proyecto, y luego un `push` para subir nuestros cambios.
-
-![Imagen de https://www.linkedin.com/in/suresh-kumar-455903287/](img/git_workflow.gif){width="60%"}
+![Imagen de <https://www.linkedin.com/in/suresh-kumar-455903287/>](img/git_workflow.gif){width="60%"}
 
 ## Algunos recursos
 
@@ -342,13 +279,13 @@ Un poco más avanzado:
 
 -   **git merge** combina las líneas de desarrollo. Este comando habitualmente se utiliza para combinar los cambios que se realizan en dos ramas distintas. Por ejemplo, un desarrollador podría hacer una fusión cuando necesite combinar los cambios de una rama de característica en la rama de desarrollo principal.
 
-Podemos ingresar estos comandos directamente en la consola de RStudio, o en la consola de Windows. En el caso de RStudio, se accede directamente en la pestaña de terminal (generalmente ubicada debajo dentro de la ventana de RStudio). En caso de que la terminal no esté visible, abrirla yendo a *Tools -> Terminal -> New Terminal*.
+Podemos ingresar estos comandos directamente en la consola de RStudio o en la de Windows. En el caso de RStudio, se accede directamente en la pestaña de terminal (generalmente ubicada debajo dentro de la ventana de RStudio). En caso de que la terminal no esté visible, abrirla yendo a *Tools -\> Terminal -\> New Terminal*.
 
 ![Visualización de ejecución de git status por terminal](img/git_status.jpg){width="60%"}
 
 ## Interactuar desde RStudio
 
-RStudio tiene una interfaz gráfica que nos permite interactuar con Github de manera más amigable. 
+RStudio tiene una interfaz gráfica que nos permite interactuar con Github de manera más amigable.
 
 ![Seccion de Git en nuestra ventana de RStudio](img/git_console_r.png){width="60%"}
 
@@ -360,16 +297,16 @@ Si queremos bajar los cambios que hicieron otros, hacemos click en `Pull`. Tambi
 
 ## Ignorar archivos con `.gitignore`
 
-Para que los archivos del directorio se tengan en cuenta en el repositorio, deben estar inicializados. Por le contrario, para que los achivos no sean tenidos en cuenta no deben estar inicializadio y se debe agregar un archivo `.gitignore` en la raíz del proyecto. En este archivo se pueden especificar los archivos y carpetas que no queremos que se suban al repositorio. Por ejemplo, si no queremos que se suban los archivos `.RData`, los archivos `.csv` o las carpetas `data` y `img`, el archivo `.gitignore` debería tener el siguiente contenido:
+Para que los archivos del directorio se tengan en cuenta en el repositorio, deben estar inicializados. Por el contrario, para que los achivos no sean tenidos en cuenta no deben estar inicializados y se debe agregar un archivo `.gitignore` en la raíz del proyecto. Allí se especifican los archivos y carpetas que no queremos que se suban al repositorio. Por ejemplo, si no queremos que se suban los archivos `.RData`, los archivos `.csv` o las carpetas `data` y `img`, el archivo `.gitignore` debería tener el siguiente contenido:
 
-```
+```         
 *.RData
 *.csv
 data/
 img/
 ```
 
-Se trata de un archivo de texto plano que se puede crear con cualquier editor de texto. En general, se recomienda utilizar el archivo `.gitignore` para evitar subir archivos innecesarios al repositorio, como archivos de datos pesados, archivos temporales, o archivos que contienen información sensible.
+Se trata de un archivo de texto plano que se puede crear con cualquier editor de texto. En general, se recomienda utilizar el archivo `.gitignore` para evitar subir archivos innecesarios al repositorio, como bases de datos pesadas, archivos temporales, o archivos que contienen información sensible (como por ejemplo claves y credenciales).
 
 ## Github Pages
 
@@ -377,25 +314,23 @@ Una funcionalidad muy interesante de Github es la posibilidad de hacer páginas 
 
 ![Activación de Github Pages](img/github_pages.png){width="60%"}
 
-Por defecto, Github pages toma como página principal el archivo `index.html` o el archivo `README.md` que están en el raíz del directorio. Para crear una página web con Github pages, simplemente hay que subir los archivos al repositorio haciendo **push** y luego de unos minutos el sitio se publica automáticamente. Si estamos trabajando con R, lo más común es que usemos archivos de extensión .md para sitios simples y .Rmd para presentación más complejas. Si le queremos dar formato más lindo, Github viene con el servicio integrado de `jekyll`, que es un generador de sitios estáticos. Con simplemente agregar un archivo `_config.yml` en la raíz del directorio, podemos personalizar el sitio web. Por ejemplo, el siguiente archivo `_config.yml` es el que tenemos en el repositorio del curso 
+Por defecto, Github pages toma como página principal el archivo `index.html` o el archivo `README.md` que están en el raíz del directorio. Para crear una página web con Github pages, simplemente hay que subir los archivos al repositorio haciendo **push** y luego de unos minutos el sitio se publica automáticamente. Si estamos trabajando con R, lo más común es que usemos archivos de extensión .md para sitios simples y .Rmd para presentación más complejas. Si le queremos dar formato más lindo, Github viene con el servicio integrado de `jekyll`, que es un generador de sitios estáticos. Con simplemente agregar un archivo `_config.yml` en la raíz del directorio, podemos personalizar el sitio web. Por ejemplo, el siguiente archivo `_config.yml` es el que tenemos en el repositorio del curso
 
-```
+```         
 theme: jekyll-theme-slate
 title: "Herramientas de programación para la producción y difusión de estadísticas socioeconómicas - ASET"
 description: ""
-``` 
+```
 
-Hoy en día existen varios generadores de sitios estáticos que nos permite deployar sitios web estáticos de forma muy sencilla. Muchos de ellos tienen templates muy buenos que nos permiten hacer sitios web muy atractivos sin tener que saber de diseño web. Algunos de los más populares son `Hugo`, `Jekyll`, `Pelican`, `Gatsby`, entre otros. También podemos generar .htmls y arhivos de estilo .css mediante promtos en ChatGPT o cualquier otra herramienta basadas en IA
+Hoy en día existen varios generadores de sitios estáticos que nos permite deployar sitios web estáticos de forma muy sencilla. Muchos de ellos tienen templates muy buenos que nos permiten hacer sitios web muy atractivos sin tener que saber de diseño web. Algunos de los más populares son `Hugo`, `Jekyll`, `Pelican`, `Gatsby`, entre otros. También podemos generar .htmls y arhivos de estilo .css mediante prompts en ChatGPT o cualquier otra herramienta basadas en IA.
 
+# Imputación de datos
 
-# EXTRA: Imputación de datos
-
-En el trabajo con bases de datos, es común encontrarnos con valores faltantes o datos incompletos. La imputación de datos es el proceso de reemplazar los valores faltantes con valores estimados utilizando distintos métodos o modelos para elegir cuál va a ser el valor a imputar para cada caso. Entre las muchísimas formas de aplicar imputaciones, a continuación revisaremos ejemplos de imputación por media, mediana o moda, utilización de regiresiones y un ejemplo (muy sintético) de aplicación de modos de machine learnirg. En este encuentro vamos a cubrir las siguientes técnicas de imputación de datos.
+En el trabajo con bases de datos, es común encontrarnos con valores faltantes o datos incompletos. La imputación de datos es el proceso de reemplazar los valores faltantes con valores estimados utilizando distintos métodos o modelos para elegir cuál va a ser el valor a imputar para cada caso. Entre las muchísimas formas de aplicar imputaciones, a continuación revisaremos ejemplos de imputación por media, por regresión y un ejemplo (muy sintético) de aplicación de modelos de machine learning.
 
 ## Imputaciones por promedios
 
-Una forma muy sencilla de imputar es calcular una métrica para un grupo particular y aplicar el valor de dicha métrica para los miembros del gupo que tienen valores faltantes. Por ejemplo, tomemos la eph para el primer trimestre del año 2024.
-
+Una forma muy sencilla de imputar es calcular una métrica para un grupo particular y aplicar el valor de dicha métrica para los miembros del gupo que tienen valores faltantes. Con las herramientas que trabajamos en este curso ya podemos hacer este tipo de imputaciones. Por ejemplo, tomemos la EPH para el primer trimestre del año 2024.
 
 ```{r warning=FALSE, eval=FALSE}
 library(eph)
@@ -465,8 +400,13 @@ tabla %>%
 
 A pesar de ser muy simple, este ejemplo nos sirve para entender la lógica de las imputaciones: reemaplazar los NAs con valores basados en la información de otros casos. En la práctica, las imputaciones suelen ser más complejas. En el siguiente ejemplo vamos a ver cómo se puede hacer una imputación de ingresos utilizando un modelo de regresión lineal.
 
-
 ## Regresión
+
+Muy sintéticamente, una regresión es un modelo matemático que busca establecer una relación entre una variable dependiente y una o más variables independientes. Para una imputación, la variable dependiente es la que tiene valores faltantes y las variables independientes son las que se utilizan para predecirlos.
+
+$$
+P_{21} = \beta_0 + \beta_1 \cdot \text{edad} + \beta_2 \cdot \text{edad}^2 + \beta_3 \cdot \text{sexo} + \beta_4 \cdot \text{región} + \beta_5 \cdot \text{tramo_etario} + \epsilon
+$$
 
 En este caso, vamos a utilizar un modelo de regresión lineal para imputar los valores faltantes de la variable de ingresos. Para ello, vamos a utilizar las variables de edad, edad al cuadrado, sexo, región y tramo etario como predictores. Utilizamos la función `lm()` para ajustar el modelo y luego vamos a predecir los valores faltantes.
 
@@ -482,11 +422,11 @@ base$p21_imputado_regresion <- ifelse(is.na(base$P21), base$P21_prediccion, base
 
 ```
 
-En este caso, el modelo de regresión lineal nos permite predecir los valores faltantes de la variable de ingresos utilizando la información de las variables de edad, edad al cuadrado, sexo, región y tramo etario. En la práctica los modelos econométricos suelen estudiarse y ajustarse con más detalles, lo que queda por fuera del alancance de este curso. En el siguiente ejemplo vamos a ver cómo se puede hacer una imputación de ingresos utilizando un modelo de machine learning.
+En este caso, el modelo de regresión lineal nos permite predecir los valores faltantes de la variable de ingresos utilizando la información de las variables de edad, edad al cuadrado, sexo, región y tramo etario. En la práctica los modelos econométricos suelen estudiarse y ajustarse con más detalle, lo que queda por fuera del alancance de este curso.
 
 ## Modelo de Machine Learning
 
-Los modelos de machine learning son una herramienta poderosa para imputar valores faltantes en bases de datos. En este caso, vamos a utilizar un modelo de regresión de *random forest* para imputar los valores faltantes de la variable de ingresos. Para ello, vamos a utilizar las variables de edad, edad al cuadrado, sexo, región y tramo etario como predictores. Utilizamos la función `ranger()` del paquete `ranger` para ajustar el modelo y luego vamos a predecir los valores faltantes.
+Los modelos de machine learning son una herramienta poderosa para imputar valores faltantes en bases de datos. En este caso, vamos a utilizar un modelo de regresión de *random forest* para imputar los valores faltantes de la variable de ingresos. Para ello, vamos a utilizar las variables de edad, edad al cuadrado, sexo, región y tramo etario como predictores. Utilizamos la función `ranger()` del paquete `ranger` para ajustar el modelo.
 
 ```{r warning=FALSE, eval=FALSE}
 
@@ -506,5 +446,4 @@ base$p21_imputado_ml <- ifelse(is.na(base$P21), base$P21_prediccion_ml, base$P21
 
 ```
 
-Al igual que con las regresiones, normalmente los modelos de machine learning se trabajan con mucha profundidad, evaluando distintas métricas de performance, tipos de modelos y manipulando los datos de entrenamiento y validación. En este caso, simplemente utilizamos un modelo de *random forest* para imputar los valores faltantes de la variable de ingresos. En la práctica, las imputaciones suelen ser más complejas y requieren de un análisis más detallado de los datos y de los modelos a utilizar.
-
+Al igual que con las regresiones, normalmente los modelos de machine learning se trabajan con mucha profundidad, evaluando distintas métricas de performance, tipos de modelos y utilizando datasets diferenciados para su entrenamiento y validación.
