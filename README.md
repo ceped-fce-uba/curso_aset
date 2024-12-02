@@ -90,7 +90,7 @@ __Clase 3 - Indicadores de Precariedad y Tidyverse 2:__
 
 **Clase 6: Git, Github y automatizaciones**
 
-[![Download](img/link_zip.png)](Clase 6 - Github, automatizaciones, web scraping/clase6.zip)
+[![Download](img/link_zip.png)](https://ceped-fce-uba.github.io/curso_aset/Clase%206%20-%20Github,%20automatizaciones,%20web%20scraping/Clase-6---Automatizaciones-y-web-scraping.html)
 
 -   Introducción a Git y sus comandos
 -   Funcionalidades avanzadas de github
