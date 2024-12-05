@@ -1,4 +1,4 @@
-
+1
 #Operadores de asignación
 hola = 1 + 1   #primer comando de R
 hola
