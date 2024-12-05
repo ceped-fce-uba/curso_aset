@@ -336,7 +336,7 @@ Una vez que tenemos el gráfico que nos gusta, ahora si armemos el *loop*.
 ¿Cómo operar con un loop sobre la base de datos? Lo más frecuente es que querramos realizar un mismo procedimiento sobre distintos valores de cierta variable de nuestra base. Para eso, puede ser util crear anticipadamente un vector que indique las cateogrías sobre las que queremos iterar. Ese vector, aqui llamado `vector_calificaciones` será el que utilizaremos para iterar (desechamos los valores **NA, Ns.Nc, falta información**)
 
 ```{r}
-vector_calificaciones <- unique(base_salarios_calificacion$CALIFICACION)[c(1,3,4,5)]
+vector_calificaciones <- unique(base_con_cno$CALIFICACION)[c(1,3,4,5)]
 vector_calificaciones
 ```
 
@@ -345,7 +345,7 @@ Miren las diferecias entre el código del gráfico anterior y el siguiente:
 ```{r,fig.height=8}
 for(categoria in vector_calificaciones){
    
-base.filtrada  <- base_salarios_calificacion %>% 
+base.filtrada  <- base_con_cno %>% 
     filter(CALIFICACION  == categoria)  
     
   
