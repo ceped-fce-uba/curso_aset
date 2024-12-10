@@ -103,6 +103,8 @@ __Clase 3 - Indicadores de Precariedad y Tidyverse 2:__
 
 **Clase 7: Power BI**
 
+[![Download](img/link_zip.png)](Clase%207%20-%20PowerBI/clase7.zip)
+
 -   Temas de clase:
     -   Introducción a Power BI
     -   Conexión a bases de datos
