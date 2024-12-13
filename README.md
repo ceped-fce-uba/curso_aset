@@ -100,10 +100,11 @@ __Clase 3 - Indicadores de Precariedad y Tidyverse 2:__
 -   Automatización de procesos con R
     -   Expresiones regulares
     -   Introducción al Web Scraping
+-   Imputaciones de datos faltantes
 
 **Clase 7: Power BI**
 
-[![Download](img/link_zip.png)](Clase%207%20-%20PowerBI/clase7.zip)
+[![Download](img/link_zip.png)](Clase%207%20-%20PowerBI/clase7.zip)[![Grabación Clase 7](img/link_video.png)](https://youtu.be/X_aCpX5ihI8)
 
 -   Temas de clase:
     -   Introducción a Power BI
