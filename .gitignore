@@ -44,3 +44,4 @@ vignettes/*.pdf
 recursos_ignore/
 *practica_en_clase.R
 probando_git.R
+*credenciales_gmail
