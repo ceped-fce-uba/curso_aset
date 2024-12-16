@@ -58,7 +58,7 @@ library(tidyverse)
 library(openxlsx)
 library(eph)
 
-variables <- c('ANO4', 'TRIMESTRE', 'AGLOMERADO', 'CH04', 'CH06', 'ESTADO', 'CAT_OCUP', 'P21', 'PONDIIO')
+variables <- c('ANO4', 'TRIMESTRE', 'AGLOMERADO','P21', 'PONDIIO')
 bases <- eph::get_microdata(year = 2003:2023,period =1:4, vars = variables)
 
 ```
