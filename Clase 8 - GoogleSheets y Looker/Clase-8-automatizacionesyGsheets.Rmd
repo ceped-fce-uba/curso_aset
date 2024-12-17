@@ -5,53 +5,26 @@ output:
   rmdformats::downcute
 ---
 
-<style>
-.warning-box {
-  border: 2px solid #FFA500;
-  background-color: #FFF8E1;
-  padding: 20px;
-  border-radius: 10px;
-  font-family: Arial, sans-serif;
-  font-size: 18px;
-  color: #FF6F00;
-  text-align: center;
-  margin-top: 10px;
-}
-.warning-box h1 {
-  font-size: 24px;
-  margin-bottom: 10px;
-  color: #D84315;
-}
-.warning-box p {
-  margin: 0;
-}
-</style>
-
-::: warning-box
-<h1>⚠️ Sitio en Construcción ⚠️</h1>
-:::
-
 # Organización y lectura de archivos
 
-R nos permite escrbir, borrar y guardar archivos, de manera que podemos interactuar con la organización del directorio de nuestro disco local. En RBase tenemos el comando `list.files()` que nos permite listar los archivos de un directorio. Si no le ponemos ningún argumento, por defecto lista los archivos del directorio de trabajo en forma de un vector.
+R nos permite escrbir, borrar y guardar archivos, de manera que podemos interactuar con la organización del directorio de nuestro disco local. En RBase tenemos el comando `list.files()` que nos permite listar los archivos de un directorio. Si no le ponemos ningún argumento, por defecto nos devuelve una lista con los archivos del directorio de trabajo en forma de un vector.
 
-```{r list-files, eval=FALSE}
+```{r list-files}
 # Listar los archivos del directorio de trabajo
 archivos <- list.files()
 
 archivos
 ```
 
-Ingresando el directorio es posible también acceder a los nombres de los archivos en una carpeta específica.
+Ingresando un directorio como argumento es posible también acceder a los nombres de los archivos en una carpeta específica.
 
-```{r list-files-dir, eval=FALSE}
+```{r list-files-dir}
 # Listar los archivos de un directorio específico
-archivos_carpeta <- list.files("img")
+archivos_carpeta <- list.files("bases")
 archivos_carpeta
-
 ```
 
-Con estos vectores podemos hacer un loop para leer los archivos y utilizar un patrón de texto para utilizar sólo los archivos que cumplen con ese patrón. A continuación presentamos un ejemplo de ello en una parte de un script del repositorio **precariedad.mundial**, utilizado para 'pegar' las bases nacionales y crear una base homogénea.
+Con estos vectores podemos hacer un loop para leer los archivos y/o utilizar un patrón de texto para utilizar sólo los archivos que cumplen con ese patrón. A continuación presentamos un ejemplo de ello en una parte de un script del repositorio **precariedad.mundial**, utilizado para 'pegar' las bases nacionales y crear una base homogénea.
 
 ```{r eval=FALSE}
 #Este chunck solo corre en el contexto del repositorio precariedad.mundial
@@ -67,7 +40,7 @@ print(i)
 }
 ```
 
-En este ejemplo se define el elemento `rutas`, que es un vector con las rutas completas de los archivos con formato .rds en la carpeta **Bases_homog**. Luego se crea un data frame vacío y se itera sobre cada ruta, leyendo cada archivo y guardándolo en una base temporal. Luego se unen las bases con `bind_rows()` y se imprime la ruta para saber en qué archivo se está trabajando. Esta lógica de trabajo en loops es muy utilizada para cargar información de distitnas fuentes.
+En este ejemplo se define el elemento `rutas`, que es un vector con las rutas completas de los archivos con formato .rds en la carpeta **Bases_homog**. Luego se crea un dataframe vacío y se itera sobre cada ruta, leyendo cada archivo y guardándolo en una base temporal. Luego se unen las bases con `bind_rows()` y se imprime la ruta para saber en qué archivo se está trabajando. Esta lógica de trabajo en loops es muy utilizada para cargar información de distitnas fuentes.
 
 # Web Scraping
 
@@ -90,7 +63,7 @@ Para hacer web scraping es necesario conocer algunos conceptos básicos de HTML,
 
 Comencemos mirando cómo se ve una página de noticias usando `rvest`.
 
-```{r eval=FALSE }
+```{r}
 # Instalar y cargar el paquete rvest si no lo tenes instalado
 # install.packages("rvest")
 
@@ -106,7 +79,7 @@ page
 
 Cuando ingresamos la dirección de la página web en la función `read_html()` de rvest, obtenemos un objeto HTML del que podemos analizar y extraer información. HTML es el código que nuestros navegadores 'leen' para luego mostrarnos una página web. Para extraer datos de la página, necesitamos **parsear** la información del HTML para poder convertirla en datos estructurados. **Parsear datos** se refiere al proceso de analizar y estructurar el contenido de una página web para extraer información útil de manera organizada. Generalmente, necesitamos primero identificar las etiquetas HTML que contienen la información que queremos obtener y luego extraer información de ellas. En nuestro ejemplo, si queremos extraer los títulos de las noticias de la página principal, podemos buscar las etiquetas `<h3>` que contienen los títulos. El comando `html_nodes()` nos permite seleccionar nodos HTML de la página, y `html_text()` nos permite extraer el texto de los nodos seleccionados.
 
-```{r eval=FALSE }
+```{r}
 # Ejemplos para extraer texto según tags
 h1_tags <- page %>% html_nodes("h1") %>% html_text()
 
@@ -118,7 +91,7 @@ p_tags <- page %>% html_nodes("p") %>% html_text()
 
 ```
 
-En la práctica del web scraping se suelen combinar técnicas de parseo de datos con la extracción de información por matcheo de de patrones con expresiones regulares. Por ejemplo, si estamos navegando sobre una lista de precios, podemos extraer los importes por medio de la coincidencia con caracteres numéricos, el símbolo "$" 0 los separadores decimales y de miles.
+En la práctica del web scraping se suelen combinar técnicas de parseo de datos con la extracción de información por matcheo de patrones con expresiones regulares. Por ejemplo, si estamos navegando sobre una lista de precios, podemos extraer los importes por medio de la coincidencia con caracteres numéricos, el símbolo "$" 0 los separadores decimales y de miles.
 
 ### ¿Qué es XPath?
 
@@ -146,7 +119,7 @@ Hay distintos métodos para acceder a la información que está en una página w
 
 Veamos como funciona ahora en la página de noticias que estábamos analizando.
 
-```{r eval=FALSE }
+```{r}
 # Ejemplo para extraer texto usando XPath
 
 all_h2_in_xpath <- page %>% html_nodes(xpath = '//h2') %>% html_text()
@@ -205,7 +178,7 @@ El archivo .bat imita básicamente la ejecución de comandos en el CMD o powersh
 
 Con R es posible enviar correos electrónicos de manera automática. Para ello, vamos a utilizar el paquete `blastula`, que nos permite enviar correos con contenido HTML. Para enviar un correo, vamos a tener que configurar un servidor SMTP, que es el servidor que se encarga de enviar correos electrónicos. En este caso, vamos a utilizar el servidor de Gmail. Para ello, debemos configurar nuestra cuenta de Gmail para que permita el acceso de aplicaciones menos seguras y generar las credenciales.
 
-```{r, eval=FALSE}
+```{r eval=FALSE}
 library(blastula)
 
 create_smtp_creds_file('credenciales_gmail', 
@@ -215,7 +188,7 @@ create_smtp_creds_file('credenciales_gmail',
 
 Una vez que ya generamos las credenciales podemos generar un correo electrónico y enviarlo como si estuviéramos haciéndolo desde un usuario de gmail.
 
-```{r, eval=FALSE}
+```{r eval=FALSE}
 library(tidyverse)
 
 # Crear un mensaje de correo electrónico
@@ -250,7 +223,7 @@ Cuando corremos la autenticación por primera vez, se nos va a abrir una ventana
 
 ## Manipulando sheets desde R
 
-Los sheets van a estar representado en nuestro entorno de trabajo como objetos de R. Para crear un elemento que represente un sheet de GoogleSheet lo definimos de la siguiente manera.
+Los sheets van a estar representados en nuestro entorno de trabajo como objetos de R. Para crear un elemento que represente un sheet de GoogleSheet lo definimos de la siguiente manera.
 
 ```{r creando_sheet, eval=FALSE}
 gsheet <- gs4_create("GoogleSheet de prueba2", sheets = list(sheet1 = data.frame(A = 1:3, B = 4:6)))
@@ -348,8 +321,8 @@ sheet_write(data = datos_deflactados,  ss = as_id(gsheet), sheet = "Salarios")
 ```
 Si todo salió bien, vamos a poder acceder a nuestro sheet desde LookerStudio como lo vemos en la siguiente imagen.
 
-!["Añadiendo sheet como fuente de datos en Looker](img/looker1.png)
+![Añadiendo sheet como fuente de datos en Looker](img/looker1.png)
 
 Cuando tengas los datos cargados en tu informe, vas a poder visualizar los datos en el panel de la derecha y crear visualizaciones interactivas con el panel que está a su izquierda.
 
-!["Visualización de datos en Looker](img/looker2.png)
+![Visualización de datos en Looker](img/looker2.png)
