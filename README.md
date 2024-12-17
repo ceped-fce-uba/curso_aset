@@ -118,6 +118,8 @@ __Clase 3 - Indicadores de Precariedad y Tidyverse 2:__
 
 **Clase 8: R, GoogleSheets y Looker**
 
+[![Download](img/link_zip.png)](https://github.com/ceped-fce-uba/curso_aset/raw/refs/heads/main/Clase%208%20-%20GoogleSheets%20y%20Looker/clase8.zip)
+
 -   Temas de clase:
     -   Conexión a Google Sheets desde R
     -   Armado de flujos de datos automatizados
