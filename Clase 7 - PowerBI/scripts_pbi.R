@@ -1,6 +1,12 @@
 
 
+## ATENCION: hay que tener los repositorios clonados en el local y cambiar la ruta para que coincida con la de tu directorio
+
+#Script para bajar datos desde ceped-data 
+
 base <- readRDS("C:/Users/facun/OneDrive/Documentos/GitHub/ceped-data/www/data/salarios.Rds")
+
+#Script para bajar datos desde precaridedad mundial
 
 library(tidyverse)
 base <- readRDS("C:/Users/facun/OneDrive/Documentos/GitHub/precariedad.mundial/base_homogenea.Rds") %>% 

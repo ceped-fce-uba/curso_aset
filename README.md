@@ -75,7 +75,7 @@ __Clase 3 - Indicadores de Precariedad y Tidyverse 2:__
 
 **Clase 5: Markdown, loops y funciones**
 
-[![Download](img/link_zip.png)](Clase%205%20-%20Markdown,%20loops%20y%20funciones/Clase5.rar)  [![Grabación Clase 5 - Parte I](img/link_video.png)](https://youtu.be/hG29WYFWhVM) [![Grabación Clase 5 - Parte II](img/link_video.png)](https://youtu.be/hG29WYFWhVM)
+[![Download](img/link_zip.png)](Clase%205%20-%20Markdown,%20loops%20y%20funciones/Clase5.rar)  [![Grabación Clase 5 - Parte I](img/link_video.png)](https://youtu.be/hG29WYFWhVM) [![Grabación Clase 5 - Parte II](img/link_video.png)](https://youtu.be/KAQAsKEvrMQ)
 
 -   Temas de clase:
     -   Manejo de las extensiones del software “Rmarkdown” y “RNotebook” para elaborar documentos de trabajo, presentaciones interactivas e informes:
@@ -90,7 +90,7 @@ __Clase 3 - Indicadores de Precariedad y Tidyverse 2:__
 
 **Clase 6: Git, Github y automatizaciones**
 
-[![Download](img/link_zip.png)](https://ceped-fce-uba.github.io/curso_aset/Clase%206%20-%20Github,%20automatizaciones,%20web%20scraping/Clase-6---Automatizaciones-y-web-scraping.html)
+[![Download](img/link_zip.png)](https://ceped-fce-uba.github.io/curso_aset/Clase%206%20-%20Github,%20automatizaciones,%20web%20scraping/Clase-6---Automatizaciones-y-web-scraping.html)[![Grabación Clase 6 - Parte I](img/link_video.png)](https://youtu.be/4OLKaoBDR1Q) [![Grabación Clase 6 - Parte II](img/link_video.png)](https://youtu.be/Nb5B8u6mCkI)
 
 -   Introducción a Git y sus comandos
 -   Funcionalidades avanzadas de github
@@ -100,8 +100,11 @@ __Clase 3 - Indicadores de Precariedad y Tidyverse 2:__
 -   Automatización de procesos con R
     -   Expresiones regulares
     -   Introducción al Web Scraping
+-   Imputaciones de datos faltantes
 
 **Clase 7: Power BI**
+
+[![Download](img/link_zip.png)](Clase%207%20-%20PowerBI/clase7.zip)[![Grabación Clase 7](img/link_video.png)](https://youtu.be/X_aCpX5ihI8)
 
 -   Temas de clase:
     -   Introducción a Power BI
@@ -114,6 +117,8 @@ __Clase 3 - Indicadores de Precariedad y Tidyverse 2:__
 <br>
 
 **Clase 8: R, GoogleSheets y Looker**
+
+[![Download](img/link_zip.png)](https://github.com/ceped-fce-uba/curso_aset/raw/refs/heads/main/Clase%208%20-%20GoogleSheets%20y%20Looker/clase8.zip)[![Grabación Clase 7](img/link_video.png)](https://youtu.be/3_dz9PfjnDg)
 
 -   Temas de clase:
     -   Conexión a Google Sheets desde R
