@@ -1,3 +1,27 @@
-theme: jekyll-theme-slate
-title: "Herramientas de programación para la producción y difusión de estadísticas socioeconómicas - ASET"
-description: ""
+theme: jekyll-theme-cayman
+title: "Curso ASET - R para Análisis de Datos Laborales"
+description: "Materiales del curso de R aplicado al análisis de datos laborales - CEPED FCE UBA"
+
+# GitHub Pages configuration
+plugins:
+  - jekyll-optional-front-matter
+  - jekyll-readme-index
+  - jekyll-default-layout
+  - jekyll-titles-from-headings
+
+# Mermaid support
+markdown: kramdown
+highlighter: rouge
+
+# Custom styling
+sass:
+  sass_dir: assets
+  style: compressed
+
+# SEO and social
+author: "Facundo Lastra y Guido Weksler"
+lang: es-AR
+timezone: America/Argentina/Buenos_Aires
+
+# Navigation
+show_downloads: true
