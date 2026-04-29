@@ -1,0 +1,412 @@
+/*-- scss:defaults --*/
+// Base document colors
+$body-bg: #ffffff;
+$body-color: #363636;
+$link-color: #0e6aa5;
+$hover-color: #0d395f;
+
+// Fonts
+$font-family-sans-serif: 'Lato', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+$font-family-monospace: 'Fira Code', SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+$headings-font-family: Roboto, 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+
+// Font sizes
+$font-size-base: 1.1rem;
+$h1-font-size: $font-size-base * 2.5;
+$h2-font-size: $font-size-base * 2;
+$h3-font-size: $font-size-base * 1.5;
+$h4-font-size: $font-size-base * 1.2;
+
+// Colors for code blocks
+$code-block-bg: #f8f9fa;
+$code-color: #8a2be2;
+
+// Callout colors
+$callout-color-note: #0090e9;
+$callout-color-tip: #02b875;
+$callout-color-warning: #ff6700;
+$callout-color-important: #d9534f;
+
+/*-- scss:rules --*/
+
+// Body text
+body {
+  line-height: 1.7;
+  font-weight: 300;
+}
+
+// Headings
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 600;
+  line-height: 1.3;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  color: #0d395f;
+}
+
+h1 {
+  border-bottom: 1px solid #dee2e6;
+  padding-bottom: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+// Spacing before headings (from styles.scss)
+h1, .h1, h2, .h2, h3, .h3 {
+  margin-top: 84px;
+}
+
+// Links
+a {
+  text-decoration: none;
+  
+  &:hover {
+    text-decoration: underline;
+    color: $hover-color;
+  }
+}
+
+// Code
+pre {
+  border-radius: 0.5rem;
+  border: 1px solid #dee2e6;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+code {
+  font-size: 0.9em;
+}
+
+// Maintain original code sizing from teoria_claro.scss
+// (removing the larger font size from styles.scss)
+
+// Tables
+.table {
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: 1rem;
+  background-color: transparent;
+  
+  th {
+    border-top: none;
+    background-color: #f8f9fa;
+    font-weight: 600;
+    color: $body-color;
+    text-align: left;
+  }
+  
+  td, th {
+    padding: 0.75rem;
+    vertical-align: top;
+    border-top: 1px solid #dee2e6;
+  }
+  
+  thead th {
+    vertical-align: bottom;
+    border-bottom: 2px solid #dee2e6;
+  }
+  
+  tbody + tbody {
+    border-top: 2px solid #dee2e6;
+  }
+}
+
+// Improved callouts
+div.callout {
+  margin-top: 1.25rem;
+  margin-bottom: 1.25rem;
+  border-radius: 0.5rem;
+  border-left-width: 5px !important;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+
+div.callout-note {
+  border-left-color: $callout-color-note;
+  
+  .callout-header {
+    background-color: rgba($callout-color-note, 0.1);
+  }
+}
+
+div.callout-tip {
+  border-left-color: $callout-color-tip;
+  
+  .callout-header {
+    background-color: rgba($callout-color-tip, 0.1);
+  }
+}
+
+div.callout-warning {
+  border-left-color: $callout-color-warning;
+  
+  .callout-header {
+    background-color: rgba($callout-color-warning, 0.1);
+  }
+}
+
+div.callout-important {
+  border-left-color: $callout-color-important;
+  
+  .callout-header {
+    background-color: rgba($callout-color-important, 0.1);
+  }
+}
+
+// Code folding (from styles.scss with adjustments)
+.code-fold-btn-container {
+  margin-right: 4px;
+}
+
+.code-fold-btn {
+  border-radius: 4px;
+  font-size: 12px;
+  padding: 2px 7px;
+}
+
+// Custom styling for code folding in Quarto with balanced indentation (from styles.scss)
+.cell details.code-fold {
+  margin-left: 2em !important;
+}
+
+.cell details.code-fold > summary.code-fold-header {
+  position: relative;
+  left: 0;
+  margin-left: 0 !important;
+}
+
+.code-fold-header-text {
+  display: inline-block;
+  margin-left: 0 !important;
+}
+
+.cell details.code-fold[open] div.sourceCode {
+  margin-left: 0 !important;
+  padding-left: 0 !important;
+}
+
+pre.sourceCode {
+  margin-left: 0;
+}
+
+div.sourceCode {
+  border-left: 3px solid #dee2e6;
+  padding-left: 1em;
+}
+
+// gt tables
+.gt_table {
+  margin-top: 1rem !important;
+  margin-bottom: 2rem !important;
+  border: none;
+  border-collapse: collapse;
+  font-family: $font-family-sans-serif;
+  -webkit-font-smoothing: auto;
+  -moz-osx-font-smoothing: auto;
+  
+  .gt_title {
+    font-family: $headings-font-family;
+    font-weight: 600;
+    color: #0d395f;
+    font-size: 1.3rem;
+    padding-top: 0.5rem;
+  }
+  
+  .gt_subtitle {
+    font-size: 1rem;
+    font-style: italic;
+    color: #505050;
+    padding-bottom: 0.5rem;
+  }
+  
+  .gt_heading {
+    border-bottom: 2px solid #dee2e6;
+    text-align: left;
+  }
+  
+  .gt_col_heading {
+    font-weight: 600;
+    padding: 0.75rem;
+    color: $body-color;
+    background-color: #f8f9fa;
+  }
+  
+  .gt_row {
+    padding: 0.75rem;
+    border-bottom: 1px solid #dee2e6;
+  }
+  
+  .gt_stubhead {
+    font-weight: 600;
+    color: $body-color;
+    background-color: #f8f9fa;
+  }
+}
+
+// Figures
+figure {
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+  
+  figcaption {
+    font-size: 0.875rem;
+    font-style: italic;
+    color: #6c757d;
+    margin-top: 0.5rem;
+    text-align: center;
+  }
+}
+
+// TOC styles
+$toc-color: $body-color;
+$toc-active-color: $link-color;
+
+// TOC improvements
+/* Robobook-style TOC */
+#TOC {
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100vh;
+  width: 280px;
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-right: 1px solid #dee2e6;
+  overflow-y: auto;
+  font-size: 0.9em;
+  transition: transform 0.3s ease;
+  z-index: 1000;
+}
+
+#TOC.collapsed {
+  transform: translateX(-280px);
+}
+
+#TOC ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+#TOC ul ul {
+  padding-left: 15px;
+}
+
+#TOC li {
+  margin: 5px 0;
+}
+
+#TOC a {
+  color: #2c3e50;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+#TOC a:hover {
+  color: #3498db;
+}
+
+/* Toggle button */
+#toc-toggle {
+  position: fixed;
+  left: 280px;
+  top: 20px;
+  z-index: 1001;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  border-radius: 0 4px 4px 0;
+  font-size: 18px;
+  transition: left 0.3s ease;
+}
+
+#toc-toggle:hover {
+  background-color: #2980b9;
+}
+
+#toc-toggle.collapsed {
+  left: 0;
+}
+
+// Adjust main content for toggle
+// Adjust main content for toggle and full width
+#quarto-content {
+  max-width: none !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  padding-left: 2rem !important;
+  padding-right: 2rem !important;
+  transition: padding-left 0.3s ease;
+  
+  &.expanded {
+    padding-left: 4rem !important;
+  }
+}
+// Override Quarto's default content width
+.quarto-container {
+  max-width: none !important;
+  width: 100% !important;
+}
+
+main.content {
+  max-width: none !important;
+  width: 100% !important;
+}
+.sidebar-title {
+  font-weight: 600;
+  color: #0d395f;
+  font-size: 1.1rem;
+  margin-bottom: 0.75rem;
+}
+
+// Nice blockquotes
+blockquote {
+  border-left: 3px solid #0d395f;
+  padding-left: 1rem;
+  margin-left: 0;
+  color: #6c757d;
+  font-style: italic;
+}
+
+// Interactive elements
+.nav-tabs {
+  border-bottom: 1px solid #dee2e6;
+  margin-bottom: 1rem;
+  
+  .nav-link {
+    margin-bottom: -1px;
+    border: 1px solid transparent;
+    border-top-left-radius: 0.25rem;
+    border-top-right-radius: 0.25rem;
+    
+    &.active {
+      color: $link-color;
+      background-color: $body-bg;
+      border-color: #dee2e6 #dee2e6 $body-bg;
+    }
+  }
+}
+
+// Print improvements
+@media print {
+  body {
+    font-size: 11pt;
+  }
+  
+  h1 {
+    font-size: 18pt;
+  }
+  
+  h2 {
+    font-size: 16pt;
+  }
+  
+  h3 {
+    font-size: 14pt;
+  }
+  
+  pre, code {
+    font-size: 9pt;
+    border: 1px solid #dee2e6;
+    padding: 0.5rem;
+  }
+}

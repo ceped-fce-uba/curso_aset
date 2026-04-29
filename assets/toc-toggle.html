@@ -1,0 +1,33 @@
+<button id="toc-toggle" type="button">×</button>
+
+<script>
+function toggleTOC(event) {
+  if (event) {
+    event.preventDefault();
+    event.stopPropagation();
+  }
+  
+  const toc = document.getElementById('TOC');
+  const button = document.getElementById('toc-toggle');
+  const content = document.getElementById('quarto-content');
+  
+  toc.classList.toggle('collapsed');
+  button.classList.toggle('collapsed');
+  content.classList.toggle('expanded');
+  
+  // Change button icon
+  if (toc.classList.contains('collapsed')) {
+    button.innerHTML = '☰';
+  } else {
+    button.innerHTML = '×';
+  }
+}
+
+// Add event listener after page loads
+document.addEventListener('DOMContentLoaded', function() {
+  const button = document.getElementById('toc-toggle');
+  if (button) {
+    button.addEventListener('click', toggleTOC);
+  }
+});
+</script>
