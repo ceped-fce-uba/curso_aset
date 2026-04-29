@@ -1,8 +1,34 @@
 ---
-title: Clase 3 - Indicadores de Precariedad - Tidyverse 2
-subtitle: Herramientas de programación para la producción y difusión de estadísticas socioeconómicas - ASET
-output: 
-  rmdformats::downcute
+title: " Clase 3 - Indicadores de Precariedad"
+subtitle: "Programación y visualización en estadísticas laborales 2026 - ASET"
+author-title: "Docentes:" 
+authors:
+  - name: Guido Weksler
+  - name: Facundo Lastra
+output-file: "Clase  3 - Indicadores de Precariedad" 
+format:
+  html:
+    df-print: paged
+    embed-resources: true
+    code-tools: false
+    code-copy: false
+    toc: true
+    toc-location: left
+    theme: 
+      light: ../assets/tema_claro.scss
+      dark:  ../assets/tema_oscuro.scss
+    fig-width: 8
+    fig-height: 5
+    fig-format: retina
+    warning: false
+    message: false
+    echo: true
+execute:
+  freeze: auto
+editor: source
+include-after-body: 
+  - ../assets/footer.html
+  - ../assets/toc-toggle.html
 ---
 
 # Introducción 
