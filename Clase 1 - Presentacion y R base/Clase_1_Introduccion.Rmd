@@ -10,7 +10,7 @@ output:
 
 Este curso busca dar las herramientas básicas para el procesamiento de estadísticas socio-laborales con R y la visualización de resultados con PowerBI y Looker. El cronograma es así:
 
-- *1*: Introducción a R, RStudio y RBase
+- *1*: Introducción a R y Visual Studio Code
 - *2*: EPH e intro a tidyverse
 - *3*: Indicadores de Precariedad - tidyverse2
 - *4*: Visualización en R
