@@ -1,0 +1,20 @@
+title: "Programación y visualización en estadísticas laborales"
+description: "Materiales de cursada - ASET 2026"
+
+# Exclude large data files and binary assets from the Pages build.
+# These are R exercise data sources not needed for the website.
+exclude:
+  - "Clase 1 - Presentacion y R base/bases"
+  - "Clase 2 - EPH e Intro a Tidyverse/Fuentes"
+  - "Clase 2 - EPH e Intro a Tidyverse/bak"
+  - "Clase 3 - Indicadores de Precariedad - Tidyverse2/fuentes"
+  - "Clase 3 - Indicadores de Precariedad - Tidyverse2/Informes EPH e OIT"
+  - "Clase 4 - Visualizacion en R - ggplot/Fuentes"
+  - "Clase 6 - Github, automatizaciones, web scraping/bases"
+  - "Clase 7 - PowerBI/bases"
+  - "**/*.Rproj"
+  - "**/*.RData"
+  - "**/*.rdata"
+  - "**/*.rds"
+  - "**/*.RDS"
+  - "**/*.sav"
