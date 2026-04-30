@@ -1,6 +1,13 @@
 title: "Programación y visualización en estadísticas laborales"
 description: "Materiales de cursada - ASET 2026"
 
+# Apply the custom Quarto-inspired layout to every page by default
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: default
+
 # Exclude large data files and binary assets from the Pages build.
 # These are R exercise data sources not needed for the website.
 exclude:
