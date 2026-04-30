@@ -1,33 +1,23 @@
+# Programación y visualización en estadísticas laborales
+
+*Programación en R asistida con IA · Visualización de datos y construcción de dashboards · Trabajo colaborativo con Git y GitHub*
+
+> **Docentes:** Facundo Lastra y Guido Weksler  
+> **Institución:** Asociación Argentina de Especialistas en Estudios del Trabajo (ASET)  
+> **Año:** 2026
+
 ---
-title: "Herramientas de programación para la producción y difusión de estadísticas socioeconómicas"
-subtitle: "Materiales de cursada - ASET 2026"
-author-title: "Docentes:"
-authors:
-  - name: Facundo Lastra
-  - name: Guido Weksler
-institution: "Asociación Argentina de Especialistas en Estudios del Trabajo (ASET)"
-date: "2026"
+
+## Presentación
+
+Este repositorio contiene los materiales del curso "Programación y visualización en estadísticas laborales" organizado por ASET. Los materiales se encuentran organizados por clases, incluyendo scripts de R, bases de datos de práctica, documentos HTML y más. A medida que se desarrolle el curso iremos subiendo los videos de cada encuentro.
+
+
 ---
 
-# Presentación
+## Estructura del programa
 
-Este repositorio contiene los materiales de cursada del programa de capacitación en **R** orientado al análisis de datos laborales. El curso está estructurado en 8 clases progresivas que abarcan desde los fundamentos del lenguaje hasta técnicas avanzadas de análisis, visualización y automatización.
-
-Los materiales se encuentran organizados por clases, incluyendo scripts de R, bases de datos de práctica, documentos HTML con contenido teórico y ejercicios prácticos resueltos.
-
-# Objetivos del curso
-
-- Dominar las herramientas fundamentales de **R** para análisis estadístico
-- Aplicar técnicas específicas para el procesamiento de la **Encuesta Permanente de Hogares (EPH)**
-- Desarrollar habilidades en **visualización de datos** y **automatización de reportes**
-- Integrar herramientas complementarias como **Git**, **Power BI** y **Google Sheets**
-- Implementar flujos de trabajo reproducibles para investigación social
-
-# Estructura del programa
-
-## Módulo I: Fundamentos
-
-### Clase 1 - Presentación y R Base
+#### Clase 1 - Introducción a VSC, R, GitHub y programación asistida con IA
 
 **Contenidos:**
 
@@ -40,9 +30,7 @@ Los materiales se encuentran organizados por clases, incluyendo scripts de R, ba
 - Primera introducción a **GitHub**
 - Programación asistida con herramientas de IA
 
-**Materiales:** [Clase 1 - Presentación y R base/](./Clase%201%20-%20Presentacion%20y%20R%20base/)
-
-### Clase 2 - EPH e Introducción a Tidyverse
+#### Clase 2 - EPH e Introducción a Tidyverse
 
 **Contenidos:**
 
@@ -56,9 +44,7 @@ Los materiales se encuentran organizados por clases, incluyendo scripts de R, ba
 - Operaciones de unión: Joins y bind_rows
 - Medidas de resumen estadístico
 
-**Materiales:** [Clase 2 - EPH e Intro a Tidyverse/](./Clase%202%20-%20EPH%20e%20Intro%20a%20Tidyverse/)
-
-### Clase 3 - Indicadores de Precariedad y Tidyverse Avanzado
+#### Clase 3 - Indicadores de Precariedad y Tidyverse Avanzado
 
 **Contenidos:**
 
@@ -70,11 +56,8 @@ Los materiales se encuentran organizados por clases, incluyendo scripts de R, ba
 - **Precariedad Mundial**: comparación internacional y homogeneización
 - Estimación de indicadores comparativos
 
-**Materiales:** [Clase 3 - Indicadores de Precariedad/](./Clase%203%20-%20Indicadores%20de%20Precariedad%20-%20Tidyverse2/)
 
-## Módulo II: Visualización y Documentación
-
-### Clase 4 - Visualización en R con ggplot2
+#### Clase 4 - Visualización en R con ggplot2
 
 **Contenidos:**
 
@@ -85,9 +68,7 @@ Los materiales se encuentran organizados por clases, incluyendo scripts de R, ba
 - Facets para gráficos múltiples
 - Gráficos interactivos con **ggplotly**
 
-**Materiales:** [Clase 4 - Visualización en R/](./Clase%204%20-%20Visualizacion%20en%20R%20-%20ggplot/)
-
-### Clase 5 - Markdown, Loops y Funciones
+#### Clase 5 - Markdown, Loops y Funciones
 
 **Contenidos:**
 
@@ -99,11 +80,7 @@ Los materiales se encuentran organizados por clases, incluyendo scripts de R, ba
 - **Estructuras iterativas** (loops)
 - **Creación de funciones** personalizadas
 
-**Materiales:** [Clase 5 - Markdown, loops y funciones/](./Clase%205%20-%20Markdown,%20loops%20y%20funciones/)
-
-## Módulo III: Herramientas Avanzadas
-
-### Clase 6 - Git, GitHub y Automatizaciones
+#### Clase 6 - Git, GitHub y Automatizaciones
 
 **Contenidos:**
 
@@ -115,9 +92,7 @@ Los materiales se encuentran organizados por clases, incluyendo scripts de R, ba
 - Introducción al **Web Scraping**
 - Técnicas de imputación de datos faltantes
 
-**Materiales:** [Clase 6 - GitHub y automatizaciones/](./Clase%206%20-%20Github,%20automatizaciones,%20web%20scraping/)
-
-### Clase 7 - Power BI
+#### Clase 7 - Power BI
 
 **Contenidos:**
 
@@ -128,9 +103,7 @@ Los materiales se encuentran organizados por clases, incluyendo scripts de R, ba
 - Diseño de dashboards interactivos
 - Publicación y distribución de reportes
 
-**Materiales:** [Clase 7 - PowerBI/](./Clase%207%20-%20PowerBI/)
-
-### Clase 8 - Integración con Google Sheets y Looker
+#### Clase 8 - Integración con Google Sheets y Looker
 
 **Contenidos:**
 
@@ -141,9 +114,6 @@ Los materiales se encuentran organizados por clases, incluyendo scripts de R, ba
 - Diseño de dashboards empresariales
 - Automatización y programación de reportes
 
-**Materiales:** [Clase 8 - GoogleSheets y Looker/](./Clase%208%20-%20GoogleSheets%20y%20Looker/)
-
 ---
 
-**Asociación Argentina de Especialistas en Estudios del Trabajo (ASET)**  
-*Facultad de Ciencias Económicas - Universidad de Buenos Aires*
+**Asociación Argentina de Especialistas en Estudios del Trabajo (ASET)**
