@@ -1,37 +1,60 @@
 ---
-title: Clase 1 - Tutorial para instalación de R, Rstudio y Git
-subtitle: Herramientas de programación para la producción y difusión de estadísticas socioeconómicas - ASET
+title: Clase 1 - Tutorial para instalación de R, Visual Studio Code y Git
+subtitle: Programación y visualización en estadísticas laborales
 output: 
   rmdformats::downcute
 ---
 
-Este tutorial está pensado para instalar R, Rstudio y Git desde cero, sin tener ninguno de estos programas instalados anteriormente. Los ejemplos son para sistema operativo Windows.
+Este tutorial está pensado para instalar R, Visual Studio Code y Git desde cero, sin tener ninguno de estos programas instalados anteriormente. Los ejemplos son para sistema operativo Windows.
 
-# Descargar R y RStudio
+Si cuando lees cosas como "R", "Visual Studio Code" o "Git" no tenés ni la más menor idea de qué se trata, no te preocupes! En este tutorial vamos a instalar todo lo necesario para poder usar R y Visual Studio Code, y en las próximas clases vamos a ir viendo para qué sirve cada una de estas herramientas y cómo usarlas. En caso de tener problemas en la instalación no dudes en consultar a los docentes del curso.
 
-Primero descargamos R en <https://cran.rstudio.com/> seleccionando tu sistema operativo.
+## Descargar R
+
+Primero descargamos R en https://cran.rstudio.com/ seleccionando tu sistema operativo.
 
 ![](img/tutorial1.png){width="60%"}
 
-Vamos a “Install R for the first time”...
+Vamos a “Install R for the first time”…
 
 ![](img/tutorial2.png){width="60%"}
 
-...y descargamos la ultima versión de R
+…y descargamos la ultima versión de R
 
 ![](img/tutorial3.png){width="60%"}
 
-Ejecutamos el .exe de la instalación y elegimos todas las opciones que vienen por defecto. Luego pasamos a instalar RStudio entrando al sitio <https://posit.co/download/rstudio-desktop/>
+#  Visual Studio Code
+
+Luego descargamos VSC en https://code.visualstudio.com/download, eligiendo nuestra versión del sistema operativo, descargando el instalador y ejecutándolo.
 
 ![](img/tutorial4.png){width="60%"}
 
-Hacemos click en el paso 2: Instalar RSudio. Hacemos la instalación utilizando todas las opciones que viene por defaut. Si se nos pregunta, elegimos la versión de 64 bits del programa.
+Le damos "Siguiente" o "Si" a todas las opciones que nos va mostrando el instalador, y luego de unos minutos ya tenemos instalado Visual Studio Code. Si todo va bien, nos debe aparecer la siguiente pantalla y al hacer click en "Finalizar" se abre Visual Studio Code.
 
-![](img/tutorial5.png){width="60%"}
+![](img/tutorial6.png){width="60%"}
 
-## Instalación de paquetes
+Lo primero que nos pregunta VSC es si queremos logearnos de alguna manera. Aprovechemos ahora para hacernos usuario de Github y logearnos con esa cuenta. Para eso, entramos a <https://github.com/join> y seguimos los pasos para crear una cuenta.
 
-Una vez instalados los programas, abrir *Rstudio* e instalar los principales paquetes a utilizar a lo largo del curso, copiando y ejecutando los siguientes comandos en la consola que aparece en la parte de abajo de la pantalla. Deben tener conexión a internet al momento de realizarlo.
+![](img/tutorial7.png){width="60%"}
+
+Para registrarnos en Github podemos usar nuestra cuenta de Google o cualquier mail. Una vez que terminamos de crear la cuenta deberíamos tener acceso a github.com con nuestro usuario. Ahora volvemos a Visual Studio Code y hacemos click en "Sign in with GitHub". Se va a abrir una nueva ventana del navegador para que ingresemos nuestros datos de Github y autoricemos a Visual Studio Code a acceder a nuestra cuenta. Le damos "Si" o "Continuar" a todas las opciones que nos va mostrando el proceso de autorización. Cuando todo esté finalizado deberíamos ver la siguiente pantalla en Visual Studio Code.
+
+![](img/tutorial8.png){width="60%"}
+
+Si ves esta pantalla, entonces ya tenés Visual Studio Code instalado y estás logeado con tu cuenta de Github. Solo nos queda ir al menu de "Extensions" (el icono de los cuadritos en la barra lateral izquierda) y buscar e instalar la extensión "R Extension for Visual Studio Code" para poder usar VSC como un editor de código R.
+
+![](img/tutorial10.png){width="60%"}
+
+
+# Instalación de paquetes
+
+Ya estamos listxs para usar R y Visual Studio Code! Ahora podemos abrir una terminal (el "recuadro" de abajo). Si no te aparece el recuadro primero debes ir al simbolito marcado en rojo arriba a la derecha en la siguiente imagen, luego hacer click en la flechita para abajo que está junto el "+" y elegir "R Terminal" en el menú desplegable. Con eso ya podemos abrir una terminal de R.
+
+![](img/tutorial11.png){width="60%"}
+
+La terminal de R quedó abierta y ya podemos escribir código R ahí.
+
+Ahora vamos a instalar los principales paquetes a utilizar a lo largo del curso, copiando y ejecutando los siguientes comandos en la consola que aparece en la parte de abajo de la pantalla. Debes tener conexión a internet al momento de realizarlo.
 
 ```{r, eval=FALSE}
 install.packages("tidyverse",dependencies=TRUE)
@@ -44,10 +67,6 @@ install.packages("foreign")
 install.packages("janitor")
 ```
 
-Así se debería ver tu consola luego de copiar y pegar los comandos de instalación. Luego hay que dar enter y comienza el proceso de instalación de los paquetes.
-
-![](img/paquetes.png){width="60%"}
-
 No es indispensable, pero si quieren testear que los paquetes se hayan instalado bien, pueden ejecutar la función *library()* para importar alguno de los paquetes instalados como se muestra a continuación:
 
 ```{r, eval=FALSE}
@@ -55,8 +74,6 @@ library(tidyverse)
 ```
 
 Es normal que algunos de los paquetes arrojen advertencias (*warnings*) o conflictos con otros paquetes, tal como se muestra debajo. Ello no es motivo de preocupación!
-
-![](img/tutorial_warnings_paquetes.png){width="90%"}
 
 Si existió algún error de instalación, al intentar importar un paquete Rstudio explicitamente nos señalará con el término *Error* la existencia de un problema. Por ejemplo:
 
@@ -73,47 +90,12 @@ install.packages('[xxxx]')
 
 # Github y Git
 
-Git y Github son herramientas para el trabajo colaborativo con código. Comenzamos por hacernos un usuario en github.com. Entramos a “Crear una cuenta” e ingresamos con un mail y una nueva clave.
+Git y Github son herramientas para el trabajo colaborativo con código. VSC tiene como ventaja que está muy bien integrado con GitHub (recordemos que nos logeamos a VSC directamente con Github). Para instalar Git vamos al icono de la izquierda que marcamos en rojo y hacemos click en "Download Git for Windows". Se nos va a abrir una ventana del navegador web y tenemos que elegir la última versión de Git para nuestro sistema operativo, descargar el instaladaor y ejecutarlo dejando todas las opciones por defecto. Al finalizar la instalación, ya tenemos Git instalado y listo para usarlo desde Visual Studio Code.
 
-![github.com](img/tutorial6.png){width="60%"}
+![](img/tutorial13.png){width="60%"}
 
-Completamos las preguntas que nos hace Github y luego elegimos el plan gratuito. Después de eso ya podemos acceder a nuestro perfil de cuenta.
+Cuando tengamos Git ya instalado vamos a ver opciones distintas a "Dowload Git for Windows". Notar que esto lo podemos hacer en paralelo a la instalación de paquetes de R. Por ejemplo, en la siguiente imagen se ve como se fueron instalando los paquetes mientras configurabamos Git.
 
-![github.com](img/tutorial7.png){width="60%"}
+![](img/tutorial14.png){width="60%"}
 
-Ahora nos instalamos Git en nuestra computadora. Vamos a <https://git-scm.com/downloads/win> y elegimos la version de 64bits para Windows.
-
-![git-scm.com](img/tutorial8.png){width="60%"}
-
-Ejecutamos el instalador y elegimos todas las opciones por default. Luego abrimos RStudio Elegimos Tools/Global Options. Entramos a las opciones de Git/SVN y podemos chequear que Rstudio haya reconocido la instalación de Git. En caso de que no, debemos buscar el ejecutable git.exe e indicarlo en el path como en la imagen.
-
-![Pantalla Rstudio](img/tutorial9.png){width="60%"}
-
-Vamos a usar el paquete ```usethis``` para configurar Git desde R. Entramos nuestros datos con el siguiente código:
-
-```{r, eval=FALSE}
-install.packages("usethis") # Si ya está instalado usethis no es necesario correr esto
-library(usethis)
-use_git_config(user.name="tu_nombre", user.email="tucorreo@gmail.com.ar") # La dirección de correo debe coincidir con la ingresada en Github
-```
-
-![Pantalla Rstudio](img/tutorial10.png){width="60%"}
-
-Es importante que la dirección de correo en `user.email` sea la misma que pusimos al abrir la cuenta en Github. Por su parte, se puede ingresar cualquier dato en `user.name`. Si vas a trabajar desde distintas compus, puede estar bueno setear distintos nombres de usuario para luego identificar desde dónde se hicieron las modificaciones al proyecto.
-
-# Clonando un repositorio
-
-Ahora vamos a clonar el repositorio del curso, donde vamos a ir compartiendo los materiales de las clases. El link para hacerlo es https://github.com/ceped-fce-uba/curso_aset.git. 
-
-![github.com](img/tutorial11.png){width="60%"}
-
-En el botón verde de “Codigo” vas a encontrar funcionalidades importantes. Entre otas cosas, ahí está disponible el URL que necesitamos para insertar en RStudio: <https://github.com/ceped-fce-uba/curso_aset.git>
-
-![Pantalla Rstudio](img/tutorial13.png){width="60%"}
-
-En RStudio seleccionamos File/New Project, luego elegimos “Version Control” y hacemos click en “Git”.
-
-![Pantalla Rstudio](img/tutorial14.png){width="60%"}
-
-Insertamos el URL completo en el primer casillero. Si está todo bien se tiene que autocompletar el nombre de la carpeta del proyecto. Hacemos click en “Create Project” y esperamos a la descarga. La descarga puede tardar unos minutos y va a generar un carpeta en tu disco local. Cuando termina, ya estamos trabajando dentro del repositorio ```curso_aset```. Vas a poder encontrar la carpeta usando el explorador de archivos. Por defecto, las carpetas de los respositorios se alojan en Documentos.
-
+Listo!! ahora tenés todo el setting listo como para empezar a programar en R y usar GitHub para compartir tu código. Desde la primera clase vamos a empezar a usar todo esto para hacer nuestro primer proyecto de análisis de datos con R. Nos vemos entonces!

@@ -30,6 +30,9 @@ Este repositorio contiene los materiales del curso "Programación y visualizaci�
 - Primera introducción a **GitHub**
 - Programación asistida con herramientas de IA
 
+**Descargas:**
+- [📥 Clase_1_Tutorial_instalaciones.html](Clase_1_Tutorial_instalaciones.html)
+
 #### Clase 2 - EPH e Introducción a Tidyverse
 
 **Contenidos:**
