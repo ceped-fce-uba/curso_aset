@@ -72,6 +72,6 @@ ggplot(tasas_precariedad,
 
 ## Ejercicios con la base Precariedad Mundial
 
-1.  Levantar la **base_homogenea.RDS** disponible en la clase 3. Filtrar para conservar únicamente a la población asalariada. Calcular, para cada país, el promedio del ingreso en paridad de poder adquisitivo (Variable **ING_PPA**) y la tasa de precariedad considerando sólo una de las dimensiones presentes.
+1.  Levantar una o más bases internacionales del repositorio de precariedad mundial. Filtrar para conservar únicamente a la población asalariada. Calcular, para cada país, el promedio del ingreso en paridad de poder adquisitivo (Variable **ING_PPA**) y la tasa de precariedad considerando sólo una de las dimensiones presentes.
     a.  Realizar un gráfico de barras donde se ordene de mayor a menor el ingreso promedio por país.
     b.  Realizar un gráfico de puntos donde en el *eje x* se visualize el salario promedio y en el *eje y* la tasa de precariedad

@@ -6,9 +6,15 @@ suma <- function(valor1, valor2) {
   valor1+valor2
 }
 
-deflactar_series <- function(base, variable,deflactor) {
-
-}
+deflacta_series <- function(df,valor_nominal,indice_precios,col_periodo,base_elegida){
+  
+  indice_base <- df[indice_precios]/df[indice_precios][df[col_periodo] == base_elegida]*100 
+  
+  valor_real <- df[valor_nominal]/indice_base*100
+  
+  df["valor_real"]  <- valor_real
+  return(df)  
+} 
 
 seleccionar_ch <- function(base) {
   
