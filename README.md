@@ -17,7 +17,7 @@ Este repositorio contiene los materiales del curso "Programación y visualizaci�
 
 ## Estructura del programa
 
-#### Clase 1 - Introducción a VSC, R, GitHub y programación asistida con IA
+### Clase 1 - Introducción a VSC, R, GitHub y programación asistida con IA
 
 **Contenidos:**
 
@@ -33,7 +33,7 @@ Este repositorio contiene los materiales del curso "Programación y visualizaci�
 **Descargas:**
 - [📥 Clase_1_Tutorial_instalaciones.html](Clase%201%20-%20Presentacion%20y%20R%20base/Clase_1_Tutorial_instalaciones.html)
 
-#### Clase 2 - EPH e Introducción a Tidyverse
+### Clase 2 - EPH e Introducción a Tidyverse
 
 **Contenidos:**
 
@@ -47,7 +47,7 @@ Este repositorio contiene los materiales del curso "Programación y visualizaci�
 - Operaciones de unión: Joins y bind_rows
 - Medidas de resumen estadístico
 
-#### Clase 3 - Indicadores de Precariedad y Tidyverse Avanzado
+### Clase 3 - Indicadores de Precariedad y Tidyverse Avanzado
 
 **Contenidos:**
 
@@ -60,7 +60,7 @@ Este repositorio contiene los materiales del curso "Programación y visualizaci�
 - Estimación de indicadores comparativos
 
 
-#### Clase 4 - Visualización en R con ggplot2
+### Clase 4 - Visualización en R con ggplot2
 
 **Contenidos:**
 
@@ -71,7 +71,7 @@ Este repositorio contiene los materiales del curso "Programación y visualizaci�
 - Facets para gráficos múltiples
 - Gráficos interactivos con **ggplotly**
 
-#### Clase 5 - Markdown, Loops y Funciones
+### Clase 5 - Markdown, Loops y Funciones
 
 **Contenidos:**
 
@@ -83,7 +83,7 @@ Este repositorio contiene los materiales del curso "Programación y visualizaci�
 - **Estructuras iterativas** (loops)
 - **Creación de funciones** personalizadas
 
-#### Clase 6 - Git, GitHub y Automatizaciones
+### Clase 6 - Git, GitHub y Automatizaciones
 
 **Contenidos:**
 
@@ -95,7 +95,7 @@ Este repositorio contiene los materiales del curso "Programación y visualizaci�
 - Introducción al **Web Scraping**
 - Técnicas de imputación de datos faltantes
 
-#### Clase 7 - Power BI
+### Clase 7 - Power BI
 
 **Contenidos:**
 
@@ -106,7 +106,7 @@ Este repositorio contiene los materiales del curso "Programación y visualizaci�
 - Diseño de dashboards interactivos
 - Publicación y distribución de reportes
 
-#### Clase 8 - Integración con Google Sheets y Looker
+### Clase 8 - Integración con Google Sheets y Looker
 
 **Contenidos:**
 
