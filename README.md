@@ -31,7 +31,7 @@ Este repositorio contiene los materiales del curso "Programación y visualizaci�
 - Programación asistida con herramientas de IA
 
 **Descargas:**
-- [📥 Clase_1_Tutorial_instalaciones.html](Clase_1_Tutorial_instalaciones.html)
+- [📥 Clase_1_Tutorial_instalaciones.html](Clase%201%20-%20Presentacion%20y%20R%20base/Clase_1_Tutorial_instalaciones.html)
 
 #### Clase 2 - EPH e Introducción a Tidyverse
 

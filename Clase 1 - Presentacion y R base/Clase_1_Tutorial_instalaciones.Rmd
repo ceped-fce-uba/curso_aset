@@ -1,8 +1,33 @@
 ---
-title: Clase 1 - Tutorial para instalación de R, Visual Studio Code y Git
-subtitle: Programación y visualización en estadísticas laborales
-output: 
-  rmdformats::downcute
+title: "Clase 1 - Tutorial para instalación de R, Visual Studio Code y Git"
+subtitle: "Programación y visualización en estadísticas laborales 2026 - ASET"
+author-title: "Docentes:"
+authors:
+  - name: Facundo Lastra
+  - name: Guido Weksler
+output-file: "Clase_1_Tutorial_instalaciones"
+format:
+  html:
+    embed-resources: true
+    code-tools: false
+    code-copy: false
+    toc: true
+    toc-location: left
+    theme:
+      light: ../assets/tema_claro.scss
+      dark:  ../assets/tema_oscuro.scss
+    fig-width: 8
+    fig-height: 5
+    fig-format: retina
+    warning: false
+    message: false
+    echo: true
+execute:
+  freeze: auto
+editor: source
+include-after-body:
+  - ../assets/footer.html
+  - ../assets/toc-toggle.html
 ---
 
 Este tutorial está pensado para instalar R, Visual Studio Code y Git desde cero, sin tener ninguno de estos programas instalados anteriormente. Los ejemplos son para sistema operativo Windows.
