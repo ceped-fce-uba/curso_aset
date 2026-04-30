@@ -1,9 +1,0 @@
-theme: jekyll-theme-cayman
-title: "Programación y visualización en estadísticas laborales"
-description: "Materiales de cursada - ASET 2026"
-markdown: kramdown
-highlighter: rouge
-author: "Facundo Lastra y Guido Weksler"
-lang: es-AR
-timezone: America/Argentina/Buenos_Aires
-show_downloads: true
