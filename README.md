@@ -12,6 +12,7 @@
 
 Este repositorio contiene los materiales del curso "Programación y visualización en estadísticas laborales" organizado por ASET. Los materiales se encuentran organizados por clases, incluyendo scripts de R, bases de datos de práctica, documentos HTML y más. A medida que se desarrolle el curso iremos subiendo los videos de cada encuentro.
 
+[Link al repositorio en Github](https://github.com/ceped-fce-uba/curso_aset)
 
 ---
 
