@@ -21,9 +21,7 @@ Este curso busca dar las herramientas básicas para el procesamiento de estadís
 
 Como verán, el cronograma del curso es *muy ambicioso* y cubre una amplia variedad de herramientas. El obetivo es conocer las potencialidades de todas estas herramientas para que ustedes luego profundicen según su interés o necesidades, siempre utilizando el procesamiento de estadísticas socio-laborales como referencia. 
 
-Antes de empezar queremos llamar la atención sobre los cambios que tuvo la actividad de programar en los últimos años debido al desarrollo de modelos de lenguaje basados en IA. Actualmente, el foco del aprendizaje ya no debe estar puesto en conocer en profundidad los comandos, funciones y operadores de R sino más bien en saber qué es posible hacer con R y cómo aplicar las soluciones a los problemas que se nos presentan. 
-
-**Este curso intenta hacerse eco de estos cambios!** Por ello, en paralelo a que cubrimos los elementos básicos de progamación con R, vamos a a trabajar sobre: 
+Antes de empezar queremos llamar la atención sobre los cambios que tuvo la actividad de programar en los últimos años debido al desarrollo de modelos de lenguaje basados en IA. Actualmente, el foco del aprendizaje ya no debe estar puesto en conocer en profundidad los comandos, funciones y operadores de R sino más bien en saber qué es posible hacer con R y cómo esta herramienta nos puede ayudar para el estudio de estadísitcas laborales. Por ello, en paralelo a que cubrimos los elementos básicos de progamación con R, vamos a a trabajar sobre: 
 
 - paquetes que desarrollamos para el procesamiento de estadísticas laborales
 - procesamiento de encuestas de hogares de distintos países
@@ -40,27 +38,6 @@ De todas maneras, el curso está pensado para personas que no tienen ninguna exp
 - Sintaxis básica: R base  
 - Sintaxis incremental: El lenguaje se va ampliando por aportes de Universidades, investigadores/as, usuarios/as y empresas privadas, organizados en paquetes 
 
-![fuente: https://gist.github.com/daroczig/3cf06d6db4be2bbe3368](img/cran_packages.png){width="60%"}
-
-<br>
-
-[^1]: Más allá de los comandos elementales, comandos más sofisticados tienen muchas versiones, y algunas quedan en desuso en el tiempo.
-
-![https://www.rstudio.com/](img/RStudiologo.png)
-
-El _entorno_ más cómodo para utilizar el _lenguaje_ __R__ es el _programa_ __R studio__
-
-- Rstudio es una empresa que produce productos asociados al lenguaje R, como el programa sobre el que corremos los comandos, y extensiones del lenguaje (librerías).
- 
-- El programa es _gratuito_ y se puede bajar de la [página oficial](https://www.rstudio.com/) 
-
-
-![Pantalla Rstudio](img/rstudio_pantalla.png)
-
-## Diferencias con otros softwares
-
-![fuente: http://ucanalytics.com/blogs/choose-your-data-mining-statistics-software/](img/Statistical Softwares.PNG)   
-
 Algunas de las características principales de R:       
 
 - Gratuito   
@@ -69,6 +46,21 @@ Algunas de las características principales de R:
 - Comunidades-RUGs: Aportes de usuarias y usuarios
 - Extensible a otros lenguajes y usos (presentación como esta, diseño de aplicaciones)
 - Facilidad para automatizar procesamientos periódicos
+
+# Descripción de R y Visual Studio Code
+
+Los lenguajes de programación se peuden ejectur desde distintos entornos o IDEs. Un IDE es un programa que nos permite escribir código, ejecutarlo, y visualizar los resultados de manera más cómoda. En este curso vamos a trabajar principalmente con *Visual Studio Code*, aunque existe también otro IDE muy utilizado para trabajar con R, que es *RStudio*.
+
+![https://code.visualstudio.com/](img/VSClogo.png)
+
+*Visual Studio Code* es un programa desarrollado por Microsoft que es gratuito y de código abierto. Lo elegimos como el principal del curso por sus ventajas para la programación asistida con IA y su integración con Github.
+
+![https://www.rstudio.com/](img/RStudiologo.png)
+
+El el _programa_ __R studio__ fue por mucho tiempo fue el _entorno_ más cómodo para utilizar el _lenguaje_ __R__ es 
+
+![Pantalla Rstudio](img/rstudio_pantalla.png)
+
 
 <br>
 
