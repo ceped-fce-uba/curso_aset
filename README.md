@@ -1,16 +1,11 @@
-# Programación y visualización en estadísticas laborales
-
-*Programación en R asistida con IA · Visualización de datos y construcción de dashboards · Trabajo colaborativo con Git y GitHub*
-
 > **Docentes:** Facundo Lastra y Guido Weksler  
-> **Institución:** Asociación Argentina de Especialistas en Estudios del Trabajo (ASET)  
-> **Año:** 2026
+> Asociación Argentina de Especialistas en Estudios del Trabajo (ASET)  
 
 ---
 
 ## Presentación
 
-Este repositorio contiene los materiales del curso "Programación y visualización en estadísticas laborales" organizado por ASET. Los materiales se encuentran organizados por clases, incluyendo scripts de R, bases de datos de práctica, documentos HTML y más. A medida que se desarrolle el curso iremos subiendo los videos de cada encuentro.
+Esta página contiene los materiales del curso "Programación y visualización en estadísticas laborales" organizado por ASET. Los materiales se encuentran organizados por clases, incluyendo scripts de R, bases de datos de práctica, documentos HTML y otros recursos. A medida que se desarrolle el curso iremos subiendo los videos de cada encuentro y nuveos materiales.
 
 [Link al repositorio en Github](https://github.com/ceped-fce-uba/curso_aset)
 
