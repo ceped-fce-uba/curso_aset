@@ -150,3 +150,8 @@ getwd()
 
 
 
+individual_t117 <- read.table(file = 'Clase 1 - Presentacion y R base/bases/usu_individual_t117.txt',
+                              sep=";", 
+                              dec=",", 
+                              header = TRUE, 
+                              fill = TRUE)

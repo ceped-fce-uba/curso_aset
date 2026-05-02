@@ -41,26 +41,26 @@ De todas maneras, el curso está pensado para personas que no tienen ninguna exp
 Algunas de las características principales de R:       
 
 - Gratuito   
-- Funciona principalmente por líneas de código (Aunque ya hay paquetes que permiten ejecutar comandos desde el menú y los botones sin tener que esribir código)
-- Trabaja las bases de microdatos de forma virtual y no fisica, lo que permite disponer de varias al mismo tiempo sin mayor dificultad (no requiere abrir cada base, trabajarla por separado y luego cerrarla), ni exije guardar fisicamente los cambios.
+- Funciona principalmente por líneas de código
 - Comunidades-RUGs: Aportes de usuarias y usuarios
 - Extensible a otros lenguajes y usos (presentación como esta, diseño de aplicaciones)
 - Facilidad para automatizar procesamientos periódicos
 
 # Descripción de R y Visual Studio Code
 
-Los lenguajes de programación se peuden ejectur desde distintos entornos o IDEs. Un IDE es un programa que nos permite escribir código, ejecutarlo, y visualizar los resultados de manera más cómoda. En este curso vamos a trabajar principalmente con *Visual Studio Code*, aunque existe también otro IDE muy utilizado para trabajar con R, que es *RStudio*.
+Los lenguajes de programación se peuden ejecutar desde distintos entornos o IDEs. Un IDE es un programa que nos permite escribir código, ejecutarlo, y visualizar los resultados de manera más cómoda. En este curso vamos a trabajar principalmente con *Visual Studio Code*, aunque existe también otro IDE muy utilizado para trabajar con R, que es *RStudio*.
 
 ![https://code.visualstudio.com/](img/VSClogo.png)
 
 *Visual Studio Code* es un programa desarrollado por Microsoft que es gratuito y de código abierto. Lo elegimos como el principal del curso por sus ventajas para la programación asistida con IA y su integración con Github.
 
+![Pantalla Visual Studio Code](img/vs_pantalla.png)
+
 ![https://www.rstudio.com/](img/RStudiologo.png)
 
-El el _programa_ __R studio__ fue por mucho tiempo fue el _entorno_ más cómodo para utilizar el _lenguaje_ __R__ es 
+El el _programa_ __R studio__ fue por mucho tiempo fue el _entorno_ más cómodo para utilizar el _lenguaje_ __R__. Su interfaz es parecida a la de VSC aunque tiene algunas diferencias. Es un programa gratuito, aunque no de código abierto, desarrollado por la empresa Posit.
 
 ![Pantalla Rstudio](img/rstudio_pantalla.png)
-
 
 <br>
 
@@ -610,12 +610,7 @@ kableExtra::kable(importacion, format = 'html') %>%
 ## Archivos de texto plano (csv, txt)
 En archivos de texto plano, el paquete se recomienda usar el paquete **readr** (que forma parte de tidyverse). Las diferencias entre cada una de sus funciones está en los parámetros que poseen para mejorar la importación.
 
-```{r echo=FALSE, warning=TRUE}
-knitr::include_graphics("img/read_csv.png")
-```
 Es importante tener en cuenta que una base de datos que proviene de archivos _.txt_, o _.csv_ puede presentar diferencias en cuanto a los siguientes parametros:
-
-¿Qué es lo que indican algunos de los parámetros que tenemos en la imagen?
 
 -   encabezado (¿Tiene o no una primera fila con los nombes de las variables?)
 -   delimitador (¿Cómo están separadas las variables en el archivo?: Ej: `,`, `;`, tab)
@@ -704,22 +699,14 @@ Cuando especifico de esta forma un directorio de trabajo en mi computadora para 
 -   Si le comparto código y archivos a otra persona no podrá abrirlos.\
 -   Si cambio de lugar la carpeta que contiene en mi computadora, tampoco podré abrir los archivos.
 
-Rstudio tiene una herramienta muy útil de trabajo que son los **proyectos**.
+Visual Studio Code organiza el trabajo en **carpetas** que cumplen la misma función que los **proyectos** en RStudio.
 
-![](img/Rproject.png)
-
-Los proyectos permiten mantener un ambiente de trabajo delimitado por cada uno de nuestros trabajos. Es decir:
+La organización del trabajo en carpetas permite mantener un ambiente de trabajo delimitado por cada uno de nuestros proyectos. Es decir:
 
 -   El directorio de trabajo siempre toma como punto inicial la carpeta donde esta ubicada el archivo .Rproj
 -   El Environment es específico de nuestro proyecto. No se nos mezclará con resultados de código que podamos correr en otros proyecos.
 
 Un proyecto no es un sólo script, sino toda una carpeta de trabajo.
-
-Para crearlo, vamos al logo de nuevo projecto (Arriba a la derecha de la panatalla), y elegimos la carpeta de trabajo.
-
-![](img/nuevo_proyecto.png){width="410"}![](img/nuevo_proyecto2.png){width="410"}\
-
-
 
 # Github
 
@@ -759,19 +746,19 @@ A diferencia de otros softwares de control de versiones (Google Drive, Dropbox, 
 
 Git es funciona por medio de comandos que pueden insertarse por consola. Sin embargo, hay muchas [opciones](https://docs.github.com/es/get-started/onboarding/getting-started-with-your-github-account#3-elegir-c%C3%B3mo-interactuar-con-github) para interactuar con GitHub que facilitan el trabajo con Git sin necesidad de usar los comandos específicos de este programa. A continuación vamos a comentar dos de ellas que son las que recomendamos usar para este curso. Sugerimos elegir al menos una de ellas para clonar el repositorio del curso y gestionar sus versiones, aunque pueden utilizarse en simultáneo:
 
-###   [Rstudio + Git](https://happygitwithr.com/rstudio-git-github.html)
+###   [VSC + Git](https://happygitwithr.com/rstudio-git-github.html)
 
-Es la integración de las herramientas de Git y GitHub al IDE de RStudio. En el [tutorial que les pasamos]('Clase_1_Tutorial_instalaciones.html') se detalla cómo instalar Git, abrir una cuenta de GitHub, registrarse desde RStudio y clonar un repositorio en tu compu local. En el 6to encuentro de este curso vamos a ver otras funcionalidades muy interesantes de GitHub. Hasta ahora lo único que necesitás saber es que haciendo click en el botón de Pull (flecha hacia abajo) vas a poder 'traer' las nuevas versiones del repositorio a la carpeta de tu compu.
+Git y GitHub se encuentran itegradas a los distintos IDE que existen para programar y Visual Studio Code no es la excepción. En el [tutorial que les pasamos]('Clase%201%20-%20Presentacion%20y%20R%20base/Clase_1_Tutorial_instalaciones.html') se detalla cómo instalar Git, abrir una cuenta de GitHub y registrarse desde Visual Studio Code. En el 6to encuentro de este curso vamos a ver otras funcionalidades muy interesantes de GitHub. 
 
-![](img/git_captura.png){width="60%"}
+Los repositorios de Github pueden 'clonarse' en nuestra computadora, lo que nos permite trabajar con los archivos del repositorio de manera local, y luego sincronizar los cambios que hagamos con el repositorio en la nube.
+
+![Clonando repo](img/clonando_repo.png){width="80%"}
+
+Si accedemos a VSC por primera vez o abrimos una ventana nueva del programa, nos aparece esta página de bienvenida que nos permite rápidamente clonar un repositorio. Hacemos click en "Clone Git Repository" y pegamos la URL del repositorio que queremos clonar. En este caso, el repositorio del curso es: https://github.com/ceped-fce-uba/curso_aset.git
+
+
 
 Si cuando hacemos click en "Pull" nos sale un mensaje ```Already up to date.``` significa que no hay cambios en el repositorio que no tengamos en nuestra carpeta local.
-
-###   [GitHub Desktop](https://docs.github.com/es/desktop/installing-and-configuring-github-desktop/overview/getting-started-with-github-desktop)
-
-Es una aplicación de escritorio que permite interactuar con GitHub de manera aún más amigable. Permite hacer los mismos pasos que con Git, pero con una interfaz gráfica que permite ver los cambios. Es otra buena opción para aquellos que no quieren trabajar con la consola de comandos o quieren revisar los cambios hechos en el código.
-
-![Visualización de cambios desde Github Desktop](img/git_captura2.png){width="60%"}
 
 # Programar con IA
 
