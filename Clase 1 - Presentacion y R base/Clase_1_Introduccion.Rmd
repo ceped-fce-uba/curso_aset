@@ -767,7 +767,7 @@ Haciendo click en el botón ```Sync changes``` vamos a poder recibir los cambios
 
 Hay numerosas herramientas para trabajar con modelos de lenguaje, y cada vez van apareciendo más. Visual Studio Code ofrece una integración muy cómoda con distintos modelos de lenguaje, a la cual se accede a través de la barra de actividades de la izquierda.
 
-![IA](img/vsc_ia.png){width="80%"}
+![IA](img/vsc_ia.png){width="40%"}
 
 El asistente de IA de VSC se llama **Github Copilot** y es un producto desarrollado por Microsoft, que se encuentra disponible para distintos IDEs. Tiene la ventaja que la IA obtiene como contexto de trabajo los archivos con los que estamos trabajando, lo que hace que las sugerencias sean mucho más precisas.
 
