@@ -5,7 +5,7 @@
 
 ## Presentación
 
-Esta página contiene los materiales del curso "Programación y visualización en estadísticas laborales" organizado por ASET. Los materiales se encuentran organizados en 8 clases, incluyendo scripts de R, bases de datos de práctica, documentos HTML y otros recursos. A medida que se desarrolle el curso iremos subiendo los videos de cada encuentro y nuevos materiales por aquí.
+Esta página contiene los materiales del curso "Programación y visualización en estadísticas laborales" organizado por ASET. Los materiales se encuentran organizados en 8 clases, incluyendo scripts de R, bases de datos de práctica, documentos HTML y otros recursos. A medida que se desarrolle el curso iremos subiendo por este medio los videos de cada encuentro y sus materiales en la sección *Descargas* de cada clase.
 
 [Link al repositorio en Github](https://github.com/ceped-fce-uba/curso_aset)
 
