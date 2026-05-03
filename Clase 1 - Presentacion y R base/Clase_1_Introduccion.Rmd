@@ -54,7 +54,7 @@ Los lenguajes de programación se peuden ejecutar desde distintos entornos o IDE
 
 *Visual Studio Code* es un programa desarrollado por Microsoft que es gratuito y de código abierto. Lo elegimos como el principal del curso por sus ventajas para la programación asistida con IA y su integración con Github.
 
-![Pantalla Visual Studio Code](img/vs_pantalla.png)
+![Pantalla Visual Studio Code](img/vsc_pantalla.png)
 
 ![https://www.rstudio.com/](img/RStudiologo.png)
 
