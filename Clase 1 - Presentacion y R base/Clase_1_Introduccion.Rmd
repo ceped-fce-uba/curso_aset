@@ -710,9 +710,7 @@ Un proyecto no es un sólo script, sino toda una carpeta de trabajo.
 
 # Github
 
-[GitHub](https://github.com/) es una plataforma diseñada para **almacenar y administrar código**, al mismo tiempo nos permite llevar un *registro* y *control* de cualquier **cambio** sobre este código. 
-
-Es una de las herramientas fundamentales para la **colaboración** y el **trabajo en equipo**.
+[GitHub](https://github.com/) es una plataforma diseñada para **almacenar y administrar código**, que al mismo tiempo nos permite llevar un *registro* y *control* de cualquier **cambio** sobre este código. Es una de las herramientas fundamentales para la **colaboración** y el **trabajo en equipo** en programación.
 
 Tener un registro de todos los cambios (y la posibilidad de deshacerlos!) se vuelve más importante a medida que nos dedicamos a proyectos más complejos y colaboramos con equipos más grandes. GitHub nos permite almacenar información sobre qué cambios se hicieron, cuándo, quién los hizo y por qué se hicieron.
 
@@ -739,26 +737,29 @@ El **flujo básico de trabajo** en GitHub es el siguiente:
 
 A diferencia de otros softwares de control de versiones (Google Drive, Dropbox, etc.), está especialmente diseñado para trabajar cómodamente con código, y permite formas de colaboración más complejas: básicamente, no sólo hacer una modificación, sino proponer caminos alternativos.
 
-![build5nines.com](img/branching.png){width="800"}
+![build5nines.com](img/branching.png){width="60%"}
 
 
 ## Cómo interactuar con Git y GitHub?
 
-Git es funciona por medio de comandos que pueden insertarse por consola. Sin embargo, hay muchas [opciones](https://docs.github.com/es/get-started/onboarding/getting-started-with-your-github-account#3-elegir-c%C3%B3mo-interactuar-con-github) para interactuar con GitHub que facilitan el trabajo con Git sin necesidad de usar los comandos específicos de este programa. A continuación vamos a comentar dos de ellas que son las que recomendamos usar para este curso. Sugerimos elegir al menos una de ellas para clonar el repositorio del curso y gestionar sus versiones, aunque pueden utilizarse en simultáneo:
+Git funciona por medio de comandos que pueden insertarse por consola. Sin embargo, hay muchas opcines para interactuar con GitHub que facilitan el trabajo con Git sin necesidad de usar los comandos específicos de este programa.
 
 ###   [VSC + Git](https://happygitwithr.com/rstudio-git-github.html)
 
 Git y GitHub se encuentran itegradas a los distintos IDE que existen para programar y Visual Studio Code no es la excepción. En el [tutorial que les pasamos]('Clase%201%20-%20Presentacion%20y%20R%20base/Clase_1_Tutorial_instalaciones.html') se detalla cómo instalar Git, abrir una cuenta de GitHub y registrarse desde Visual Studio Code. En el 6to encuentro de este curso vamos a ver otras funcionalidades muy interesantes de GitHub. 
 
-Los repositorios de Github pueden 'clonarse' en nuestra computadora, lo que nos permite trabajar con los archivos del repositorio de manera local, y luego sincronizar los cambios que hagamos con el repositorio en la nube.
+Los repositorios de Github pueden 'clonarse' en nuestra computadora, lo que nos permite trabajar con los archivos del repositorio de manera local, y luego sincronizar los cambios que hagamos con el repositorio en la nube. Al acceder a VSC por primera vez o cuando abrimos una ventana nueva del programa, nos aparece esta página de bienvenida que nos permite rápidamente clonar un repositorio. Hacemos click en "Clone Git Repository" y pegamos la URL del repositorio que queremos clonar. En este caso, el repositorio del curso es: https://github.com/ceped-fce-uba/curso_aset.git
 
 ![Clonando repo](img/clonando_repo.png){width="80%"}
 
-Al acceder a VSC por primera vez o cuando abrimos una ventana nueva del programa, nos aparece esta página de bienvenida que nos permite rápidamente clonar un repositorio. Hacemos click en "Clone Git Repository" y pegamos la URL del repositorio que queremos clonar. En este caso, el repositorio del curso es: https://github.com/ceped-fce-uba/curso_aset.git
-
-![Clonando repo](img/git_en_vsc.png){width="80%"}
-
 Haciendo click en el botón ```Sync changes``` vamos a poder recibir los cambios que hayan hecho otros integrantes del equipo, y enviar los cambios que hayamos hecho nosotros.
+
+![Sincronizando cambios](img/git_en_vsc.png){width="40%"}
+
+> Practica:     
+1) Buscar un/a compañerx de curso y compartirle un repositorio creado por vos      
+2) Pedirle a tu compañerx que clone el repositorio que le compartiste y que haga una modificación en el código (puede ser algo tan simple como agregar un comentario) y que luego sincronice los cambios.   
+3) Sincronizar los cambios en tu computadora y verificar que la modificación que hizo tu compañerx se haya reflejado en tu repositorio local.
 
 # Programar con IA
 

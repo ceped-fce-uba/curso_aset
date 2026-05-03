@@ -28,6 +28,7 @@ Esta página contiene los materiales del curso "Programación y visualización e
 
 **Descargas:**
 - [📥 Clase_1_Tutorial_instalaciones.html](Clase%201%20-%20Presentacion%20y%20R%20base/Clase_1_Tutorial_instalaciones.html)
+- [📥 Clase_1_Introduccion.html](Clase%201%20-%20Presentacion%20y%20R%20base/Clase_1_Introduccion.html)
 
 ### Clase 2 - EPH e Introducción a Tidyverse
 
