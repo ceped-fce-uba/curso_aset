@@ -754,55 +754,21 @@ Los repositorios de Github pueden 'clonarse' en nuestra computadora, lo que nos 
 
 ![Clonando repo](img/clonando_repo.png){width="80%"}
 
-Si accedemos a VSC por primera vez o abrimos una ventana nueva del programa, nos aparece esta página de bienvenida que nos permite rápidamente clonar un repositorio. Hacemos click en "Clone Git Repository" y pegamos la URL del repositorio que queremos clonar. En este caso, el repositorio del curso es: https://github.com/ceped-fce-uba/curso_aset.git
+Al acceder a VSC por primera vez o cuando abrimos una ventana nueva del programa, nos aparece esta página de bienvenida que nos permite rápidamente clonar un repositorio. Hacemos click en "Clone Git Repository" y pegamos la URL del repositorio que queremos clonar. En este caso, el repositorio del curso es: https://github.com/ceped-fce-uba/curso_aset.git
 
+![Clonando repo](img/git_en_vsc.png){width="80%"}
 
-
-Si cuando hacemos click en "Pull" nos sale un mensaje ```Already up to date.``` significa que no hay cambios en el repositorio que no tengamos en nuestra carpeta local.
+Haciendo click en el botón ```Sync changes``` vamos a poder recibir los cambios que hayan hecho otros integrantes del equipo, y enviar los cambios que hayamos hecho nosotros.
 
 # Programar con IA
 
-Las herramientas más utilizadas actualmente son: 
+Hay numerosas herramientas para trabajar con modelos de lenguaje, y cada vez van apareciendo más. Visual Studio Code ofrece una integración muy cómoda con distintos modelos de lenguaje, a la cual se accede a través de la barra de actividades de la izquierda.
 
-- *ChatGPT*: conocidísimo modelo desarrollado por OpenAI. Tener en cuenta que, cuando trabajamos con R, debemos darle contexto al chat para que pueda darnos mejores respuestas. El contexto puede ser nuestro script entero o los mensajes que nos salen por consola (como por ejemplo el mensaje que nos sale cuando tenemos un error). También es una buena práctica dar una introducción en forma de texto sobre la actividad que estamos haciendo al menos una vez en un chat. La forma más simple de interactuar con ChatGPT es escribiendo texto y pegando código a través de la página web [chat.openai.com](https://chat.openai.com/).
+![IA](img/vsc_ia.png){width="80%"}
 
-- *Github copilot*: herramienta desarrollada por Github que, si bien no da respuestas tan buenas como ChatGPT, tiene integraciones muy cómodas con IDEs. La principal ventaja de esta herramienta es que 'autocompleta' código con sugerencias que muchas veces parecen 'adivinar' lo que queremos hacer! La principal desventaja de GitHub Copilot es que cuesta U$S 10 por mes, aunque hay una prueba gratuita por 30 días.
+El asistente de IA de VSC se llama **Github Copilot** y es un producto desarrollado por Microsoft, que se encuentra disponible para distintos IDEs. Tiene la ventaja que la IA obtiene como contexto de trabajo los archivos con los que estamos trabajando, lo que hace que las sugerencias sean mucho más precisas.
 
-## R Studio y Github copilot
-
-**R Studio** tiene una integración desarrollada con Copilot que permite autocompletar código y tomar los comentarios que hacemos con "#" como si fueran prompts. Como decíamos anteriormente, Github Copilot es pago, por lo que primero es necesario suscribirse desde el [sitio web](https://copilot.github.com/). Luego, en las "Global Options" de **RStudio** seleccionamos "Github copilot" y nos pedirá que ingresemos nuestro usuario y contraseña de Github. Para activar esta integración debemos ir a la pestaña de "Addins" y seleccionar "Github copilot".
-
-![https://rstudio.github.io/copilot/](img/options_copilot.png){width="60%"}
-
-## Interactuando con modelos de lenguaje con ```chattr```
-
-El paquete ```chattr``` permite interactuar con modelos de lenguaje de manera sencilla. Para instalarlo, debemos correr el siguiente comando:
-
-```{r eval= FALSE} 
-
-devtools::install_github("gadenbuie/chattr") 
-
-chattr::chattr_app()
-
-#> ── chattr - Available models 
-#> 
-#> 1: GitHub - Copilot Chat -  (copilot) 
-#> 2: OpenAI - Chat Completions - gpt-3.5-turbo (gpt35) 
-#> 3: OpenAI - Chat Completions - gpt-4 (gpt4) 
-#> 4: LlamaGPT - ~/ggml-gpt4all-j-v1.3-groovy.bin (llamagpt) 
-#> 
-#> Select the number of the model you would like to use:
-
-```
-
-Al correrlo por primera vez con ```chattr::chattr_app()``` nos pedirá que seleccionemos el modelo de lenguaje que queremos utilizar. Los modelos a elegir son los que hayamos seteado previamente en RStudio. En este caso, seleccionamos el modelo de Github Copilot. 
-
-La ventaja de trabajar con este tipo de herramientas integradas a nuestro IDE es que los prompts que enviamos a los modelos toman en cuenta como contexto los archivos con los que estamos trabajando. En la siguiente imagen de la documentación de ```chattr::chattr_app()``` se ilustra esto: 
-
-  
-![github.com/mlverse/chattr](img/chattr-diagram.png){width="80%"}
-
-Como decíamos al comienzo de esta clase, la actividad de progamar cambió mucho gracias a estas herramientas, haciéndola mucho más sencilla y liviana. Te recomendamos que las uses y las integres a tu práctica habitual de programación!
+Existen distintas modalidades de asistencia con IA ('Plan', 'Ask' y 'Agent'). La modalidad 'Plan' nos permite generar un plan de trabajo a partir de un prompt, la modalidad 'Ask' nos permite hacer preguntas sobre el código, y la modalidad 'Agent' nos permite interactuar con la IA a través de una ventana de chat.
 
 
 
