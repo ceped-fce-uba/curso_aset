@@ -56,6 +56,8 @@ Los lenguajes de programación se peuden ejecutar desde distintos entornos o IDE
 
 ![Pantalla Visual Studio Code](img/vsc_pantalla.png)
 
+La barra de actividades de la izquierda contiene accesos rápidos a distintas funcionalidades del programa, entre ellas el control de versiones con Git, la terminal integrada, y la extensión de IA. El editor de código sirve para modificar los distintos archivos o scripts con los que trabajemos. Por último la terminal es donde se corren los comandos de R y se visualizan los resultados de los mismos.
+
 ![https://www.rstudio.com/](img/RStudiologo.png)
 
 El el _programa_ __R studio__ fue por mucho tiempo fue el _entorno_ más cómodo para utilizar el _lenguaje_ __R__. Su interfaz es parecida a la de VSC aunque tiene algunas diferencias. Es un programa gratuito, aunque no de código abierto, desarrollado por la empresa Posit.
