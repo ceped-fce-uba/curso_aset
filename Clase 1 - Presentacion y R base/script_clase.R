@@ -1,157 +1,196 @@
-1
-#Operadores de asignación
-hola = 1 + 1   #primer comando de R
-hola
-hola <- 3
-A <- 150
-B <- 132
 
-# Operadores aritmeticos
-C = A + B
-x = A/B
-y = A * B
-z = A^B
+print('Hola mundo')
+A = 1
+A
+A <- 2 # Operador de asignación 
+A
+B = 2 + 4
+B
 
-print(C)
+numero_grande = 10 + 100
+numero_grande
 
-# Operadores lógicos
+numero_mas_grande = numero_grande + B
 
-a = 2
-b = 3
+tasa_de_desocupacion <- 0.10
 
-a>b
-a >= b
+resultado = 1000/10000000
 
-a == B
+otro_numero = 10 * 10
 
-B = a
+elemento11 = 5 + 6
 
-B == a
-B != a
+# Booleano: un objecto que toma True o False
 
-es_igual <- B != a
+A <- 10
+B <- 20
 
-es_igual2 <- B != k
+booleando_comparacion = A > B
+
+C <- 20
+
+C <= B
+
+A >= B
+
+C == B
+
+C != B
 
 #Redefinimos los valores A y B
 A <- 50
 B <- 72
+
 #Realizamos comparaciones lógicas
 
-(A > 60 & B > 65)
+(A > 60 & B > 65)   # Estoy haciendo una comparación
+(A < 60 | B < 65) 
 
-(A > 60 | B > 65)
+(A > 60 & B > 65) & (A < 60 | B < 65) 
 
-# Objetos
-
-class(C)
-
-class(es_igual)
+Otro_numero
 
 vector <- c(1, 3, 4, "0343", 21, 45, 987)
 
-culquier_nombre <-  c(1, 3, 4, "0343", 21, 45, 987)
+vector[1]
 
 vector[4]
 
+categorias <- c("Desocupado", "Ocupado", "Inactivo")  #Estos son valores string, es decir, texto
+
+class(A)
+
+class(categorias)
+
+vector_numerico <- c(1, 3, 4, 21, 45, 987)
+
+class(vector_numerico)
 
 dias_char <- c("Lunes","Viernes","Viernes","Jueves",
-               "Martes", "Martes","Miercoles","Martes",
-               "Miercoles")
+       "Martes", "Martes","Miercoles","Martes",
+       "Miercoles")
+
 class(dias_char)
 
 table(dias_char)
 
+funcion(argumento1, argumento2, ...)
+
+
+
 dias_factor <- factor(dias_char,
-                      levels = c("Lunes", 
-                                 "Martes", 
-                                 "Miercoles",
-                                 "Jueves",
-                                 "Viernes"))
+                  levels = c("Lunes",
+                            "Martes",
+                            "Miercoles",
+                            "Jueves",
+                            "Viernes"))
+
+dias_factor <- factor(dias_char, levels = c("Lunes", "Martes", "Miercoles","Jueves","Viernes"))
+
 class(dias_factor)
+
 table(dias_factor)
 
-D <- c(1, 3, 4)
-D <- D + 2
-D
 
-iterador <- 1:10
+vector_prueba <- c(1,3,4)
 
-E
+vector_prueba_suma <- vector_prueba + 10
 
-E <- D + 1:3
+1:70
 
-E_posicion2 <-  E[2]
+prueba_intervalo <- 1:30
 
-rm(E_posicion2)
+vector_prueba_suma
+vector_prueba_suma[2]
+vector_prueba_suma[1:4]
 
+#Missing values
+NA
+NaN
 
-# Data frames
+# Dataframes
 
 AGLOMERADO  <- c(32,33,33,33,32)
-
 SEXO  <-  c("Varon","Mujer","Mujer","Varon","Mujer")
-
 EDAD  <-  c(60,54,18,27,32)
 
-Datos <- data.frame(AGLOMERADO, SEXO, EDAD)
+datos <- data.frame(AGLOMERADO, SEXO, EDAD)
 
-class(Datos)
+print(datos)
 
-Datos[3,2]
+class(datos)
 
-Datos$AGLOMERADO
+datos[1, 1] # Primera fila, primera columna
+datos[1, 1:2] # Primera fila, primera y segunda columna
 
-Datos$ESTADO <- "OCUPADO"
+datos[1:3, 1] # Primera a tercera fila, primera columna
 
-class(Datos$AGLOMERADO)
+datos$AGLOMERADO
 
-Datos$AGLOMERADO[3,2] # ERROR
+datos$ESTADO <- "Ocupado"
 
-Datos$AGLOMERADO[3]
+datos$ESTADO
 
-Datos[Datos$AGLOMERADO==32, ]
+datos[1,]
 
-LISTA <- list(A,B,C,Datos$AGLOMERADO, DF = Datos)
-LISTA
+datos_filtrados_aglo_32 <- datos[datos$AGLOMERADO == 32, ]
 
-paste("Pega","estas", 4, "palabras", sep = "-")
+datos_filtrados_aglo_32_y_varon <- datos[datos$AGLOMERADO == 32 & datos$SEXO == "Varon",1:2 ]
 
-unique(Datos$AGLOMERADO)
+lista <- list(A,B,C,D,E,datos$AGLOMERADO, DF = datos)
 
-cantidad_desocupados = 7
+lista2 <- list(A,B,C,D,datos$AGLOMERADO, DF = datos)
 
-mi_numero = 8
+lista # Esto da error
 
-otro_numero = mi_numero * 2
+# Funciones  
+# funcion(arg1, argumento2 = arg2, ...)
 
-otro_numero > 10
+paste("La desocupacion es del", tasa_de_desocupacion*100, "%", sep = "-")
 
-Datos
+paste0("El numero es", A)
 
-# calculate average of EDAD by AGLOMERADO
-aggregate(EDAD ~ AGLOMERADO, data = Datos, mean)
+vectorna <- c(1, 2, NA, 4, 5)
+sum(vectorna, na.rm = TRUE)
+
+sum(vector)
+sum(vector_prueba)
+
+mean(vector_prueba)
 
 
-library(readxl)
-comunas <- read_excel("Clase 1 - Presentacion y R base/bases/comunas.xlsx")
 
-comunas2 <- comunas[1:3,]
+install.packages("tidyverse")
+library(tidyverse)
 
-saveRDS(comunas2, "Clase 1 - Presentacion y R base/bases/comunas2.rds")
-
-comunas$AREA
-
-mean(comunas$AREA)
-
-comunas$COLUMNA_NUEVA <- "PRUEBA"
-
+# Working directory
 getwd()
-
-
 
 individual_t117 <- read.table(file = 'Clase 1 - Presentacion y R base/bases/usu_individual_t117.txt',
                               sep=";", 
                               dec=",", 
                               header = TRUE, 
                               fill = TRUE)
+
+setwd("C:/Users/facun/OneDrive/Documentos/GitHub/curso_aset/Clase 1 - Presentacion y R base")
+
+getwd()
+
+individual_t117 <- read.table(file = 'bases/usu_individual_t117.txt',
+                              sep=";", 
+                              dec=",", 
+                              header = TRUE, 
+                              fill = TRUE)
+
+# Tasa de desocupación según sexo
+# Se asume que existe una columna SEXO y una variable de condición laboral (ej: ESTADO)
+
+tasa_desocupacion_sexo <- individual_t117 %>%
+  group_by(SEXO) %>%
+  summarise(
+    total = n(),
+    desocupados = sum(ESTADO == "Desocupado", na.rm = TRUE),
+    tasa_desocupacion = (desocupados / total) * 100
+  )
+
+tasa_desocupacion_edad <- ind
