@@ -771,7 +771,5 @@ Hay numerosas herramientas para trabajar con modelos de lenguaje, y cada vez van
 
 El asistente de IA de VSC se llama **Github Copilot** y es un producto desarrollado por Microsoft, que se encuentra disponible para distintos IDEs. Tiene la ventaja que la IA obtiene como contexto de trabajo los archivos con los que estamos trabajando, lo que hace que las sugerencias sean mucho más precisas.
 
-Existen distintas modalidades de asistencia con IA ('Plan', 'Ask' y 'Agent'). La modalidad 'Plan' nos permite generar un plan de trabajo a partir de un prompt, la modalidad 'Ask' nos permite hacer preguntas sobre el código, y la modalidad 'Agent' nos permite interactuar con la IA a través de una ventana de chat.
-
-
+Existen distintas modalidades de asistencia con IA ('Plan', 'Ask' y 'Agent'). La modalidad 'Plan' nos permite generar un plan de trabajo a partir de un prompt, la modalidad 'Ask' nos permite hacer preguntas sobre el código, y la modalidad 'Agent' propone modificaciones de código, ejecuta scritps (incluso scripts de prueba) y realiza actividades más allá del lenguaje R (como ejecutar comandos de cmd, powershell, bash, buscar información relevante en la web, etc.).
 
