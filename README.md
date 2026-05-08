@@ -45,6 +45,9 @@ Esta página contiene los materiales del curso "Programación y visualización e
 - Operaciones de unión: Joins y bind_rows
 - Medidas de resumen estadístico
 
+**Descargas:**
+- [📥 Clase_2.rar](Clase%202%20-%20EPH%20e%20Intro%20a%20Tidyverse/Clase2.rar)
+
 ### Clase 3 - Indicadores de Precariedad y Tidyverse Avanzado
 
 **Contenidos:**
