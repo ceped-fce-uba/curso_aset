@@ -16,32 +16,31 @@ knitr::opts_chunk$set(include = FALSE)
 ```
 - Levantar las dos bases individuales de la eph y el archico "Regiones.xlsx" ubicados en la carpeta Fuentes.   
 
-- Ejercicio 1: Calcular para algun trimestre el conjunto de tasas básicas del mercado de trabajo que figuran en el Cuadro 1.1 del [Informe técnico elaborado por EPH-INDEC](http://www.indec.gob.ar/uploads/informesdeprensa/EPH_cont_1trim17.pdf). 
+- Ejercicio 1: Calcular para el 1er trimestre de 2025 el conjunto de tasas básicas del mercado de trabajo que figuran en el Cuadro 1.1 del [Informe técnico elaborado por EPH-INDEC](https://www.indec.gob.ar/uploads/informesdeprensa/mercado_trabajo_eph_1trim254850EDE6DF.pdf). 
 
 ```{r echo=TRUE}
 # Paso 1 levantar las bases de EPH y seleccionar las variables de interés
 library(tidyverse)
-Individual_t117 <-
+indiv_t1_25 <-
+  read.table("Fuentes/usu_individual_T125.txt",
+  sep = ";",
+  dec = ",",
+  header = TRUE,
+  fill = TRUE )
+
+individual_t1_17 <-
   read.table("Fuentes/usu_individual_t117.txt",
   sep = ";",
   dec = ",",
   header = TRUE,
   fill = TRUE )
 
-Individual_t119 <-
-  read.table("../Fuentes/usu_individual_t119.txt",
-  sep = ";",
-  dec = ",",
-  header = TRUE,
-  fill = TRUE )
-
-regiones <- readxl::read_excel("Fuentes/Regiones.xlsx")
-
+regiones <- readxl::read_excel("Fuentes/Aglomerados y Regiones EPH.xlsx",sheet = 3)
 ```
 
 ```{r echo=TRUE}
 #Paso 1 Tasas Básicas
-tasas <- Individual_t117 %>% 
+tasas <- indiv_t1_25 %>% 
   summarise(Poblacion         = sum(PONDERA),
             Ocupados          = sum(PONDERA[ESTADO == 1]),
             Desocupados       = sum(PONDERA[ESTADO == 2]),
@@ -66,7 +65,7 @@ tasas <- Individual_t117 %>%
 
 ```{r}
 # Tasas Básicas Regiones
-tasas_regiones <- Individual_t117 %>% 
+tasas_regiones <- indiv_t1_25 %>% 
   group_by(REGION) %>% 
   summarise(Poblacion         = sum(PONDERA),
             Ocupados          = sum(PONDERA[ESTADO == 1]),
@@ -95,7 +94,7 @@ tasas_regiones_presentacion <- tasas_regiones  %>%
 - Ejercicio 2: Calcular el conjunto de tasas básicas para cada uno de las regiones EPH, desagregadas por sexo.
 
 ```{r}
-tasas_regiones_sexo <- Individual_t117 %>% 
+tasas_regiones_sexo <- indiv_t1_25 %>% 
   group_by(REGION,CH04) %>% 
   summarise(Poblacion         = sum(PONDERA),
             Ocupados          = sum(PONDERA[ESTADO == 1]),
@@ -121,7 +120,7 @@ tasas_regiones_sexo <- Individual_t117 %>%
 ```
 
 
-- Ejercicio 3: Calcular, al mismo tiempo para los 2 trimestres (1T de 2019 y 1T de 2017), las tasas de actividad, empleo y desempleo según sexo, para la población de edad entre 18 y 35 años.    
+- Ejercicio 3: Calcular, al mismo tiempo para  2 trimestres (1T de 2025 y 1T de 2017), las tasas de actividad, empleo y desempleo según sexo, para la población de edad entre 18 y 35 años.    
 
 
 Pista: Explorar la función *bind_rows* del paquete tidyverse, ejecutando el siguiente chunk de código. Les permitirá unir las dos bases de datos. Recomendacion: Acotar previamente la base a las variables necesarias.
@@ -131,10 +130,10 @@ Pista: Explorar la función *bind_rows* del paquete tidyverse, ejecutando el sig
 
 ```{r}
 variables <- c("ANO4","TRIMESTRE","CH06","CH04","P21","CAT_OCUP","ESTADO","PONDERA","PONDIH")
-base_t1_17_select<- Individual_t117[,variables]
-base_t1_19_select <- Individual_t119[,variables]
+base_t1_25_select<- indiv_t1_25[,variables]
+base_t1_17_select <- individual_t1_17[,variables]
 
-base_unida <- bind_rows(base_t1_17_select,base_t1_19_select)
+base_unida <- bind_rows(base_t1_17_select,base_t1_25_select)
 ```
 
 ```{r}
@@ -150,20 +149,21 @@ resolucion <- base_unida %>%
             'Tasa Desocupacion'               = Desocupados/PEA) %>% 
   ungroup()
 ```
-- Ejercicio 4: Calcular el salario promedio por sexo, para dos grupos de edad: 18 a 35 años y 36 a 70 años. (Recordatorio: La base debe filtrarse para contener únicamente OCUPADOS ASALARIADOS)
+- Ejercicio 4: Elegir un trimestre y calcular el salario promedio por sexo, para dos grupos de edad: 18 a 35 años y 36 a 70 años. (Recordatorio: La base debe filtrarse para contener únicamente OCUPADOS ASALARIADOS)
 ```{r}
-ultimo.ejercicio.resol <- Individual_t117 %>%   
+ultimo.ejercicio.resol <- indiv_t1_25 %>%   
   filter(ESTADO==1) %>% 
   filter(CAT_OCUP==3) %>% 
   mutate(Grupo_Etario = case_when(CH06 %in%  18:35~"Jovenes",
                                   CH06 %in%  36:70~"Adultos")) %>% 
   group_by(CH04,Grupo_Etario) %>%
+  mutate(P21 = as.numeric(P21)) %>% 
   summarise(Salario_Promedio = weighted.mean(P21,PONDIH)) %>% 
   filter(!is.na(Grupo_Etario))
 ```
 - Exporten algunos resultados de los ejercicios a un excel en la carpeta *Resultados*
 ```{r eval=FALSE, include=FALSE}
-openxlsx::write.xlsx(x = "Resultados/exportacion.xlsx")
+openxlsx::write.xlsx(x = ultimo.ejercicio.resol,"Resultados/exportacion.xlsx")
 ```
 
 
