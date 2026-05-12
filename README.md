@@ -47,6 +47,7 @@ Esta página contiene los materiales del curso "Programación y visualización e
 
 **Descargas:**
 - [📥 Clase_2.rar](Clase%202%20-%20EPH%20e%20Intro%20a%20Tidyverse/Clase2.rar)
+- [📹 Grabación de la clase ](https://us06web.zoom.us/rec/share/C7BE1tH9Mfeo57Mm2kF1-aEA7GjXs8AmsLiIhqgoMss_aNXl_6_9iBLXtYawcanu.ymQURl6r51yzLM6n) Se accede con código m+3e4BaH
 
 ### Clase 3 - Indicadores de Precariedad y Tidyverse Avanzado
 
