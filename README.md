@@ -61,6 +61,8 @@ Esta página contiene los materiales del curso "Programación y visualización e
 - **Precariedad Mundial**: comparación internacional y homogeneización
 - Estimación de indicadores comparativos
 
+**Descargas:**
+- [📥 Clase_3.rar](Clase%203%20-%20Indicadores%20de%20Precariedad%20-%20Tidyverse2/Clase3.rar)
 
 ### Clase 4 - Visualización en R con ggplot2
 
