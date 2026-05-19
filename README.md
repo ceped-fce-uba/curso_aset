@@ -63,6 +63,7 @@ Esta página contiene los materiales del curso "Programación y visualización e
 
 **Descargas:**
 - [📥 Clase_3.rar](Clase%203%20-%20Indicadores%20de%20Precariedad%20-%20Tidyverse2/Clase3.rar)
+- [📹 Grabación de la clase ](https://us06web.zoom.us/rec/share/XD2j-dMZLFHvxbPDM4yAuXb9ucWI4pJS9s0r_M1t2rBBYIikaNoWa8OMnyCQo2w.Hn0X3JzYe0RHnABZ) Se accede con código w*0aj#DJ
 
 ### Clase 4 - Visualización en R con ggplot2
 
