@@ -92,7 +92,7 @@ Esta página contiene los materiales del curso "Programación y visualización e
 - **Creación de funciones** personalizadas
 
 **Descargas:**
-- [📥 Clase_5.rar](Clase%205%20-%Markdown,%20loops%20y%20funciones/Clase5.rar)
+- [📥 Clase_5.rar](Clase%205%20-%20Markdown,%20loops%20y%20funciones/Clase5.rar)
 
 ### Clase 6 - Git, GitHub y Automatizaciones
 
