@@ -75,6 +75,9 @@ Esta página contiene los materiales del curso "Programación y visualización e
 - Facets para gráficos múltiples
 - Gráficos interactivos con **ggplotly**
 
+**Descargas:**
+- [📥 Clase_4.rar](Clase%204%20-%20Visualizacion%20en%20R%20-%20ggplot/Clase4.rar)
+
 ### Clase 5 - Markdown, Loops y Funciones
 
 **Contenidos:**
@@ -86,6 +89,9 @@ Esta página contiene los materiales del curso "Programación y visualización e
 - Código embebido para automatización de reportes
 - **Estructuras iterativas** (loops)
 - **Creación de funciones** personalizadas
+
+**Descargas:**
+- [📥 Clase_5.rar](Clase%205%20-%Markdown,%20loops%20y%20funciones/Clase5.rar)
 
 ### Clase 6 - Git, GitHub y Automatizaciones
 
