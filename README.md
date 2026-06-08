@@ -78,6 +78,7 @@ Esta página contiene los materiales del curso "Programación y visualización e
 
 **Descargas:**
 - [📥 Clase_4.rar](Clase%204%20-%20Visualizacion%20en%20R%20-%20ggplot/Clase4.rar)
+- [📹 Grabación de la clase ](https://us06web.zoom.us/rec/share/6oqlWcVPy57nzASgkWiDE1XZ2c3rzUI74XaMRz39AMPGWWst-yP6G87QLrRphLye.hXtHw2sRuxrXvpAu) Se accede con código 1ic0z#Jp
 
 ### Clase 5 - Markdown, Loops y Funciones
 
