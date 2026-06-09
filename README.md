@@ -95,6 +95,7 @@ Esta página contiene los materiales del curso "Programación y visualización e
 **Descargas:**
 - [📥 Clase_5.rar](Clase%205%20-%20Markdown,%20loops%20y%20funciones/Clase5.rar)
 - [📹 Grabación de la clase ](https://us06web.zoom.us/rec/share/Av0hJKoC4sEwZeikTbTfBE08Fb0Grb9Db0hHmIpPzllmCThHU7Q2fuA5kRThf5r8.ZslTSB10QWF6-I0G) Se accede con código =%2TQU8X
+
 ### Clase 6 - Git, GitHub y Automatizaciones
 
 **Contenidos:**
