@@ -100,13 +100,17 @@ Esta página contiene los materiales del curso "Programación y visualización e
 
 **Contenidos:**
 
-- Introducción a **Git** y control de versiones
-- Funcionalidades avanzadas de **GitHub**: Issues, Branches, Merges
-- **GitHub Pages** para publicación web
 - Automatización de procesos con R
 - **Expresiones regulares**
 - Introducción al **Web Scraping**
+- Introducción a **Git** y control de versiones
+- Funcionalidades avanzadas de **GitHub**: Issues, Branches, Merges
+- **GitHub Pages** para publicación web
 - Técnicas de imputación de datos faltantes
+
+**Descargas:**
+- [🌐 Ver como página](https://ceped-fce-uba.github.io/curso_aset/Clase%206%20-%20Github%2C%20automatizaciones%2C%20web%20scraping/Clase-6---Automatizaciones-y-web-scraping.html)
+- [📥 Descargar HTML](Clase%206%20-%20Github%2C%20automatizaciones%2C%20web%20scraping/Clase-6---Automatizaciones-y-web-scraping.html)
 
 ### Clase 7 - Power BI
 

@@ -44,6 +44,7 @@ vignettes/*.pdf
 recursos_ignore/
 *practica_en_clase.R
 *probando_git.R
+*probando_clase
 
 *credenciales*
 /tps_entregados/*

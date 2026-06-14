@@ -1,13 +1,191 @@
 ---
-title: "Clase 6 - Automatizaciones y Github"
-subtitle: Herramientas de programación para la producción y difusión de estadísticas socioeconómicas - ASET
-output: 
-  rmdformats::downcute
+title: "Clase 6 - Automatizaciones, web scraping y Github"
+subtitle: Programación y visualización en estadísticas laborales - ASET
+output:
+  rmdformats::downcute:
+    toc_depth: 2
+    default_style: "dark"
 ---
 
 # Introducción a la automatización
 
 En el análisis de datos, la automatización es una habilidad fundamental para ahorrar tiempo, reducir errores y aumentar la eficiencia en tareas repetitivas. Cuando automatizamos procesos, podemos realizar tareas de manera programada, sin intervención manual, lo que resulta en flujos de trabajo más consistentes y escalables. Los lenguajes de programación orientados a objetos, como R, pueden ser muy útiles para la automatización. En este encuentro vamos a cubrir las siguientes actividades vinculadas al diverso mundo de la automatización: identificación de patrones en texto, web scraping y modificación de archivos con R. En la Clase 8 también vamos a trabajar en la interacción con Google Sheets desde R y programación de tareas.
+
+# Organización y lectura de archivos
+
+R nos permite escrbir, borrar y guardar archivos, de manera que podemos interactuar con la organización del directorio de nuestro disco local. En RBase tenemos el comando `list.files()` que nos permite listar los archivos de un directorio. Si no le ponemos ningún argumento, por defecto lista los archivos del directorio de trabajo en forma de un vector.
+
+```{r list-files, eval=TRUE, warning=FALSE, message=FALSE, echo=TRUE}
+# Listar los archivos del directorio de trabajo
+archivos <- list.files()
+
+archivos
+```
+
+Ingresando el directorio es posible también acceder a los nombres de los archivos en una carpeta específica.
+
+```{r list-files-dir, eval=TRUE, warning=FALSE, message=FALSE, echo=TRUE}
+# Listar los archivos de un directorio específico
+archivos_carpeta <- list.files("bases")
+archivos_carpeta
+
+```
+
+Con estos vectores podemos hacer un loop para leer los archivos y utilizar un patrón de texto para utilizar sólo los archivos que cumplen con ese patrón. A continuación presentamos un ejemplo de ello en una parte de un script del repositorio **precariedad.mundial**, utilizado para 'pegar' las bases nacionales y crear una base homogénea.
+
+```{r eval=FALSE}
+#Este chunck solo corre en el contexto del repositorio precariedad.mundial
+rutas <- list.files("Bases_homog/",full.names = T,pattern = ".rds")
+Base <- data.frame()
+for(i in rutas){
+  base_temp<- readRDS(i) %>%
+    mutate(PERIODO = as.character(PERIODO),
+           EDAD = as.numeric(EDAD),
+           ING = as.numeric(ING))
+Base <-   bind_rows(Base,base_temp)
+print(i)
+}
+```
+
+En este ejemplo se define el elemento `rutas`, que es un vector con las rutas completas de los archivos con formato .rds en la carpeta **Bases_homog**. Luego se crea un dataframe vacío y se itera sobre cada ruta, leyendo cada archivo y guardándolo en una base temporal. Por último se unen las bases con `bind_rows()` y se imprime la ruta para saber en qué archivo se está trabajando. Esta lógica de trabajo en loops es muy utilizada para cargar información de distitnas fuentes.
+
+Asistiendonos con IA podemos escribir muy fácilmente un script para automatizar la lectura y modificaciones de archivos, haciendo procedimientos que pueden seguir funcionando aunque cambien los datos de origen. Por ejemplo, en la imagen a continuación se le pidió a Claude que obtenga los datasets con nombre 'uruguay' y los copie en una carpeta de destino. Este procedimeinto va a funcionar incluso cuando se agreguen nuevos archivos con el nombre 'uruguay' y cualquier persona con acceso al repositorio podría reproducirlo con tan sólo modificar la ruta de la carpeta de destino hacia una carpeta de su compu local.
+
+![](img/leer_archivos_R_claude.png)
+
+<div class="alert alert-warning">
+**Nota:** Notar que en el ejemplo se utiliza el comando `grepl()` para identificar los archivos que contienen la palabra 'uruguay' en su nombre. Este comando utiliza *regex*, tema que cubriremos más adelante.
+</div>
+
+# Web Scraping
+
+**Web scraping** es la técnica de extraer datos de páginas web de manera automatizada. Hoy en día las tareas de web scraping suelen hacerse cada vez más mediante IA, pero es útil conocer qué se hace 'detrás de escena' y cómo automatizar la recopilación de datos de la web. Utilizando R podemos acceder a páginas web y extraer los datos necesarios de manera eficiente, evitando copiar manualmente la información. En R, el paquete `rvest` es el más utilizado para realizar tareas de web scraping de forma sencilla y efectiva. Otros paquetes útiles incluyen `httr` para manejar solicitudes HTTP y `xml2` para procesar el HTML de las páginas. Para sitios web más complejos (principalmente aquellos programados en Java) es recomendable usar `Selenium`.
+
+Para hacer web scraping es necesario conocer algunos conceptos básicos de HTML, que es el lenguaje que se utiliza en la web para estructurar y presentar la información. Las páginas web están compuestas por elementos HTML, que se organizan en una estructura jerárquica de etiquetas. Por ejemplo, un título de una noticia puede estar dentro de una etiqueta `<h3>`, mientras que un párrafo de texto puede estar dentro de una etiqueta `<p>`. Para extraer información de una página web, necesitamos identificar las etiquetas HTML que contienen los datos que queremos obtener. Desde los navegadores podemos acceder a este código con la herramienta `inspeccionar`.
+
+```         
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Ejemplo1</title>
+  </head>
+  <body>
+    <p>Párrafo de ejemplo</p>
+  </body>
+</html>
+```
+
+Comencemos mirando cómo se ve una página de noticias usando `rvest`.
+
+```{r eval=TRUE, warning=FALSE, message=FALSE, echo=TRUE }
+# Instalar y cargar el paquete rvest si no lo tenes instalado
+# install.packages("rvest")
+
+library(rvest)
+
+page <- read_html("https://www.pagina12.com.ar")
+
+page
+
+```
+
+Cuando ingresamos la dirección de la página web en la función `read_html()` de rvest, obtenemos un objeto HTML del que podemos analizar y extraer información. HTML es el código que nuestros navegadores 'leen' para luego mostrarnos una página web. Para extraer datos de la página, necesitamos **parsear** la información del HTML para poder convertirla en datos estructurados. **Parsear datos** se refiere al proceso de analizar y estructurar el contenido de una página web para extraer información útil de manera organizada. Generalmente, necesitamos primero identificar las etiquetas HTML que contienen la información que queremos obtener y luego extraer información de ellas. En nuestro ejemplo, si queremos extraer los títulos de las noticias de la página principal, podemos buscar las etiquetas `<h3>` que contienen los títulos. El comando `html_nodes()` nos permite seleccionar nodos HTML de la página, y `html_text()` nos permite extraer el texto de los nodos seleccionados.
+
+```{r eval=TRUE, warning=FALSE, message=FALSE, echo=TRUE }
+# Ejemplos para extraer texto según tags
+h1_tags <- page %>% html_nodes("h1") %>% html_text()
+
+h2_tags <- page %>% html_nodes("h2") %>% html_text()
+
+h3_tags <- page %>% html_nodes("h3") %>% html_text()
+
+p_tags <- page %>% html_nodes("p") %>% html_text()
+
+print(h2_tags)
+
+print(h3_tags)
+
+```
+
+En la práctica del web scraping se suelen combinar técnicas de parseo de datos con la extracción de información por matcheo patrones con expresiones regulares. Por ejemplo, si estamos navegando sobre una lista de precios, podemos extraer los importes por medio de la coincidencia con caracteres numéricos, el símbolo "$" 0 los separadores decimales y de miles.
+
+### ¿Qué es XPath?
+
+Hay distintos métodos para acceder a la información que está en una página web. El más utilzado actualmente es XPath, un lenguaje de consulta para seleccionar nodos en un documento HTML. Permite navegar a través de la estructura jerárquica de un documento y seleccionar elementos específicos basados en su posición, atributos, o contenido. **XPath** es un lenguaje utilizado para navegar y seleccionar elementos dentro de documentos estructurados como XML y HTML. En el contexto del *web scraping*, es una herramienta poderosa para localizar y extraer datos específicos de una página web. XPath trabaja con una representación en forma de árbol de un documento HTML o XML. Cada etiqueta HTML (como `<div>`, `<h1>`, `<p>`) se considera un **nodo** dentro del árbol, y XPath permite especificar rutas hacia estos nodos.
+
+#### Sintaxis básica de XPath
+
+1. **Navegar por niveles del árbol**:
+   - `/`: Selecciona desde el nodo raíz. Por ejemplo, `/html/body` selecciona el `<body>` del documento.
+   - `//`: Selecciona nodos desde cualquier parte del documento. Por ejemplo, `//p` selecciona todos los `<p>` sin importar su ubicación.
+
+2. **Seleccionar por etiqueta**:
+   - `//div`: Selecciona todos los elementos `<div>`.
+
+3. **Seleccionar por atributo**:
+   - `//*[@id='titulo']`: Selecciona cualquier elemento con el atributo `id="titulo"`.
+   - `//a[@href='/contacto']`: Selecciona el enlace `<a>` cuyo atributo `href` sea `/contacto`.
+
+4. **Seleccionar texto dentro de un nodo**:
+   - `//h1/text()`: Extrae el texto dentro de un elemento `<h1>`.
+
+5. **Condiciones adicionales (filtros)**:
+   - `//ul/li[1]`: Selecciona el primer `<li>` dentro de un `<ul>`.
+   - `//table/tr[td[contains(., 'Argentina')]]`: Encuentra una fila `<tr>` en una tabla que contiene la palabra "Argentina".
+
+Veamos como funciona ahora en la página de noticias que estábamos analizando.
+
+```{r eval=TRUE, warning=FALSE, message=FALSE, echo=TRUE}
+# Ejemplo para extraer texto usando XPath
+
+all_h2_in_xpath <- page %>% html_nodes(xpath = '//h2') %>% html_text()
+
+print(all_h2_in_xpath)
+
+```
+
+Probemos ahora con una página de datos oficiales de Argentina.
+
+
+```{r eval=TRUE, warning=FALSE, message=FALSE, echo=TRUE}
+page2 <- read_html("https://www.argentina.gob.ar/encuesta-de-indicadores-laborales")
+
+# Obtengo infromación usando Xpath
+h2_tags_xpath <- page2 %>% html_nodes(xpath ='//*[@id="block-system-main"]/section[1]/article/div/div/div/div/table') %>% html_text()
+
+h2_tags_xpath
+```
+
+Una vez obtenida la información por Xpath podemos procesarla y guardarla como dataframe
+
+```{r eval=TRUE, warning=FALSE, message=FALSE, echo=TRUE}
+library(tidyverse)
+
+lines <- str_split(h2_tags_xpath, "\n")[[1]]
+
+cleaned_lines <- lines %>%
+  str_trim() %>%
+  .[. != ""]
+
+encabezados <- cleaned_lines[1:2] 
+regiones <- cleaned_lines[c(3,6,9)]
+mensual_values <- cleaned_lines[c(4,7,10)]
+anual_values <- cleaned_lines[c(5,8,11)]
+
+# Combino datos en un df
+df <- data.frame(
+  regiones,
+  mensual_values,
+  anual_values
+)
+
+colnames(df) <- c("Region", encabezados)
+
+print(df)
+```
+
+
 
 # Expresiones Regulares (Regex) en R
 
@@ -41,7 +219,7 @@ Las **expresiones regulares** (regex) son una herramienta poderosa para buscar, 
 
 ### Ejemplo de análisis de texto
 
-```{r grep-ejemplo}
+```{r grep-ejemplo, eval=TRUE, warning=FALSE, message=FALSE, echo=TRUE}
 # Vector de prueba
 textos <- c("R es genial", "Regex es poderosa", "R puede ser difícil al principio")
 
@@ -55,7 +233,7 @@ grep("\\bR\\b", textos)
 
 ### Ejemplo 2: Uso de `grep()` para buscar un patrón
 
-```{r stringr-ejemplo}
+```{r stringr-ejemplo, eval=TRUE, warning=FALSE, message=FALSE, echo=TRUE}
 # Cargar la librería stringr
 library(stringr)
 
@@ -68,7 +246,7 @@ str_extract_all(texto_numeros, "[0-9]+")
 
 Es muy común encontrar valores 'sucios' cuando tratamos con montos de dinero en algunas fuentes de datos. El comando `gsub` permite sustitur los strings que matcheen con nuestro regex por los caracteres que queramos. Cuando le pasamos "" como argumento, le estamos diciendo que directamente borre los caracteres que coinciden con nuestra búsqueda
 
-```{r gsub-ejemplo}
+```{r gsub-ejemplo, eval=TRUE, warning=FALSE, message=FALSE, echo=TRUE}
 # Crear un vector con ejemplos de montos en formato string
 montos <- c("$1.345.213,53", "$500,00", "$23.450,50", "$0,99", "$1.000,01", "$12.345.678,90", "$999.999,99", "$3,00")
 
@@ -95,7 +273,7 @@ montos_limpios
 
 Con la EPH, supongamos que queremos obtener sólos las columnas que empiezan con "CH". El uso de regex nos permite identificar patrones de texto y extraer las columnas que nos interesan.
 
-```{r eval=FALSE}
+```{r eval=TRUE, warning=FALSE, message=FALSE, echo=TRUE}
 
 individual_t117 <- read.table(file = 'bases/usu_individual_t117.txt',
                               sep=";", 
@@ -103,21 +281,24 @@ individual_t117 <- read.table(file = 'bases/usu_individual_t117.txt',
                               header = TRUE, 
                               fill = TRUE)
 
-colnames(individual_t117)
-
 ```
 
 Con la función grep podemos indicar que sólo tome los nombres que comienzan con "CH" del vector generado por la función `colnames`. Notar que en la expresión regular se utiliza el caracter especial `^` para indicar que tiene que ser un patrón que se ubique al comienzo del texto.
 
-```{r eval=FALSE}
+```{r eval=TRUE, warning=FALSE, message=FALSE, echo=TRUE}
 
 ch_columns <- individual_t117[, grep("^CH", colnames(individual_t117))]
 
-ch_columns
+print(colnames(ch_columns))
 
 ```
 
 Este ejemplo puede parecer trivial, pero en la práctica es muy útil para seleccionar columnas de bases de datos con muchas variables y facilita el trabajo de análisis de datos. También sirve para cuando trabajamos con bases datos cuyas variables pueden variar en el nombre de columna pero respetando un patrón.
+
+<div class="alert alert-warning">
+**Ejercicio para hacer en clase:** Seleccioná una temática y una página web de interés. Con ayuda de la IA creá un script que cuente las veces que ese tema fue mencionado. Utilizá ```rvest``` para extraer las veces que la temática fue mencionada y guardá esa información en tu disco local en el formato que prefieras.
+</div>
+
 
 # Git y Github
 
@@ -127,9 +308,7 @@ Desde el primer encuentro que venimos trabajando con Git y Github, pero siempre 
 
 ## Algunos recursos
 
-[¿Cómo crear una cuenta?](https://docs.github.com/es/get-started/onboarding/getting-started-with-your-github-account)
-
-[Una guía con ejemplos para empezar a usar Git](https://github.com/git-guides)
+[Documentación completa](https://docs.github.com/es/get-started/onboarding/getting-started-with-your-github-account)
 
 [Principales comandos](https://git-scm.com/docs):
 
@@ -159,13 +338,22 @@ Podemos ingresar estos comandos directamente en la consola de RStudio o en la de
 
 ![Visualización de ejecución de git status por terminal](img/git_status.jpg){width="60%"}
 
+## Interactuar desde VSC
+
+
+<img src="img/git_vsc.png" alt="Seccion de Git en nuestra ventana de Visual Studio Code" style="float: right; width: 33%; margin-left: 1.5em; margin-bottom: 1em;" />
+
+Visual Studio Code ofrece una poderosa integración con Git y Github, lo que facilita la gestión de repositorios y el control de versiones directamente desde el editor. Podés acceder a las funcionalidades de Git a través de la barra lateral izquierda, donde encontrarás un icono de control de versiones. Desde ahí se hacen commits, crean ramas, fusionan cambios y resielven conflictos. Además, VSC ofrece una vista muy amigable de los cambios realizados en los archivos, lo que facilita la revisión y comparación de versiones.
+
+Por ejemplo, en la anterior captura de pantalla, podemos ver que hay cambios en los archivos de la Clase 6 y la 8, ademas de que se agregan y borran imágenes. Para subir algunos de los cambios a Github, tenemos que pasar los cambios a `Staging` haciendo click en el icono de `+`. Si queremos por ejemplo subir las imágenes al repositorio, debemos crear un commit, sumando las imáganes a `Staging` y luego haciendo click en el icono de `check` para crear un commit. Finalmente, el cambio es enviado al repositorio remoto haciendo click en `Sync`, que ejecuta entre otras cosas el comando `git push`. También podemos ver el historial de cambios, las ramas, y otras funcionalidades de Git en el graph de más abajo.
+
 ## Interactuar desde RStudio
 
-RStudio tiene una interfaz gráfica que nos permite interactuar con Github de manera más amigable.
+RStudio también tiene una interfaz gráfica que nos permite interactuar con Github de manera más amigable.
 
 ![Seccion de Git en nuestra ventana de RStudio](img/git_console_r.png){width="60%"}
 
-Por ejemplo, en la anterior captura de pantalla, podemos ver que hay un cambio en el archivo `Clase 6.Rmd`, que se agregan imágenes y un script en la Clase 3. Para subir algunos de los cambios a Github, tenemos que pasar los cambios a `Staging`. Si queremos por ejemplo subir las imágenes al repositorio, debemos crear un commit.
+Aquí se ven los cambios realizados, los cuales se administran con una lógico muy similar a VSC.
 
 ![Creación de un commit en RStudio](img/git_commit_r.png){width="60%"}
 
@@ -182,7 +370,7 @@ data/
 img/
 ```
 
-Se trata de un archivo de texto plano que se puede crear con cualquier editor de texto. En general, se recomienda utilizar el archivo `.gitignore` para evitar subir archivos innecesarios al repositorio, como bases de datos pesadas, archivos temporales, o archivos que contienen información sensible (como por ejemplo claves y credenciales).
+El `.gitignore` es un archivo de texto plano que se puede crear con cualquier editor de texto. En general, se recomienda utilizar el archivo `.gitignore` para evitar subir archivos innecesarios al repositorio, como bases de datos pesadas, archivos temporales, o archivos que contienen información sensible (como por ejemplo claves y credenciales).
 
 ## Github Pages
 
@@ -208,7 +396,7 @@ En el trabajo con bases de datos, es común encontrarnos con valores faltantes o
 
 Una forma muy sencilla de imputar es calcular una métrica para un grupo particular y aplicar el valor de dicha métrica para los miembros del gupo que tienen valores faltantes. Con las herramientas que trabajamos en este curso ya podemos hacer este tipo de imputaciones. Por ejemplo, tomemos la EPH para el primer trimestre del año 2024.
 
-```{r warning=FALSE, eval=FALSE}
+```{r eval=TRUE, warning=FALSE, message=FALSE, echo=TRUE}
 library(eph)
 
 variables_EPH <- c("P21", "CAT_OCUP",  "ESTADO", "PP07H", "PP07I",
@@ -221,7 +409,7 @@ base <- get_microdata(year=2024, period = 1, vars = variables_EPH )
 
 En la variable de ingresos de la ocupación principal (p21), los casos de no respuesta tienen el valor -9. Los vamos a redefinir como NAs para poder trabajar con ellos. Luego definimos grupos en base a las variables edad y región, y por último realizamos la imputación según la media de los ingresos agrupando casos por sexo, edad y región.
 
-```{r warning=FALSE, eval=FALSE}
+```{r eval=TRUE, warning=FALSE, message=FALSE, echo=TRUE}
 # Asigno NAs a casos con variable de ingreso de la ocupación principal igual a -9
 base$P21[base$P21 == -9] <- NA
 
@@ -260,7 +448,7 @@ base <- base %>%
 
 Esta forma de imputar (muy simple y sencilla) tan sólo asigna los siguientes valores a los casos con NA.
 
-```{r warning=FALSE, eval=FALSE}
+```{r eval=TRUE, warning=FALSE, message=FALSE, echo=TRUE}
 library(kableExtra)
 
 tabla <- base %>%
@@ -286,7 +474,7 @@ $$
 
 En este caso, vamos a utilizar un modelo de regresión lineal para imputar los valores faltantes de la variable de ingresos. Para ello, vamos a utilizar las variables de edad, edad al cuadrado, sexo, región y tramo etario como predictores. Utilizamos la función `lm()` para ajustar el modelo y luego vamos a predecir los valores faltantes.
 
-```{r warning=FALSE, eval=FALSE}
+```{r eval=TRUE, warning=FALSE, message=FALSE, echo=TRUE}
 # Creamos el elemento modelo
 modelo <- lm(P21 ~ edad + edad2 + sexo + region + tramo_etario, data = base)
 
@@ -304,7 +492,7 @@ En este caso, el modelo de regresión lineal nos permite predecir los valores fa
 
 Los modelos de machine learning son una herramienta poderosa para imputar valores faltantes en bases de datos. En este caso, vamos a utilizar un modelo de regresión de *random forest* para imputar los valores faltantes de la variable de ingresos. Para ello, vamos a utilizar las variables de edad, edad al cuadrado, sexo, región y tramo etario como predictores. Utilizamos la función `ranger()` del paquete `ranger` para ajustar el modelo.
 
-```{r warning=FALSE, eval=FALSE}
+```{r eval=TRUE, warning=FALSE, message=FALSE, echo=TRUE}
 
 # Instalar y cargar el paquete ranger si no lo tenes instalado
 # install.packages("ranger")
