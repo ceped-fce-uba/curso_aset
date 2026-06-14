@@ -26,7 +26,7 @@ Esta página contiene los materiales del curso "Programación y visualización e
 - Primera introducción a **GitHub**
 - Programación asistida con herramientas de IA
 
-**Descargas:**
+**Materiales:**
 - [📥 Clase_1_Tutorial_instalaciones.html](Clase%201%20-%20Presentacion%20y%20R%20base/Clase_1_Tutorial_instalaciones.html)
 - [📥 Clase_1_Introduccion.html](Clase%201%20-%20Presentacion%20y%20R%20base/Clase_1_Introduccion.html)
 - [📹 Grabación de la clase](https://us06web.zoom.us/rec/share/o1DAK9AiFr9DVCGuaFd2K_lefJn2B95nvcbVMjmPd-pvciQ35BA7zyvkGyPgL9RQ.u8O1qmVPR8YVZJKz) Se accede con el código 57wJP6z$
@@ -45,7 +45,7 @@ Esta página contiene los materiales del curso "Programación y visualización e
 - Operaciones de unión: Joins y bind_rows
 - Medidas de resumen estadístico
 
-**Descargas:**
+**Materiales:**
 - [📥 Clase_2.rar](Clase%202%20-%20EPH%20e%20Intro%20a%20Tidyverse/Clase2.rar)
 - [📹 Grabación de la clase ](https://us06web.zoom.us/rec/share/C7BE1tH9Mfeo57Mm2kF1-aEA7GjXs8AmsLiIhqgoMss_aNXl_6_9iBLXtYawcanu.ymQURl6r51yzLM6n) Se accede con código m+3e4BaH
 
@@ -61,7 +61,7 @@ Esta página contiene los materiales del curso "Programación y visualización e
 - **Precariedad Mundial**: comparación internacional y homogeneización
 - Estimación de indicadores comparativos
 
-**Descargas:**
+**Materiales:**
 - [📥 Clase_3.rar](Clase%203%20-%20Indicadores%20de%20Precariedad%20-%20Tidyverse2/Clase3.rar)
 - [📹 Grabación de la clase ](https://us06web.zoom.us/rec/share/XD2j-dMZLFHvxbPDM4yAuXb9ucWI4pJS9s0r_M1t2rBBYIikaNoWa8OMnyCQo2w.Hn0X3JzYe0RHnABZ) Se accede con código w*0aj#DJ
 
@@ -76,7 +76,7 @@ Esta página contiene los materiales del curso "Programación y visualización e
 - Facets para gráficos múltiples
 - Gráficos interactivos con **ggplotly**
 
-**Descargas:**
+**Materiales:**
 - [📥 Clase_4.rar](Clase%204%20-%20Visualizacion%20en%20R%20-%20ggplot/Clase4.rar)
 - [📹 Grabación de la clase ](https://us06web.zoom.us/rec/share/6oqlWcVPy57nzASgkWiDE1XZ2c3rzUI74XaMRz39AMPGWWst-yP6G87QLrRphLye.hXtHw2sRuxrXvpAu) Se accede con código 1ic0z#Jp
 
@@ -92,7 +92,7 @@ Esta página contiene los materiales del curso "Programación y visualización e
 - **Estructuras iterativas** (loops)
 - **Creación de funciones** personalizadas
 
-**Descargas:**
+**Materiales:**
 - [📥 Clase_5.rar](Clase%205%20-%20Markdown,%20loops%20y%20funciones/Clase5.rar)
 - [📹 Grabación de la clase ](https://us06web.zoom.us/rec/share/Av0hJKoC4sEwZeikTbTfBE08Fb0Grb9Db0hHmIpPzllmCThHU7Q2fuA5kRThf5r8.ZslTSB10QWF6-I0G) Se accede con código =%2TQU8X
 
@@ -108,9 +108,9 @@ Esta página contiene los materiales del curso "Programación y visualización e
 - **GitHub Pages** para publicación web
 - Técnicas de imputación de datos faltantes
 
-**Descargas:**
-- [🌐 Ver como página](https://ceped-fce-uba.github.io/curso_aset/Clase%206%20-%20Github%2C%20automatizaciones%2C%20web%20scraping/Clase-6---Automatizaciones-y-web-scraping.html)
-- [📥 Descargar HTML](Clase%206%20-%20Github%2C%20automatizaciones%2C%20web%20scraping/Clase-6---Automatizaciones-y-web-scraping.html)
+**Materiales:**
+- [🌐 Material de la clase 6](https://ceped-fce-uba.github.io/curso_aset/Clase%206%20-%20Github%2C%20automatizaciones%2C%20web%20scraping/Clase-6---Automatizaciones-y-web-scraping.html)
+
 
 ### Clase 7 - Power BI
 
