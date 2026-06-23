@@ -110,3 +110,63 @@ individual_t117 <- read.table(file = 'Clase 6 - Github, automatizaciones, web sc
                               fill = TRUE)
 
 ch_columns <- individual_t117[  , grep("^CH", colnames(individual_t117))]
+
+
+# Imputación de datos
+
+library(eph)
+
+variables_EPH <- c("P21", "CAT_OCUP",  "ESTADO", "PP07H", "PP07I",
+                   "PP04B1", "PP04A", "REGION", "ANO4", "PONDERA",
+                   "REGION", "CH04", "CH06", "PP04C", "PP04C99",
+                   "PP04B_COD", "P21")
+
+base <- get_microdata(year=2024, period = 1, vars = variables_EPH )
+
+base$P21[base$P21 == -9] <- NA
+
+base$P21
+
+# Filtro ocupados y genero variables de grupos etarios y regiones
+base <- base %>%
+  filter(ESTADO==1) %>% 
+  mutate(
+          edad=CH06, 
+          edad2=edad*edad,
+          tramo_etario= case_when(
+            edad<=30 ~ "Joven", 
+            edad>30 & edad<=50 ~ "Adulto", 
+            edad>50 ~ "Adulto mayor"),
+          sexo= case_when(
+            CH04 ==1 ~ "Hombre", 
+            CH04 ==2 ~ "Mujer"), 
+         region= factor(
+           case_when(
+             REGION ==01 ~ "AMBA", 
+             REGION ==43 ~ "Centro",
+             REGION ==40 ~ "NOA",
+             REGION ==41 ~ "NEA",
+             REGION ==42 ~ "Cuyo",
+             REGION ==44 ~ "Patagonia"), 
+           levels=c("AMBA", "Centro", "NEA", "Cuyo", "Patagonia", "NOA")),
+         sexo= factor(sexo,
+              levels=c("Mujer", "Hombre")))
+
+base <- base %>% select(sexo, edad, region, edad2, tramo_etario, P21)
+
+#Imputación por promedio de ingresos para cada grupo
+base <- base %>%
+  group_by(sexo, tramo_etario, region) %>%
+  mutate(P21_imputado = ifelse(is.na(P21), mean(P21, na.rm = TRUE), P21)) %>%
+  ungroup()
+
+#Imputación por regresión
+modelo <- lm(P21 ~ edad + edad2 + sexo + region + tramo_etario, data = base)
+
+class(modelo)
+
+base$P21_prediccion<- predict(modelo, newdata = base)
+
+#Completamos los datos sobre los casos falantes
+base$P21_imputado_regresion <- ifelse(is.na(base$P21), base$P21_prediccion, base$P21)
+

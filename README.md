@@ -110,6 +110,7 @@ Esta página contiene los materiales del curso "Programación y visualización e
 
 **Materiales:**
 - [🌐 Material de la clase 6](https://ceped-fce-uba.github.io/curso_aset/Clase%206%20-%20Github%2C%20automatizaciones%2C%20web%20scraping/Clase-6---Automatizaciones-y-web-scraping.html)
+- [📹 Grabación de la clase] (https://us06web.zoom.us/rec/share/S0-7O_KqeI2AO7M4A5SQ2tcJ1ST6EJGm4l4VtYudurXwBH4x8UFuIRWOTY80AU21.G3LOqZ2tmSxCUDua) Se accede con código .+BSkk9^
 
 
 ### Clase 7 - Power BI
