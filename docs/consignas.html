@@ -353,16 +353,16 @@ display: none;
 
 
 <blockquote>
-<p><strong>Curso ASET 2024</strong><br />
+<p><strong>Curso ASET 2026</strong><br />
 <strong>Docentes:</strong> Facundo Lastra y Guido Weksler</p>
 </blockquote>
 <div id="trabajo-práctico-final" class="section level1">
 <h1><strong>Trabajo Práctico Final</strong></h1>
 <p>Para acreditar la realización del curso, se deberá enviar a los
 docentes un repositorio de GitHub que responda a las siguientes
-consignas, en grupos de hasta <strong>3 integrantes</strong>.</p>
+consignas, en grupos de hasta <strong>2 integrantes</strong>. El repositorio deberá incluir un script de procesamiento de datos en R y un informe elaborado en Rmarkdown, Quarto o en formato .html, utilizando gráficos realizados con <code>ggplot</code>.</p>
 <p><strong>Fecha de entrega:</strong><br />
-<strong>1 de marzo del 2025</strong></p>
+<strong>1 de Octubre del 2026</strong></p>
 <hr />
 <div id="consignas" class="section level2">
 <h2><strong>Consignas</strong></h2>
@@ -370,12 +370,11 @@ consignas, en grupos de hasta <strong>3 integrantes</strong>.</p>
 <li><strong>Selección de encuesta:</strong>
 <ul>
 <li>Elegir una encuesta de hogares relevada por el instituto nacional de
-estadística oficial de algún país.<br />
-</li>
-<li><em>(Se puede elegir un país que esté en el repositorio del proyecto
-Precariedad Mundial)</em>.</li>
+estadística oficial de algún país</li>
+<li>Si lo hablamos con antelación, podemos trabajar sobre otra fuente de datos de estadísticas socio-laborales</li>
+<li><em>(Se puede elegir un país o fuente de datos que esté en el repositorio del proyecto Precariedad Mundial)</em></li>
 </ul></li>
-<li><strong>Informe en RMarkdown:</strong>
+<li><strong>Informe de análisis exploratorio</strong>
 <ul>
 <li>Escribir un informe donde se realice un análisis exploratorio sobre:
 <ul>
@@ -404,23 +403,23 @@ correspondiente, desagregando el análisis según:
 </li>
 <li><strong>Rangos etarios</strong><br />
 </li>
-<li><strong>Otras variables de interés</strong>.<br />
-</li>
+<li><strong>Otras variables de interés</strong></li>
 </ul></li>
-<li><strong>Formato del informe:</strong>
+</ul></li>
+<li><strong>Script en R</strong>
 <ul>
-<li>Utilizar <code>kable()</code> para presentar las tablas.<br />
-</li>
-<li>Usar <code>ggplot</code> en caso de realizar gráficos.</li>
+<li>El script deberá seguir los siguientes pasos:
+<ul>
+<li>Carga de datos: tomar todos los datos presentes en una carpeta del repositorio <code>\bases</code> (para que pueda ser corrido en el futuro si se agregan bases de datos)</li>
+<li>Transformación: crear las variables necesarias para el análisis exploratorio del punto <strong>2.</strong> y elaborar tablas/gráficos</li>
+<li>Guardado: guardar los resultados en <code>\resultados</code></li>
+<li>Log: el script deberá generar un archivo csv o txt indicando las veces que fue corrido</li>
 </ul></li>
 </ul></li>
 <li><strong>Dashboard:</strong>
 <ul>
 <li>Elaborar un dashboard para visualizar los datos procesados
-utilizando alguna extensión de R o Looker.<br />
-</li>
-<li><em>(En el caso de utilizar Looker, subir los datos a Google Sheets
-desde R).</em></li>
+utilizando alguna extensión de R, PowerBI o Looker.</li>
 </ul></li>
 </ol>
 </div>
