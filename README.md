@@ -114,16 +114,18 @@ Esta página contiene los materiales del curso "Programación y visualización e
 Se accede con código .+BSkk9^
 
  
-### Clase 7 - Power BI
+### Clase 7 - Power BI y Shiny
 
 **Contenidos:**
 
 - Introducción a **Power BI** y su ecosistema
 - Conexión con múltiples fuentes de datos
-- Transformación de datos con **Power Query**
-- Creación de visualizaciones
-- Diseño de dashboards interactivos
-- Publicación y distribución de reportes
+- Creación de visualizaciones y diseño de dashboards interactivos
+- Introducción a **Shiny**: tableros interactivos desde R
+- Ventajas de Shiny frente a Power BI: reproducibilidad y asistencia con IA desde el IDE
+
+**Materiales:**
+- [🌐 Material de la clase 7](https://ceped-fce-uba.github.io/curso_aset/Clase%207%20-%20PowerBI/Clase-7---PowerBI.html)
 
 ### Clase 8 - Integración con Google Sheets y Looker
 
