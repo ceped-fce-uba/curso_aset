@@ -9,10 +9,7 @@ Las herramientas de visualización en tableros (o dashboards) son una forma de p
 
 Para ello se crean "modelos semánticos" que hacen "consultas" (o queries) a las fuentes de datos elegidas para así obtener la información que se quiere mostrar. Luego, softwares como PowerBI realizan  cálculos sobre los datos que reciben como input y los muestran en gráficos interactivos. La calidad y eficiencia de los dashboards dependen en gran medida de cómo procesamos y preparamos los datos antes de integrarlos a la visualización. En este punto, herramientas como R son grandes aliadas para limpiar, transformar y reducir el volumen de datos, optimizando así el rendimiento y la claridad de las visualizaciones.
 
-Estas herramientas pueden ser utilizadas para presentar estadísticas económicas y socio-laborales de manera clara y comprensible.
-
-> **Ejemplo:** [CEP XXI - Centro de Estudios para la Producción](https://www.argentina.gob.ar/produccion/cep/tableros-interactivos) desarrolló tableros interactivos en PowerBI para presentar estadísticas del mercado de trabajo y la producción de Argentina de forma visual y accesible.
-
+> **Ejemplo:** Si bien los dashboards suelen usarse mucho en el ámbito profesional, estas herramientas pueden ser utilizadas para presentar estadísticas económicas y socio-laborales de manera clara y comprensible. [CEP XXI - Centro de Estudios para la Producción](https://www.argentina.gob.ar/produccion/cep/tableros-interactivos) desarrolló tableros interactivos en PowerBI para presentar estadísticas del mercado de trabajo y la producción de Argentina de forma visual y accesible.
 
 # Introducción a PowerBI
 
@@ -168,35 +165,43 @@ El servicio de PowerBI es gratuito para usuarios individuales, mientras que es p
 
 El siguiente diagrama muestra un flujo típico donde distintas fuentes de datos alimentan PowerBI Service, que las procesa y actualiza el tablero automáticamente:
 
-<div style="display:flex; align-items:center; gap:20px; font-family:Arial,sans-serif; margin:28px 0; flex-wrap:wrap; justify-content:center;">
-
-  <div style="display:flex; flex-direction:column; gap:8px; align-items:center;">
-    <div style="font-size:11px; font-weight:bold; color:#555; letter-spacing:.5px;">FUENTES DE DATOS</div>
-    <div style="background:#24292e; color:white; padding:10px 18px; border-radius:6px; font-size:12px; text-align:center; min-width:110px;">&#128025; GitHub<br><span style="font-size:10px; opacity:.75;">Script R</span></div>
-    <div style="background:#217346; color:white; padding:10px 18px; border-radius:6px; font-size:12px; text-align:center; min-width:110px;">&#128202; Excel<br><span style="font-size:10px; opacity:.75;">Archivo local</span></div>
-    <div style="background:#c0392b; color:white; padding:10px 18px; border-radius:6px; font-size:12px; text-align:center; min-width:110px;">&#128451; Base SQL<br><span style="font-size:10px; opacity:.75;">Servidor</span></div>
-  </div>
-
-  <div style="font-size:32px; color:#999; font-weight:bold;">&#8594;</div>
-
-  <div style="background:#dce9f7; border:2px solid #2d6eb4; border-radius:10px; padding:16px 20px;">
-    <div style="font-size:11px; font-weight:bold; color:#2d6eb4; text-align:center; letter-spacing:.5px; margin-bottom:10px;">&#9729; POWERBI SERVICE</div>
-    <div style="display:flex; flex-direction:column; gap:7px;">
-      <div style="background:#2d6eb4; color:white; padding:8px 14px; border-radius:5px; font-size:11px;">&#9654; Ejecuta script R</div>
-      <div style="background:#2d6eb4; color:white; padding:8px 14px; border-radius:5px; font-size:11px;">&#128279; Data Gateway &#8594; Excel</div>
-      <div style="background:#2d6eb4; color:white; padding:8px 14px; border-radius:5px; font-size:11px;">&#128269; Queries SQL directas</div>
-    </div>
-  </div>
-
-  <div style="font-size:32px; color:#999; font-weight:bold;">&#8594;</div>
-
-  <div style="background:#f2c811; border:2px solid #d4a800; border-radius:10px; padding:22px 20px; text-align:center; min-width:120px;">
-    <div style="font-size:28px;">&#128202;</div>
-    <div style="font-size:13px; font-weight:bold; color:#333; margin-top:6px;">Tablero PowerBI</div>
-    <div style="font-size:10px; color:#666; margin-top:2px;">Interactivo</div>
-  </div>
-
-</div>
+```{r echo=FALSE, results='asis'}
+cat('
+<table style="width:85%; margin:24px auto; border-collapse:separate; border-spacing:0; font-family:Arial,sans-serif; font-size:12px;">
+<tr>
+  <td style="background:#24292e; color:white; padding:10px 14px; border-radius:6px; text-align:center; white-space:nowrap;">
+    GitHub<br><small style="opacity:.75;">Script R</small>
+  </td>
+  <td style="text-align:center; padding:0 10px; font-size:20px; color:#888;">&#8594;</td>
+  <td rowspan="3" style="background:#dce9f7; border:2px solid #2d6eb4; border-radius:8px; padding:14px 18px; text-align:center; vertical-align:middle;">
+    <strong style="color:#2d6eb4; font-size:13px;">&#9729; PowerBI Service</strong><br><br>
+    <span style="display:block; background:#2d6eb4; color:white; padding:6px 10px; border-radius:4px; margin:4px 0;">&#9654; Ejecuta script R</span>
+    <span style="display:block; background:#2d6eb4; color:white; padding:6px 10px; border-radius:4px; margin:4px 0;">&#128279; Data Gateway (Excel)</span>
+    <span style="display:block; background:#2d6eb4; color:white; padding:6px 10px; border-radius:4px; margin:4px 0;">&#128269; Queries SQL directas</span>
+  </td>
+  <td style="text-align:center; padding:0 10px; font-size:20px; color:#888;">&#8594;</td>
+  <td rowspan="3" style="background:#f2c811; border:2px solid #d4a800; border-radius:8px; padding:14px 18px; text-align:center; vertical-align:middle; white-space:nowrap;">
+    <strong style="font-size:13px; color:#333;">Tablero PowerBI</strong><br>
+    <small style="color:#555;">Interactivo</small>
+  </td>
+</tr>
+<tr>
+  <td style="background:#217346; color:white; padding:10px 14px; border-radius:6px; text-align:center; white-space:nowrap;">
+    Excel<br><small style="opacity:.75;">Archivo local</small>
+  </td>
+  <td style="text-align:center; padding:0 10px; font-size:20px; color:#888;">&#8594;</td>
+  <td></td>
+</tr>
+<tr>
+  <td style="background:#c0392b; color:white; padding:10px 14px; border-radius:6px; text-align:center; white-space:nowrap;">
+    Base SQL<br><small style="opacity:.75;">Servidor</small>
+  </td>
+  <td style="text-align:center; padding:0 10px; font-size:20px; color:#888;">&#8594;</td>
+  <td></td>
+</tr>
+</table>
+')
+```
 
 # Mejorando la estética de nuestros dashboards
 
