@@ -168,52 +168,35 @@ El servicio de PowerBI es gratuito para usuarios individuales, mientras que es p
 
 El siguiente diagrama muestra un flujo típico donde distintas fuentes de datos alimentan PowerBI Service, que las procesa y actualiza el tablero automáticamente:
 
-```{r echo=FALSE, message=FALSE, fig.align='center'}
-library(DiagrammeR)
-grViz("
-digraph workflow {
-  graph [rankdir=LR, fontname='Arial', bgcolor='transparent', pad='0.4']
+<div style="display:flex; align-items:center; gap:20px; font-family:Arial,sans-serif; margin:28px 0; flex-wrap:wrap; justify-content:center;">
 
-  node [fontname='Arial', fontsize=11, style='filled', shape='box']
-  edge [fontname='Arial', fontsize=10, color='#555555']
+  <div style="display:flex; flex-direction:column; gap:8px; align-items:center;">
+    <div style="font-size:11px; font-weight:bold; color:#555; letter-spacing:.5px;">FUENTES DE DATOS</div>
+    <div style="background:#24292e; color:white; padding:10px 18px; border-radius:6px; font-size:12px; text-align:center; min-width:110px;">&#128025; GitHub<br><span style="font-size:10px; opacity:.75;">Script R</span></div>
+    <div style="background:#217346; color:white; padding:10px 18px; border-radius:6px; font-size:12px; text-align:center; min-width:110px;">&#128202; Excel<br><span style="font-size:10px; opacity:.75;">Archivo local</span></div>
+    <div style="background:#c0392b; color:white; padding:10px 18px; border-radius:6px; font-size:12px; text-align:center; min-width:110px;">&#128451; Base SQL<br><span style="font-size:10px; opacity:.75;">Servidor</span></div>
+  </div>
 
-  subgraph cluster_fuentes {
-    label='Fuentes de datos'
-    fontsize=13
-    style='filled'
-    fillcolor='#f5f5f5'
-    color='#aaaaaa'
-    fontname='Arial'
+  <div style="font-size:32px; color:#999; font-weight:bold;">&#8594;</div>
 
-    github [label='GitHub\nScript R',       fillcolor='#24292e', fontcolor='white']
-    excel  [label='Excel\nArchivo local',   fillcolor='#217346', fontcolor='white']
-    sql    [label='Base SQL\nServidor',     fillcolor='#c0392b', fontcolor='white']
-  }
+  <div style="background:#dce9f7; border:2px solid #2d6eb4; border-radius:10px; padding:16px 20px;">
+    <div style="font-size:11px; font-weight:bold; color:#2d6eb4; text-align:center; letter-spacing:.5px; margin-bottom:10px;">&#9729; POWERBI SERVICE</div>
+    <div style="display:flex; flex-direction:column; gap:7px;">
+      <div style="background:#2d6eb4; color:white; padding:8px 14px; border-radius:5px; font-size:11px;">&#9654; Ejecuta script R</div>
+      <div style="background:#2d6eb4; color:white; padding:8px 14px; border-radius:5px; font-size:11px;">&#128279; Data Gateway &#8594; Excel</div>
+      <div style="background:#2d6eb4; color:white; padding:8px 14px; border-radius:5px; font-size:11px;">&#128269; Queries SQL directas</div>
+    </div>
+  </div>
 
-  subgraph cluster_pbi {
-    label='PowerBI Service'
-    fontsize=13
-    style='filled'
-    fillcolor='#dce9f7'
-    color='#2d6eb4'
-    fontname='Arial'
+  <div style="font-size:32px; color:#999; font-weight:bold;">&#8594;</div>
 
-    rs [label='Ejecuta\nscript R',             fillcolor='#2d6eb4', fontcolor='white']
-    dg [label='Data Gateway\nconsulta Excel',  fillcolor='#2d6eb4', fontcolor='white']
-    sq [label='Query SQL\ndirecta',            fillcolor='#2d6eb4', fontcolor='white']
-  }
+  <div style="background:#f2c811; border:2px solid #d4a800; border-radius:10px; padding:22px 20px; text-align:center; min-width:120px;">
+    <div style="font-size:28px;">&#128202;</div>
+    <div style="font-size:13px; font-weight:bold; color:#333; margin-top:6px;">Tablero PowerBI</div>
+    <div style="font-size:10px; color:#666; margin-top:2px;">Interactivo</div>
+  </div>
 
-  tablero [label='Tablero PowerBI\nInteractivo', fillcolor='#f2c811', fontcolor='#333333', fontsize=13]
-
-  github -> rs [label='descarga y ejecuta']
-  excel  -> dg [label='conexion local']
-  sql    -> sq [label='query directa']
-  rs     -> tablero
-  dg     -> tablero
-  sq     -> tablero
-}
-")
-```
+</div>
 
 # Mejorando la estética de nuestros dashboards
 
