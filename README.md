@@ -121,7 +121,7 @@ Se accede con código .+BSkk9^
 - Introducción a **Power BI** y su ecosistema
 - Conexión con múltiples fuentes de datos
 - Transformación de datos con **Power Query**
-- Creación de visualizaciones profesionales
+- Creación de visualizaciones
 - Diseño de dashboards interactivos
 - Publicación y distribución de reportes
 
@@ -133,7 +133,6 @@ Se accede con código .+BSkk9^
 - Configuración de APIs y autenticación
 - Armado de flujos de datos automatizados
 - Creación de visualizaciones con **Looker**
-- Diseño de dashboards empresariales
 - Automatización y programación de reportes
 
 ---
