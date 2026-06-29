@@ -1,6 +1,10 @@
 
 
-## ATENCION: hay que tener los repositorios clonados en el local y cambiar la ruta para que coincida con la de tu directorio
+## ATENCION: hay que tener los repositorios clonados en el local y cambiar la ruta para que coincida 
+## con la de tu directorio. Luego, los dataframes a carga en powerbi son: 
+## - base_salarios_ceped_data 
+## - serie_salarios
+## - serie_salarios_sexo 
 
 PATH_LOCAL = "C:/Users/facun/OneDrive/Documentos/GitHub/"
 

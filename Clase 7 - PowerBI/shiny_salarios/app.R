@@ -7,22 +7,10 @@ library(plotly)
 PATH_LOCAL <- "C:/Users/facun/OneDrive/Documentos/GitHub/"
 
 # ---- EPH: salarios de asalariados privados ----
-bases <- readRDS("../bases/bases_eph.Rds") %>%
-  mutate(anio_trim = paste0(ANO4, "T", TRIMESTRE))
-
-base_salarios_eph <- bases %>%
-  filter(ESTADO == 1, CAT_OCUP == 3, P21 > 0)
-
-serie_general <- base_salarios_eph %>%
-  group_by(anio_trim, ANO4) %>%
-  summarise(salario = round(weighted.mean(P21, PONDIIO), 0), .groups = "drop")
-
-serie_sexo <- base_salarios_eph %>%
-  group_by(anio_trim, ANO4, CH04) %>%
-  summarise(salario = round(weighted.mean(P21, PONDIIO), 0), .groups = "drop") %>%
-  mutate(sexo = ifelse(CH04 == 1, "Varón", "Mujer"))
-
-anios_eph <- sort(unique(base_salarios_eph$ANO4))
+# Datos preprocesados por Clase 7 - PowerBI.Rmd
+serie_general <- readRDS("serie_general.Rds")
+serie_sexo    <- readRDS("serie_sexo.Rds")
+anios_eph     <- sort(unique(serie_general$ANO4))
 
 # ---- CEPED-DATA: salarios ----
 ceped_ok <- FALSE

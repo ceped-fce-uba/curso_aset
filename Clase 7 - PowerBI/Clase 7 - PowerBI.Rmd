@@ -103,7 +103,7 @@ writeData(wb, "serie_salarios", serie_salarios)
 addWorksheet(wb, "serie_salarios_sexo")
 writeData(wb, "serie_salarios_sexo", serie_salarios_sexo)
 
-saveWorkbook(wb, "Clase 7 - PowerBI/serie_salarios.xlsx", overwrite = TRUE)
+saveWorkbook(wb, "serie_salarios.xlsx", overwrite = TRUE)
 
 ```
 
@@ -113,14 +113,19 @@ Los datos en Excel podrían ser importados en PowerBI, pero lo mejor en este cas
 
 PowerBI tiene disponible una integración con R, que permite levantar y transformar la información directamente con un script. Para ello, se utiliza el conector "R Script" que permite ejecutar código R en PowerBI y utilizar los resultados en las visualizaciones.
 
-![Conectando con script de R](img/R_pBI.png)
+![Conectando con script de R](img/R_pBI.png){width=60% style="display:block;margin:0 auto;"}
 
-Luego podemos introducir un código que realice las operaciones que queramos. En este caso tomamos el script ```scripts_pbi```. PowerBI tomará el objeto base y lo convertirá en una tabla que podremos utilizar en las visualizaciones. 
-![Insertando script de R en PowerBI](img/script_pbi.png)
+Luego podemos introducir un código que realice las operaciones que queramos. En este caso tomamos el script ```scripts_pbi```, que realiza los procesamientos de más arriba y también lee bases de datos de repositorios. PowerBI va a correr el script y va a convertir los dataframes resultantes en tablas que podremos utilizar en las visualizaciones.
+
+![Insertando script de R en PowerBI](img/script_pbi.png){width=60% style="display:block;margin:0 auto;"}
+
+Una vez que el script se correr nos aparecerá una ventana con las tablas resultantes. Podemos seleccionar las tablas que queremos importar a PowerBI y hacer clic en "Cargar" para agregarlas al modelo de datos.
+
+![Importando tablas a PowerBI](img/cargando_dataframes_pbi.png){width=60% style="display:block;margin:0 auto;"}
 
 Cuando tenemos la información cargada, nuestra base con la serie de salarios nos va a aparecer disponible como tabla a la derecha de la pantalla. Podemos hacer clic en la tabla para visualizar los datos y comenzar a trabajar con ellos. Además de crear gráficos, también podemos introducir filtros, cálculos en 'scorecards' y medidas personalizadas utilizando DAX (Data Analysis Expressions).
 
-![Empezando con PowerBI](img/empezando_pbi.png)
+![Empezando con PowerBI](img/empezando_pbi.png){width=60% style="display:block;margin:0 auto;"}
 
 
 ## Ejemplo de tablas relacionadas
@@ -129,7 +134,7 @@ Además es posible relacionar tablas, lo que puede ser útil para agregar diccio
 
 ![Tablas relacionadas en PowerBI](img/tablas_relacionadas.png)
 
-Una vez que se han relacionado las tablas, se pueden realizar cálculos que involucren ambas tablas. Por ejemplo, se puede crear una medida que calcule el salario real a partir del salario nominal y la inflación mensual con la siguiente sintaxis: ```Salario real = serie_salarios[salario_promedio] * 100 / RELATED(IPC[ipc])``` donde ```serie_salarios``` es la tabla con la serie de salarios promedio y ```IPC``` es la tabla con la inflación mensual. La función ```RELATED``` permite acceder a los valores de la tabla relacionada.
+Una vez que se han relacionado las tablas, se pueden realizar cálculos que involucren ambas tablas utilizando la sintaxis DAX. En este caso, para calcular el salario real ajustado por inflación, podemos crear una medida que divida el salario nominal por el índice de precios al consumidor (IPC) correspondiente al período.
 
 # Sintaxis DAX en Power BI
 
@@ -138,18 +143,32 @@ DAX es el lenguaje utilizado en Power BI para realizar cálculos avanzados en co
 ## Conceptos básicos de DAX
 
 DAX se utiliza para:
+
 1. **Columnas calculadas**: Nuevas columnas basadas en datos existentes.
 2. **Medidas**: Cálculos dinámicos que dependen del contexto (filtros aplicados en las visualizaciones).
 3. **Tablas calculadas**: Nuevas tablas generadas mediante cálculos basados en otras tablas.
 
 Algunos aspectos clave de DAX incluyen:
+
 - Funciones similares a Excel, pero optimizadas para trabajar con modelos de datos.
 - Contexto de fila (para cálculos en columnas) y contexto de filtro (para cálculos en medidas).
 - Amplia variedad de funciones estadísticas, lógicas y temporales.
 
-Por ejemplo, para calcular el salario promedio ajustado por inflación con la serie de salarios construida más arriba, podríamos deflactar el valor del salario por el IPC de esta manera: 
+Por ejemplo, para convertir la variable de la EPH ```CH04``` en una variable de texto que indique el sexo de la persona, podemos crear una columna calculada con la siguiente sintaxis:
 
-```Salario real = serie_salarios[salario_promedio] * 100 / RELATED(IPC[ipc])```
+```
+Sexo = 
+SWITCH(
+    serie_salarios_sexo[CH04],
+    1, "Varón",
+    2, "Mujer")
+```
+
+También podemos crear columnas haciendo referencia a valores que están presentes en otras tablas. Para calcular el salario promedio ajustado por inflación con la serie de salarios construida más arriba, podríamos deflactar el valor del salario por el IPC de esta manera: 
+
+```
+Salario real = serie_salarios[salario_promedio] * 100 / RELATED(IPC[ipc])
+```
 
 En este caso, ```RELATED``` permite acceder a los valores de la tabla relacionada ```IPC``` para realizar el cálculo del salario real. PowerBI permite relacionar tablas por campos en común, en este caso el campo ```anio_trim``` que se encuentra en ambas tablas. De esta manera, podemos calcular el salario real para cada período de tiempo.
 
@@ -270,13 +289,31 @@ El concepto clave es la **reactividad**: cada vez que el usuario mueve un slider
 
 ## Ejemplo: tablero con datos de la clase de hoy
 
-En la carpeta `shiny_salarios/` de esta clase encontrás una app completa que procesa los mismos datos de salarios de la EPH que vimos en los ejemplos anteriores. La app muestra:
+En la carpeta `shiny_salarios/` de esta clase encontrás una app muy simple que visualiza los mismos datos de salarios de la EPH que vimos en los ejemplos anteriores.
 
-Para correrla localmente:
+Este tipo de apps tienen la capacidad de procesar datos en tiempo real, pero es parte de nuestra decisión si queremos que la app haga el procesamiento de datos cada vez que se abre, o si preferimos que los datos ya estén procesados y listos para visualizar. En este caso, vamos a darle los datos un poco más 'masticados' para que la app sea más liviana y no deba procesar los datos 'crudos' de la EPH cada vez que se levanta. 
+
+Para ello guardamos los datos preprocesados en formato RDS, así la app Shiny los levanta directamente, sin necesidad de reprocesar las bases EPH.
+
+```{r message=FALSE, warning=FALSE}
+serie_general <- base_salarios %>%
+  group_by(anio_trim, ANO4) %>%
+  summarise(salario = round(weighted.mean(P21, PONDIIO), 0), .groups = "drop")
+
+serie_sexo <- base_salarios %>%
+  group_by(anio_trim, ANO4, CH04) %>%
+  summarise(salario = round(weighted.mean(P21, PONDIIO), 0), .groups = "drop") %>%
+  mutate(sexo = ifelse(CH04 == 1, "Varón", "Mujer"))
+
+saveRDS(serie_general, "shiny_salarios/serie_general.Rds")
+saveRDS(serie_sexo,    "shiny_salarios/serie_sexo.Rds")
+```
+
+Tenemos todo listo para correr la app localmente.
 
 ```r
 # Desde la consola de R, parado en la carpeta de la clase:
-shiny::runApp("shiny_salarios/app.R")
+shiny::runApp("Clase 7 - PowerBI/shiny_salarios/app.R")
 ```
 
 Para publicarla en shinyapps.io:
