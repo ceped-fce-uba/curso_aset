@@ -44,6 +44,8 @@ base <- readRDS(paste0(PATH_LOCAL, "/precariedad.mundial/base_homogenea.Rds")) %
 
 bases <- readRDS(paste0(PATH_LOCAL, "curso_aset/Clase 7 - PowerBI/bases/bases_eph.Rds"))
 
+#bases <- eph::get_microdata(year = 2003:2026,period =1:4, vars = variables)
+
 bases <- bases %>% 
   mutate(anio_trim  = paste0(ANO4,"T",TRIMESTRE))
 

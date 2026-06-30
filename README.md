@@ -126,6 +126,8 @@ Se accede con código .+BSkk9^
 
 **Materiales:**
 - [🌐 Material de la clase 7](https://ceped-fce-uba.github.io/curso_aset/Clase%207%20-%20PowerBI/Clase-7---PowerBI.html)
+- [📹 Grabación de la clase ](https://us06web.zoom.us/rec/share/mef-2AlrXvQzfdE0q1bsP_s7Y3haoDc4VNUOE2J-WLl4d0I7mkvLVRnX7MqZNqpq.dQpDKwBZR8jeZ5gu) 
+Se accede con código N1C&+FwD
 
 ### Clase 8 - Integración con Google Sheets y Looker
 

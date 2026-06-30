@@ -61,7 +61,7 @@ variables <- c('ANO4', 'TRIMESTRE', 'AGLOMERADO', 'CH04', 'ESTADO', 'CAT_OCUP', 
 
 #Descomentar para correr por primera vez: se descargan y guardan bases EPH
 #bases <- eph::get_microdata(year = 2003:2026,period =1:4, vars = variables)
-#saveRDS(bases, "bases/bases_eph.Rds")
+#saveRDS(bases, "Clase 7 - PowerBI/bases/bases_eph.Rds")
 
 #Abro bases guardadas
 bases <- readRDS("bases/bases_eph.Rds")
@@ -115,22 +115,22 @@ PowerBI tiene disponible una integración con R, que permite levantar y transfor
 
 ![Conectando con script de R](img/R_pBI.png){width=60% style="display:block;margin:0 auto;"}
 
-Luego podemos introducir un código que realice las operaciones que queramos. En este caso tomamos el script ```scripts_pbi```, que realiza los procesamientos de más arriba y también lee bases de datos de repositorios. PowerBI va a correr el script y va a convertir los dataframes resultantes en tablas que podremos utilizar en las visualizaciones.
+Luego podemos introducir un código que realice las operaciones que queramos. En este caso tomamos el script ```scripts_pbi.R```, que realiza los procesamientos de más arriba y también lee bases de datos de repositorios. PowerBI va a correr el script y va a convertir los dataframes resultantes en tablas que podremos utilizar en las visualizaciones.
 
 ![Insertando script de R en PowerBI](img/script_pbi.png){width=60% style="display:block;margin:0 auto;"}
 
-Una vez que el script se correr nos aparecerá una ventana con las tablas resultantes. Podemos seleccionar las tablas que queremos importar a PowerBI y hacer clic en "Cargar" para agregarlas al modelo de datos.
+Una vez que corremos el script, nos aparecerá una ventana con las tablas resultantes. Podemos seleccionar las tablas que queremos importar a PowerBI y hacer clic en "Cargar" para agregarlas al modelo de datos.
 
 ![Importando tablas a PowerBI](img/cargando_dataframes_pbi.png){width=60% style="display:block;margin:0 auto;"}
 
-Cuando tenemos la información cargada, nuestra base con la serie de salarios nos va a aparecer disponible como tabla a la derecha de la pantalla. Podemos hacer clic en la tabla para visualizar los datos y comenzar a trabajar con ellos. Además de crear gráficos, también podemos introducir filtros, cálculos en 'scorecards' y medidas personalizadas utilizando DAX (Data Analysis Expressions).
+Cuando tenemos la información cargada, los dataframes seleccionados van a estar disponibles como tablas a la derecha de la pantalla. Podemos hacer clic en la tabla para visualizar los datos, seleccionar columnas e incluirlos en las visualizaciones. Además de crear gráficos, también podemos introducir filtros, cálculos en 'scorecards' y medidas personalizadas utilizando DAX (Data Analysis Expressions).
 
 ![Empezando con PowerBI](img/empezando_pbi.png){width=60% style="display:block;margin:0 auto;"}
 
 
 ## Ejemplo de tablas relacionadas
 
-Además es posible relacionar tablas, lo que puede ser útil para agregar diccionarios o información relacionada entre sí que luego queramos visualizar. Hagamos la prueba de transformar nuestra serie de salario nominal a salario real con tablas relacionadas. Vamos a crear una tabla con los valores de inflación mensual para el período 2003-2023, tomando el excel que está en la carpeta ```/bases``` de esta clase. En el panel izquierdo de PowerBI se encuentra la opción "Modelo de datos" donde se pueden ver las tablas que se han importado y las relaciones entre ellas. Para crear una relación, se debe hacer clic en la columna que se quiere relacionar y arrastrarla a la columna correspondiente en la otra tabla. PowerBI intentará detectar automáticamente la relación, pero en caso de que no lo haga, se puede configurar manualmente.
+Además es posible relacionar tablas, lo que puede ser útil para agregar diccionarios o información relacionada entre sí que luego queramos visualizar. Hagamos la prueba de transformar nuestra serie de salario nominal a salario real con tablas relacionadas. Vamos a crear una tabla con los valores de inflación mensual para el período 2003-2023, tomando el excel que está en la carpeta ```/bases/ipc_trimestral.xlsx``` de esta clase. En el panel izquierdo de PowerBI se encuentra la opción "Modelo de datos" donde se pueden ver las tablas que se han importado y las relaciones entre ellas. Para crear una relación, se debe hacer clic en la columna que se quiere relacionar y arrastrarla a la columna correspondiente en la otra tabla. PowerBI intentará detectar automáticamente la relación, pero en caso de que no lo haga, se puede configurar manualmente.
 
 ![Tablas relacionadas en PowerBI](img/tablas_relacionadas.png)
 
